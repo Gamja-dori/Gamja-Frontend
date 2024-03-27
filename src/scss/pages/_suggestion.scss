@@ -1,0 +1,60 @@
+@import '../abstracts/colors';
+@import '../abstracts/mixin';
+
+/* style for price suggestion */
+.suggest-price-div {
+  @include pc {
+    width: 100%;
+    font-size: 2.4rem;
+    p:first-child {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.suggest-price-notice {
+  color: $dark-gray;
+}
+
+.suggest-price-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 1rem;
+  &:focus-within {
+    box-shadow: inset 0 0 0 0.1rem $dark-blue;
+  }
+  input:focus {
+    box-shadow: none;
+  }
+  @include pc {
+    width: 37.8rem;
+    height: 6rem;
+    margin: 1rem 0;
+    input {
+      width: 100%;
+      height: 100%;
+      padding: 0 2rem;
+      font-size: 2.4rem;
+    }
+    p {
+      padding-right: 2rem;
+    }
+  }
+}
+
+/* style for job description */
+.suggest-jd-div {
+  textarea {
+    &:focus {
+      box-shadow: inset 0 0 0 0.1rem $dark-blue;
+    }
+  }
+  @include pc {
+    margin-bottom: 8rem;
+  }
+  @include mobile {
+    margin-bottom: 6rem;
+  }
+}

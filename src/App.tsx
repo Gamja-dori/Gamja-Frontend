@@ -27,6 +27,7 @@ import AboutUsPage from 'pages/AboutUsPage';
 import SeniorTab from 'components/aboutuspage/SeniorTab';
 import CompanyTab from 'components/aboutuspage/CompanyTab';
 import NoticePage from 'pages/NoticePage';
+import SuggestionPage from 'pages/SuggestionPage';
 
 function App() {
   return (
@@ -62,6 +63,10 @@ function App() {
               <Route path="company" element={<CompanyTab />} />
             </Route>
             <Route path="/notice" element={<NoticePage />} />
+            <Route
+              path="/resume/suggest/:resumeId"
+              element={<SuggestionPage />}
+            />
           </Routes>
         </Layout>
       </RecoilRoot>
