@@ -4,8 +4,12 @@ import Input from 'components/_common/Input';
 import Label from 'components/_common/Label';
 import BannerBtn from './BannerBtn';
 import pencil from '../../assets/icons/resume/pencil.svg';
-import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import '@toast-ui/editor/dist/i18n/ko-kr';
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+import 'tui-color-picker/dist/tui-color-picker.css';
+import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 
 const ResumeIntro = ({ isSubmitted }: ResumeEditProps) => {
   const navigate = useNavigate();
@@ -34,6 +38,8 @@ const ResumeIntro = ({ isSubmitted }: ResumeEditProps) => {
             height="600px"
             initialEditType="markdown"
             useCommandShortcut={true}
+            plugins={[colorSyntax]}
+            language="ko-KR"
           />
         </div>
       </div>
