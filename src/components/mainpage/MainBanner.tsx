@@ -15,7 +15,7 @@ import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
 
 export default function MainBanner() {
   const navigate = useNavigate();
-  const ment = "'다시'가 선별한\n 시니어 전문가들을 만나보세요!";
+  const ment = '은퇴 후에도\n 계속 활약할 수 있어요';
   return (
     <>
       <Swiper
@@ -30,27 +30,27 @@ export default function MainBanner() {
         <SwiperSlide onClick={() => navigate('/success/1')}>
           <Banner
             image={banner}
-            title="다시: 시니어 전문가 인재풀"
+            title="다시 - 경력을 이어가세요"
             content={ment}
-            subContent="당신을 위한 시니어 전문가 인재풀 다시"
+            subContent="다시: 은퇴한 시니어를 위한 긱 워킹 인재풀"
             styleClass="banner-main"
           />
         </SwiperSlide>
         <SwiperSlide onClick={() => navigate('/success/2')}>
           <Banner
             image={banner}
-            title="다시: 시니어 전문가 인재풀"
-            content="다시가 선별한 시니어 전문가들을 만나보세요!"
-            subContent="당신을 위한 시니어 전문가 인재풀 다시"
+            title="다시 - 경력을 이어가세요"
+            content={ment}
+            subContent="다시: 은퇴한 시니어를 위한 긱 워킹 인재풀"
             styleClass="banner-main"
           />
         </SwiperSlide>
         <SwiperSlide onClick={() => navigate('/success/3')}>
           <Banner
             image={banner}
-            title="다시: 시니어 전문가 인재풀"
-            content="다시가 선별한 시니어 전문가들을 만나보세요!"
-            subContent="당신을 위한 시니어 전문가 인재풀 다시"
+            title="다시 - 경력을 이어가세요"
+            content={ment}
+            subContent="다시: 은퇴한 시니어를 위한 긱 워킹 인재풀"
             styleClass="banner-main"
           />
         </SwiperSlide>

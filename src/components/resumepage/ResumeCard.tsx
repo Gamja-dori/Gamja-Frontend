@@ -35,7 +35,7 @@ const ResumeCard = ({
           {isVerified && (
             <div className="resume-tag blue-tag">
               <img src={verified} />
-              경력 검증
+              검증됨
             </div>
           )}
         </div>
