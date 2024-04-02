@@ -29,7 +29,7 @@ const PaySlider = ({ isDuration, isCareer, isPay }: PaySliderProps) => (
         range
         marks={durationMarks}
         max={12}
-        defaultValue={[2, 7]}
+        defaultValue={[0, 12]}
         tooltip={{ open: true }}
         style={{ marginTop: '4rem' }}
       />
@@ -39,7 +39,7 @@ const PaySlider = ({ isDuration, isCareer, isPay }: PaySliderProps) => (
         range
         marks={careerMarks}
         max={50}
-        defaultValue={[10, 40]}
+        defaultValue={[0, 50]}
         tooltip={{ open: true }}
         style={{ marginTop: '4rem' }}
       />
@@ -51,7 +51,7 @@ const PaySlider = ({ isDuration, isCareer, isPay }: PaySliderProps) => (
           range
           marks={monthMarks}
           max={1000}
-          defaultValue={[200, 400]}
+          defaultValue={[0, 1000]}
           tooltip={{ open: true }}
         />
       </>
