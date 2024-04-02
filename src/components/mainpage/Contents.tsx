@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
-
 import Content from './Content';
-
 import computer from '../../assets/icons/computer.svg';
 import folder from '../../assets/icons/folder.svg';
 import zoom from '../../assets/icons/zoom.svg';
