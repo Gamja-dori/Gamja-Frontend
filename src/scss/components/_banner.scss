@@ -54,6 +54,12 @@
 }
 
 .banner-search {
+  @include pc {
+    height: 50vh;
+    img {
+      height: 50vh;
+    }
+  }
   @include mobile {
     height: 20rem;
     img {
