@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './scss/main.scss';
 import Layout from './components/_common/layout/Layout';
 import { RecoilRoot } from 'recoil';
-
+import ScrollToTop from 'components/utils/ScrollToTop';
 import MainPage from './pages/MainPage';
 import SignInPage from 'pages/SignInPage';
 import SignUpPage from 'pages/SignUpPage';
@@ -39,6 +39,7 @@ import SuggestionDetailPage from 'pages/SuggestionDetailPage';
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <RecoilRoot>
         <Layout>
           <Routes>

@@ -94,15 +94,14 @@ const Filter = () => {
         </div>
         <div>
           <Label label="경력" />
-          <PaySlider isCareer={true} />
+          <div className="slider-container">
+            <PaySlider isCareer={true} />
+          </div>
         </div>
         <div>
-          <Label label="희망 고용 형태" isRequired={true} />
-          <div className="work-type-container">
-            <button className={`work-type-btn ${'dark-blue'}`}>강연</button>
-            <button className={`work-type-btn ${'white-blue'}`}>멘토링</button>
-            <button className={`work-type-btn ${'white-blue'}`}>외주</button>
-            <button className={`work-type-btn ${'white-blue'}`}>정규직</button>
+          <Label label="희망 근무 기간" />
+          <div className="slider-container">
+            <PaySlider isDuration={true} />
           </div>
         </div>
         <div>

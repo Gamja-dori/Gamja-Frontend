@@ -3,7 +3,7 @@
     height: 30rem;
   }
   width: 100%;
-  height: 60rem;
+  height: 50vh;
   position: relative;
   z-index: 0;
 }
@@ -45,18 +45,21 @@
   justify-content: center;
   img {
     width: 100%;
-    height: 50rem;
     object-fit: cover;
   }
 }
 
 .banner-main {
-  img {
-    height: 60rem;
-  }
+  height: 100%;
 }
 
 .banner-search {
+  @include pc {
+    height: 50vh;
+    img {
+      height: 50vh;
+    }
+  }
   @include mobile {
     height: 20rem;
     img {
@@ -77,41 +80,44 @@
 
 .banner-txt {
   position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 1;
   font-weight: 600;
   color: $white;
   text-align: center;
-  white-space: pre-line;
+  @include mobile {
+    white-space: pre-line;
+  }
   .title {
+    margin: 0 0 4vh 0;
     @include pc {
-      font-size: 4.8rem;
-      margin: 0 0 8rem 0;
+      font-size: 4rem;
     }
     @include mobile {
-      font-size: 3.6rem;
-      margin: 0 0 8rem 0;
+      font-size: 3.2rem;
     }
   }
   .content {
     font-weight: 500;
+    margin: 0 0 4vh 0;
     @include pc {
       font-size: 3.6rem;
-      margin-bottom: 2rem;
     }
     @include mobile {
       font-size: 2.4rem;
-      margin-bottom: 2rem;
     }
   }
   .mini {
     font-weight: 400;
+    margin: 2vh 0 0 0;
     @include pc {
       font-size: 2.4rem;
-      margin-bottom: 2rem;
     }
     @include mobile {
       font-size: 1.6rem;
-      margin-bottom: 2rem;
     }
   }
 }
