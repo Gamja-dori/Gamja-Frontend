@@ -34,10 +34,12 @@ import SuggestionEditPage from 'pages/SuggestionEditPage';
 import SuggestionCancelPage from 'pages/SuggestionCancelPage';
 import SuggestionPaymentPage from 'pages/SuggestionPaymentPage';
 import SuggestionPaymentCompletePage from 'pages/SuggestionPaymentCompletePage';
+import ScrollToTop from 'components/_common/ScrollToTop';
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <RecoilRoot>
         <Layout>
           <Routes>
