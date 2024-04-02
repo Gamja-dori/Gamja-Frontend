@@ -1,0 +1,28 @@
+[
+  {
+    "isVerified": true,
+    "resumeId": 1,
+    "title": "김다시",
+    "careerYear": 10,
+    "jobGroup": "개발",
+    "jobName": "프론트엔드 개발자",
+    "date": "2024.03.26",
+    "commuteType": "원격",
+    "profileImage": "https://mblogthumb-phinf.pstatic.net/MjAyMTAzMTdfNzIg/MDAxNjE1OTU1MTYwMTQ3.9yVBW5PzRMJYPjXbEaUIWvSeqdqTKDWwaAqKzwvTQ_gg.W5KA1IotSy2xIqaezC3kZZfIYhCf9n4XsCsSO1bdS-og.JPEG.facomodel/KakaoTalk_Moim_aD1jUZ5Zvne59f6ibx4XB0fpZtez1o.jpg?type=w800",
+    "isFinished": false,
+    "reviewId": -1
+  },
+  {
+    "isVerified": true,
+    "resumeId": 2,
+    "title": "가나다",
+    "careerYear": 15,
+    "jobGroup": "통신",
+    "jobName": "네트워크 설계 전문가",
+    "date": "2024.03.28",
+    "commuteType": "원격",
+    "profileImage": "https://mblogthumb-phinf.pstatic.net/MjAyMTAzMTdfMjc1/MDAxNjE1OTU1OTE3NDc5.hi4EeXg6hqRqNYlr9IImga3X24CtTeMnoFDKB-BapSAg.1krj-KbeYCIQD-zBhEcU5CXKTSnHW1wyR0GOw793OBog.JPEG.facomodel/SE-a822296b-d544-44cd-a3ce-d2736ca787e5.jpg?type=w800",
+    "isFinished": true,
+    "reviewId": 1
+  }
+]

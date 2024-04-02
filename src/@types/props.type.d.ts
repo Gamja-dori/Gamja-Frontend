@@ -137,4 +137,24 @@ declare module 'props-type' {
     src: string;
     type: string;
   };
+
+  export type ManagementListProps = {
+    option: string;
+    searchValue: string;
+  };
+
+  // ManagementSearch, ManagementSelection props
+  export type ManagementProps = {
+    value: string;
+    setValue: React.Dispatch<React.SetStateAction<string>>;
+  };
+
+  export type ManagementItemProps = {
+    item: ManagementItemData;
+  };
+
+  export type SuggestionProps = {
+    resumeId: Readonly<Params<string>>;
+    isEdit?: boolean;
+  };
 }

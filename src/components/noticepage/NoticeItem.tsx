@@ -35,7 +35,7 @@ const NoticeItem = ({ name, src, type }: NoticeItemProps) => {
       <Btn
         label={btnText}
         onClick={() => console.log(btnText + ' 클릭')}
-        styleClass="ntc-btn dark-green"
+        styleClass="inner-btn dark-green"
       />
     </div>
   );

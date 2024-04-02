@@ -30,8 +30,10 @@ const CompanyForm = () => {
   const [email, setEmail] = useState('');
 
   // alert-text value useStates
-  const [idAlert, setIdAlert] = useState('');
-  const [pwAlert, setPwAlert] = useState('');
+  const [idAlert, setIdAlert] = useState('6~12자 이내의 영문, 숫자만 가능');
+  const [pwAlert, setPwAlert] = useState(
+    '8~12자 이내의 영문, 숫자, 특수기호 중 2종류 조합',
+  );
   const [pwCheckAlert, setPwCheckAlert] = useState('');
 
   // isWrong props useStates
@@ -50,7 +52,7 @@ const CompanyForm = () => {
     setIdDuplCheck(false);
 
     if (validateId(value)) {
-      setIdAlert('');
+      setIdAlert('6~12자 이내의 영문, 숫자만 가능');
       setIsIdWrong(false);
     } else {
       setIdAlert('6~12자 이내의 영문, 숫자로 이루어져야 합니다.');
@@ -64,7 +66,7 @@ const CompanyForm = () => {
     setPw(value);
 
     if (validatePw(value)) {
-      setPwAlert('');
+      setPwAlert('8~12자 이내의 영문, 숫자, 특수기호 중 2종류 조합');
       setIsPwWrong(false);
     } else {
       setPwAlert(
@@ -126,7 +128,7 @@ const CompanyForm = () => {
     if (id && idDuplCheck && pw && pwCheck && comNum) {
       return true;
     }
-    setIdAlert('');
+    setIdAlert('6~12자 이내의 영문, 숫자만 가능');
     return false;
   };
 
@@ -160,7 +162,6 @@ const CompanyForm = () => {
             label="아이디"
             onChange={handleId}
             isRequired={true}
-            placeholder="6~12자 이내의 영문, 숫자만 가능"
             isWrong={isIdWrong}
             alertText={idAlert}
           />
@@ -175,7 +176,6 @@ const CompanyForm = () => {
           onChange={handlePw}
           isRequired={true}
           type="password"
-          placeholder="8~12자 이내의 영문, 숫자, 특수기호 중 2종류 조합"
           isWrong={isPwWrong}
           alertText={pwAlert}
         />
