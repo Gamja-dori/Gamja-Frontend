@@ -1,9 +1,13 @@
 declare module 'data-type' {
   export type InfoFormData = {
     name: string;
-    id: string;
-    phone: string;
+    username: string;
+    phone_number: string;
     email: string;
+  };
+
+  export type SignupData = InfoFormData & {
+    password: string;
   };
 
   export type ProfileData = {
