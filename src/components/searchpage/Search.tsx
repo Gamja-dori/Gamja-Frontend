@@ -99,7 +99,7 @@ const Search = () => {
           careerYear={10}
           jobGroup="개발"
           jobName="프론트엔드 개발자"
-          date="2024.01.18"
+          skillSummary="10년차 개발자/반응형 웹/생명주기 관리"
           skills={skills}
           commuteType="원격"
           isVerified={true}
@@ -111,7 +111,7 @@ const Search = () => {
           careerYear={1}
           jobGroup="개발"
           jobName="프론트엔드 개발자"
-          date="2024.01.18"
+          skillSummary="10년차 개발자/반응형 웹/생명주기 관리"
           skills={skills2}
           commuteType="원격"
           isVerified={true}
@@ -124,7 +124,7 @@ const Search = () => {
           careerYear={1}
           jobGroup="개발"
           jobName="프론트엔드 개발자"
-          date="2024.01.18"
+          skillSummary="10년차 개발자/반응형 웹/생명주기 관리"
           skills={skills3}
           commuteType="원격"
           isVerified={true}

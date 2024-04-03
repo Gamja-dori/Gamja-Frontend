@@ -73,6 +73,7 @@ declare module 'props-type' {
     skills?: string[];
     recommendComments?: { commentType: number; comments: string[] }[];
     needSubinfo?: boolean;
+    skillSummary: string;
     durationStart?: number;
     durationEnd?: number;
     payStart?: number;
