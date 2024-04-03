@@ -17,8 +17,8 @@ const Search = () => {
     { value: '리뷰 높은순', label: '리뷰 높은순' },
     { value: '업데이트순', label: '업데이트순' },
   ];
-  const skills = ['React', 'JavaScript', 'TypeScript'];
-  const skills2 = ['React'];
+  const skills = ['React', 'JavaScript', 'TypeScript', 'Recoil'];
+  const skills2 = ['React', 'JavaScript', 'TypeScript'];
   const skills3 = ['React', 'JavaScript'];
   const commentData = [
     { commentType: 1, comments: ['OO', '96'] },

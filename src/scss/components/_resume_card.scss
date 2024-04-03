@@ -29,9 +29,20 @@
   height: auto;
 }
 
-.resume-long-sub {
+.resume-long-profile {
   display: flex;
   flex-direction: row;
+  align-items: center;
+}
+
+.resume-long-sub {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+  @include pc {
+    margin-left: 5rem;
+  }
 }
 
 .resume-card-profile {
