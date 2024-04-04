@@ -49,6 +49,7 @@
   width: 4rem;
   height: 4rem;
   margin-right: 1rem;
+  border-radius: 100rem;
 }
 
 .resume-card-menu-icon {
@@ -189,5 +190,6 @@
     @extend .resume-card-profile;
     width: 6rem;
     height: 6rem;
+    border-radius: 100rem;
   }
 }
