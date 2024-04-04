@@ -8,6 +8,16 @@ declare module 'data-type' {
 
   export type SignupData = InfoFormData & {
     password: string;
+    business_number?: string;
+  };
+
+  export type SigninData = {
+    id: number;
+    name: string;
+    is_senior: boolean;
+    is_enterprise: boolean;
+    access: string;
+    refresh: string;
   };
 
   export type ProfileData = {
