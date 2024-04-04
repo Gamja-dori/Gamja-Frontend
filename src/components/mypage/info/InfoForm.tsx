@@ -20,11 +20,11 @@ const InfoForm = () => {
       </div>
       <div className="infoForm-box">
         <p>아이디</p>
-        <p>{data.id}</p>
+        <p>{data.username}</p>
       </div>
       <div className="infoForm-box">
         <p>연락처</p>
-        <p>{data.phone}</p>
+        <p>{data.phone_number}</p>
       </div>
       <div className="infoForm-box">
         <p>이메일</p>
