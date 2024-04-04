@@ -1,0 +1,136 @@
+.record-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.record-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.record-mini {
+  width: calc(100%-2rem);
+  margin-left: 2rem;
+}
+
+.date-font {
+  @include pc {
+    font-size: 2.4rem;
+  }
+  @include mobile {
+    font-size: 2rem;
+  }
+}
+
+.record-date {
+  @extend .date-font;
+  color: $dark-gray;
+  gap: 0.5rem;
+  input {
+    &:focus {
+      box-shadow: none;
+    }
+    @extend .date-font;
+    @include pc {
+      width: 6rem;
+      height: 3rem;
+    }
+    @include mobile {
+      width: 5rem;
+      height: 2rem;
+    }
+  }
+  input::placeholder {
+    @extend .date-font;
+    color: $dark-gray;
+  }
+  .record-date-mini {
+    @include pc {
+      width: 3rem;
+    }
+    @include mobile {
+      width: 2.5rem;
+    }
+  }
+}
+
+.show-record-wrapper {
+  @extend .record-wrapper;
+  gap: 0.5rem;
+
+  .first-name {
+    font-weight: 500;
+    @include pc {
+      font-size: 2.8rem;
+    }
+    @include mobile {
+      font-size: 2.2rem;
+    }
+  }
+
+  .second-name {
+    @include pc {
+      font-size: 2.4rem;
+    }
+    @include mobile {
+      font-size: 2rem;
+    }
+  }
+
+  .duration {
+    color: $dark-gray;
+    @include pc {
+      font-size: 2rem;
+    }
+    @include mobile {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+.show-record-mini-wrapper {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  .detail-name {
+    font-weight: 500;
+    @include pc {
+      font-size: 2.4rem;
+    }
+    @include mobile {
+      font-size: 2rem;
+    }
+  }
+  .detail-contents {
+    @include pc {
+      font-size: 2rem;
+    }
+    @include mobile {
+      font-size: 1.8rem;
+    }
+  }
+  .detail-duration {
+    color: $dark-gray;
+    @include pc {
+      font-size: 1.8rem;
+    }
+    @include mobile {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+.dot {
+  border-radius: 100rem;
+  background-color: $black;
+  @include pc {
+    width: 0.8rem;
+    height: 0.8rem;
+    margin-top: 1.6rem;
+  }
+  @include mobile {
+    width: 0.8rem;
+    height: 0.6rem;
+    margin-top: 1rem;
+  }
+}

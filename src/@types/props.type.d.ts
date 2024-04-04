@@ -80,6 +80,47 @@ declare module 'props-type' {
     payEnd?: number;
   };
 
+  export type SeniorDetailProps = {
+    skills: string[];
+    careers: {
+      id: number;
+      start_year_month: string;
+      end_year_month: string;
+      company_name: string;
+      job_name: string;
+      performances: {
+        id: number;
+        start_year_month: string;
+        end_year_month: string;
+        name: string;
+        detail: string;
+      }[];
+    }[];
+    educations: {
+      id: number;
+      start_year_month: string;
+      end_year_month: string;
+      school_name: string;
+      education_name: string;
+    }[];
+    projects: {
+      id: number;
+      start_year_month: string;
+      end_year_month: string;
+      name: string;
+      detail: string;
+    }[];
+    portfolios?: {
+      id: number;
+      name: string;
+      file: File;
+    }[];
+  };
+
+  export type SeniorIntroProps = {
+    markdownText: string;
+  };
+
   export type ResumeEditProps = {
     isSubmitted?: boolean;
   };
@@ -89,6 +130,22 @@ declare module 'props-type' {
     needDetail?: boolean;
     firstPlaceholder: string;
     secondPlaceholder: string;
+  };
+
+  export type ShowRecordProps = {
+    recordId: number;
+    firstName: string;
+    secondName: string;
+    durationStart: string;
+    durationEnd: string;
+    hasDetail?: boolean;
+    details?: {
+      detailId: number;
+      detailName: string;
+      detailContents: string;
+      durationStart: string;
+      durationEnd: string;
+    }[];
   };
 
   export type PaySliderProps = {
