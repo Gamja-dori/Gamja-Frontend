@@ -1,12 +1,20 @@
+import { SigninCompany } from 'api/company_user';
+import { SigninSenior } from 'api/senior_user';
 import Btn from 'components/_common/Btn';
 import Input from 'components/_common/Input';
 import KakaoBtn from 'components/_common/KakaoBtn';
+import { SigninData } from 'data-type';
 import { UserProps } from 'props-type';
 import { useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 
 import { useNavigate } from 'react-router-dom';
+import { SigninStateAtom, SigninAtom } from 'recoil/Signin';
 
 const SignInForm = ({ user }: UserProps) => {
+  const setSigninAtom = useSetRecoilState(SigninAtom);
+  const setSigninStateAtom = useSetRecoilState(SigninStateAtom);
+
   const navigate = useNavigate();
 
   const [alertText, setAlertText] = useState('');
@@ -37,14 +45,36 @@ const SignInForm = ({ user }: UserProps) => {
   };
 
   // signin button click event handler
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (isFilled()) {
       // API connection is required
       if (user === 'senior') {
-        console.log('시니어 로그인: ' + id + ', ' + pw);
+        const res = await SigninSenior(id, pw);
+        const data = res?.data;
+        saveData(data);
       } else if (user === 'company') {
-        console.log('기업 로그인: ' + id + ', ' + pw);
+        const res = await SigninCompany(id, pw);
+        const data = res?.data;
+        saveData(data);
       }
+    }
+  };
+
+  // save into recoil atom
+  const saveData = (data: SigninData) => {
+    if (data) {
+      setSigninAtom({
+        id: data.id,
+        name: data.name,
+        is_senior: data.is_senior,
+        is_enterprise: data.is_enterprise,
+        access: data.access,
+        refresh: data.refresh,
+      });
+      window.localStorage.setItem('access', data.access);
+      window.localStorage.setItem('refresh', data.refresh);
+      setSigninStateAtom(true);
+      navigate('/');
     }
   };
 
