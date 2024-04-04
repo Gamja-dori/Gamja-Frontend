@@ -194,7 +194,11 @@ const CompanyForm = () => {
           isWrong={isComNumWrong}
           value={parsedComNum}
         />
-        <Input label="전화번호" defaultValue={data.phone} disabled={true} />
+        <Input
+          label="전화번호"
+          defaultValue={data.phone_number}
+          disabled={true}
+        />
         <Input label="이메일" onChange={(e) => setEmail(e.target.value)} />
       </div>
       <div className="btns-div">
