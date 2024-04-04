@@ -27,7 +27,7 @@ export default function MainBanner() {
         loop={true}
         modules={[Navigation, Pagination, Mousewheel, Keyboard]}
       >
-        <SwiperSlide onClick={() => navigate('/success/1')}>
+        <SwiperSlide>
           <Banner
             image={banner}
             title="다시 - 경력을 이어가세요"
@@ -36,7 +36,7 @@ export default function MainBanner() {
             styleClass="banner-main"
           />
         </SwiperSlide>
-        <SwiperSlide onClick={() => navigate('/success/2')}>
+        <SwiperSlide>
           <Banner
             image={banner}
             title="다시 - 경력을 이어가세요"
@@ -45,7 +45,7 @@ export default function MainBanner() {
             styleClass="banner-main"
           />
         </SwiperSlide>
-        <SwiperSlide onClick={() => navigate('/success/3')}>
+        <SwiperSlide>
           <Banner
             image={banner}
             title="다시 - 경력을 이어가세요"

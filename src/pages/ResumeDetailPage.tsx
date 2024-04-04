@@ -3,7 +3,7 @@ import Title from 'components/_common/Title';
 const ResumeDetailPage = () => {
   return (
     <div className="container">
-      <Title label="이력서 상세" />
+      <Title label="전문가 상세" />
       <ResumeDetail />
     </div>
   );
