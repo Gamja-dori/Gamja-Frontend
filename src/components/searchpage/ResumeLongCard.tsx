@@ -12,7 +12,7 @@ const ResumeLongCard = ({
   resumeId,
   profileImage,
   careerYear,
-  skillSummary,
+  keyword,
   skills = [],
   recommendComments = [],
 }: ResumeLongCardProps) => {
@@ -51,7 +51,7 @@ const ResumeLongCard = ({
         <div className="resume-card-job">
           {jobGroup} {`>`} {jobName}
         </div>
-        <div className="resume-card-summary">{skillSummary}</div>
+        <div className="resume-card-summary">{keyword}</div>
         {isMobile ? (
           <div className="resume-card-tags">
             {skills.slice(0, 3).map((sk, index) => (
