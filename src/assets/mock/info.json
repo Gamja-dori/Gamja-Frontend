@@ -1,6 +1,6 @@
 {
   "name": "홍길동",
-  "id": "hong_gildong",
-  "phone": "010-1234-5678",
+  "username": "hong_gildong",
+  "phone_number": "010-1234-5678",
   "email": "hong.gildong@example.com"
 }

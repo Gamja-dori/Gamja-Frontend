@@ -17,7 +17,7 @@ const InfoEdit = () => {
   useEffect(() => {
     setData(mockUser);
     setEmail(mockUser.email);
-    setPhone(mockUser.phone);
+    setPhone(mockUser.phone_number);
   }, []);
 
   // input value useStates
@@ -94,7 +94,7 @@ const InfoEdit = () => {
         <Input
           label="아이디"
           styleClass="row"
-          defaultValue={data.id}
+          defaultValue={data.username}
           disabled={true}
         />
         <Input
