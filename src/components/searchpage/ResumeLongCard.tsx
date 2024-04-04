@@ -8,11 +8,12 @@ const ResumeLongCard = ({
   seniorName,
   jobGroup,
   jobName,
-  skills = [],
   commuteType,
   resumeId,
   profileImage,
   careerYear,
+  keyword,
+  skills = [],
   recommendComments = [],
 }: ResumeLongCardProps) => {
   const url = `/search/detail/${resumeId}`;
@@ -20,7 +21,7 @@ const ResumeLongCard = ({
   const isMobile: boolean = useMediaQuery({
     query: '(max-width:802px)',
   });
-  const leftSkillLen = skills.length - 2;
+  const leftSkillLen = skills.length - 3;
   return (
     <div
       className="resume-long-card"
@@ -28,7 +29,7 @@ const ResumeLongCard = ({
         navigate(url);
       }}
     >
-      <div className="resume-long-sub">
+      <div className="resume-long-profile">
         <img className="resume-card-profile" src={profileImage} />
         <div className="resume-card-contents">
           <div className="resume-title-container">
@@ -44,30 +45,31 @@ const ResumeLongCard = ({
               )}
             </div>
           </div>
-          <div className="resume-card-job">
-            {jobGroup} {`>`} {jobName}
-          </div>
-          {isMobile ? (
-            <div className="resume-card-tags">
-              {skills.slice(0, 2).map((sk, index) => (
-                <div className="resume-tag gray-tag" key={index}>
-                  {sk}
-                </div>
-              ))}
-              {leftSkillLen > 0 && (
-                <div className="text">+{leftSkillLen}개</div>
-              )}
-            </div>
-          ) : (
-            <div className="resume-card-tags">
-              {skills.map((sk, index) => (
-                <div className="resume-tag gray-tag" key={index}>
-                  {sk}
-                </div>
-              ))}
-            </div>
-          )}
         </div>
+      </div>
+      <div className="resume-long-sub">
+        <div className="resume-card-job">
+          {jobGroup} {`>`} {jobName}
+        </div>
+        <div className="resume-card-summary">{keyword}</div>
+        {isMobile ? (
+          <div className="resume-card-tags">
+            {skills.slice(0, 3).map((sk, index) => (
+              <div className="resume-tag gray-tag" key={index}>
+                {sk}
+              </div>
+            ))}
+            {leftSkillLen > 0 && <div className="text">+{leftSkillLen}개</div>}
+          </div>
+        ) : (
+          <div className="resume-card-tags">
+            {skills.map((sk, index) => (
+              <div className="resume-tag gray-tag" key={index}>
+                {sk}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       {recommendComments.length != 0 && (
         <div className="resume-comment-container">

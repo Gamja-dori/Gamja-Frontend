@@ -11,6 +11,7 @@ const ResumeDetailCard = ({
   profileImage,
   careerYear,
   needSubinfo = false,
+  keyword,
   durationStart,
   durationEnd,
   payStart,
@@ -43,6 +44,9 @@ const ResumeDetailCard = ({
             {jobName}
           </div>
           {!isMobile && needSubinfo && (
+            <div className="resume-card-summary">{keyword}</div>
+          )}
+          {!isMobile && needSubinfo && (
             <div className="resume-card-subinfo">
               <div>
                 희망 근무 기간: {durationStart}개월 ~ {durationEnd}개월
@@ -56,14 +60,17 @@ const ResumeDetailCard = ({
         </div>
       </div>
       {isMobile && needSubinfo && (
-        <div className="resume-card-subinfo">
-          <div>
-            희망 근무 기간: {durationStart}개월 ~ {durationEnd}개월
+        <>
+          <div className="resume-card-summary">{keyword}</div>
+          <div className="resume-card-subinfo">
+            <div>
+              희망 근무 기간: {durationStart}개월 ~ {durationEnd}개월
+            </div>
+            <div>
+              희망 급여: 월 {payStart}만원 ~ {payEnd}만원
+            </div>
           </div>
-          <div>
-            희망 급여: 월 {payStart}만원 ~ {payEnd}만원
-          </div>
-        </div>
+        </>
       )}
     </div>
   );
