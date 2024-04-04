@@ -5,6 +5,8 @@ import Subtitle from 'components/_common/Subtitle';
 import Label from 'components/_common/Label';
 import Btn from 'components/_common/Btn';
 import { SuggestionProps } from 'props-type';
+import ResumeDetailCard from 'components/searchpage/ResumeDetailCard';
+import profile from '../../../assets/images/profile.png';
 
 const SuggestionForm = ({ resumeId, isEdit }: SuggestionProps) => {
   const [selectedJob, setSelectedJob] = useState('직무');
@@ -23,7 +25,21 @@ const SuggestionForm = ({ resumeId, isEdit }: SuggestionProps) => {
 
   return (
     <div className="sub-container">
-      {/* add senior's profile later */}
+      <ResumeDetailCard
+        seniorName="김다시"
+        jobGroup="개발"
+        jobName="프론트엔드 개발자"
+        careerYear={10}
+        commuteType="원격"
+        profileImage={profile}
+        resumeId={1}
+        date="2024.03.02"
+        durationStart={3}
+        durationEnd={12}
+        payStart={100}
+        payEnd={300}
+        needSubinfo={true}
+      />
       {isEdit && (
         <div style={{ marginBottom: '4rem' }}>
           <Btn

@@ -34,6 +34,7 @@ import SuggestionEditPage from 'pages/SuggestionEditPage';
 import SuggestionCancelPage from 'pages/SuggestionCancelPage';
 import SuggestionPaymentPage from 'pages/SuggestionPaymentPage';
 import SuggestionPaymentCompletePage from 'pages/SuggestionPaymentCompletePage';
+import SuggestionDetailPage from 'pages/SuggestionDetailPage';
 
 function App() {
   return (
@@ -97,6 +98,10 @@ function App() {
             <Route
               path="/suggestion/payment/complete"
               element={<SuggestionPaymentCompletePage />}
+            />
+            <Route
+              path="/suggestion/detail/:suggestionId"
+              element={<SuggestionDetailPage />}
             />
           </Routes>
         </Layout>
