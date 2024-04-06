@@ -8,6 +8,7 @@ import user from './../../../assets/icons/hamburger/mono-user.svg';
 import arrow from './../../../assets/icons/hamburger/arrow-down.svg';
 import setting from './../../../assets/icons/hamburger/setting.svg';
 import profile from './../../../assets/images/profile.png';
+import { Signout } from 'api/user';
 
 const HamburgerAccordion = ({
   title,
@@ -94,6 +95,16 @@ const Hamburger = ({ setIsOpen, isLogin }: HamburgerProps) => {
     },
   ];
 
+  const handleSignout = async () => {
+    const res = await Signout();
+    if (res?.status === 202) {
+      navigate('/');
+      window.localStorage.clear();
+      window.location.href = '/';
+      setIsOpen(false);
+    }
+  };
+
   return (
     <>
       <div className="modal-bg-div" />
@@ -156,7 +167,9 @@ const Hamburger = ({ setIsOpen, isLogin }: HamburgerProps) => {
         />
         {isLogin && (
           <div className="hamburger-btn-container">
-            <div className="btn">로그아웃</div>
+            <div className="btn" onClick={handleSignout}>
+              로그아웃
+            </div>
             <div className="btn">회원탈퇴</div>
           </div>
         )}

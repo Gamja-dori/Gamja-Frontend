@@ -1,8 +1,8 @@
 import { http } from './http';
 
-export const Logout = async () => {
+export const Signout = async () => {
   try {
-    const res = await http.delete('/users/logout');
+    const res = await http.post('/users/logout/');
     console.log('로그아웃 성공');
     return res;
   } catch (err) {
