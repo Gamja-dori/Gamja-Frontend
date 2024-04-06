@@ -7,7 +7,7 @@ import { useRecoilValue } from 'recoil';
 import { UserProfileAtom } from 'recoil/UserProfile';
 
 const UserCheckModal = ({ setModal }: ModalProps) => {
-  const UserProfileData = useRecoilValue(UserProfileAtom);
+  const userProfileData = useRecoilValue(UserProfileAtom);
   const navigate = useNavigate();
 
   return (
@@ -18,7 +18,7 @@ const UserCheckModal = ({ setModal }: ModalProps) => {
       </p>
       <Input
         label=""
-        defaultValue={UserProfileData.username}
+        defaultValue={userProfileData.username}
         disabled={true}
         isAlertRequired={false}
       />

@@ -10,12 +10,12 @@ const InfoForm = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [modal, setModal] = useState(false);
 
-  const UserProfileData = useRecoilValue(UserProfileAtom);
+  const userProfileData = useRecoilValue(UserProfileAtom);
 
   useEffect(() => {
-    const parsed_result = parsePhoneNumber(UserProfileData.phone_number);
+    const parsed_result = parsePhoneNumber(userProfileData.phone_number);
     setPhoneNumber(parsed_result);
-  }, [UserProfileData]);
+  }, [userProfileData]);
 
   const handleSignout = async () => {
     const res = await Signout();
@@ -29,11 +29,11 @@ const InfoForm = () => {
     <div className="infoForm-div">
       <div className="infoForm-box">
         <p>이름</p>
-        <p>{UserProfileData.name}</p>
+        <p>{userProfileData.name}</p>
       </div>
       <div className="infoForm-box">
         <p>아이디</p>
-        <p>{UserProfileData.username}</p>
+        <p>{userProfileData.username}</p>
       </div>
       <div className="infoForm-box">
         <p>연락처</p>
@@ -41,7 +41,7 @@ const InfoForm = () => {
       </div>
       <div className="infoForm-box">
         <p>이메일</p>
-        <p>{UserProfileData.email}</p>
+        <p>{userProfileData.email}</p>
       </div>
       <div className="infoForm-btn-box">
         <Btn
