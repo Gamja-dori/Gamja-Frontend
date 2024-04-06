@@ -5,9 +5,11 @@ import Hamburger from './Hamburger';
 import notice from '../../../assets/icons/notice.svg';
 import hamburger from '../../../assets/icons/hamburger.svg';
 import logo from '../../../assets/icons/logo.svg';
+import { useRecoilValue } from 'recoil';
+import { SigninStateAtom } from 'recoil/Signin';
 
 const Header = () => {
-  const isLogin = false;
+  const { isSignin } = useRecoilValue(SigninStateAtom);
   const isMobile: boolean = useMediaQuery({
     query: '(max-width:802px)',
   });
@@ -31,7 +33,7 @@ const Header = () => {
             src={hamburger}
             onClick={() => setIsOpen(true)}
           />
-          {isOpen && <Hamburger setIsOpen={setIsOpen} isLogin={isLogin} />}
+          {isOpen && <Hamburger setIsOpen={setIsOpen} isLogin={isSignin} />}
         </div>
       ) : (
         <>
@@ -49,7 +51,7 @@ const Header = () => {
               인재풀 조회
             </div>
           </div>
-          {isLogin ? (
+          {isSignin ? (
             <div style={{ display: 'flex' }}>
               <img
                 className="header_icon"

@@ -5,16 +5,27 @@ import DefaultResume from 'components/mypage/defaultResume/DefaultResume';
 import { useMediaQuery } from 'react-responsive';
 import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { SigninAtom } from 'recoil/Signin';
+import { SigninAtom, SigninStateAtom } from 'recoil/Signin';
 import { UserProfileAtom } from 'recoil/UserProfile';
 import { InfoFormData } from 'data-type';
 import { GetCompanyProfile } from 'api/company_user';
 import { GetSeniorProfile } from 'api/senior_user';
 import Suggestion from 'components/mypage/suggestion/Suggestion';
+import { useNavigate } from 'react-router-dom';
 
 const MyPage = () => {
   const SigninData = useRecoilValue(SigninAtom);
   const [userProfileData, setUserProfileData] = useRecoilState(UserProfileAtom);
+
+  const { isSignin } = useRecoilValue(SigninStateAtom);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isSignin) {
+      alert('로그인이 필요합니다.');
+      navigate('/sign-in');
+    }
+  }, [isSignin]);
 
   const getSeniorData = async (id: number) => {
     const res = await GetSeniorProfile(id);
@@ -63,23 +74,27 @@ const MyPage = () => {
 
   return (
     <>
-      <Title label="내 정보" />
-      {isMobile ? (
-        <div className="mypage-div">
-          <div className="mypage-mobile-div">
-            <Profile />
-            <Info />
-            {userProfileData.is_senior ? <DefaultResume /> : <Suggestion />}
-          </div>
-        </div>
-      ) : (
-        <div className="mypage-div">
-          <Info />
-          <div className="mypage-small-div">
-            <Profile />
-            {userProfileData.is_senior ? <DefaultResume /> : <Suggestion />}
-          </div>
-        </div>
+      {isSignin && (
+        <>
+          <Title label="내 정보" />
+          {isMobile ? (
+            <div className="mypage-div">
+              <div className="mypage-mobile-div">
+                <Profile />
+                <Info />
+                {userProfileData.is_senior ? <DefaultResume /> : <Suggestion />}
+              </div>
+            </div>
+          ) : (
+            <div className="mypage-div">
+              <Info />
+              <div className="mypage-small-div">
+                <Profile />
+                {userProfileData.is_senior ? <DefaultResume /> : <Suggestion />}
+              </div>
+            </div>
+          )}
+        </>
       )}
     </>
   );
