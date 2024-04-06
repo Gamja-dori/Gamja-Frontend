@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-import { SigninData } from 'data-type';
+import { SigninData, SigninStateAtomType } from 'data-type';
 
 const { persistAtom } = recoilPersist();
 
@@ -17,7 +17,10 @@ export const SigninAtom = atom<SigninData>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const SigninStateAtom = atom<boolean>({
+export const SigninStateAtom = atom<SigninStateAtomType>({
   key: 'SigninStateAtom',
-  default: false,
+  default: {
+    isSignin: false,
+    isSenior: false,
+  },
 });
