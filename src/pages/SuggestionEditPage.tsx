@@ -8,19 +8,19 @@ import { SigninStateAtom } from 'recoil/Signin';
 const SuggestionEditPage = () => {
   const resumeId = useParams();
 
-  const signinState = useRecoilValue(SigninStateAtom);
+  const { isSignin } = useRecoilValue(SigninStateAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!signinState.isSignin) {
+    if (!isSignin) {
       alert('로그인이 필요합니다.');
       navigate('/sign-in');
     }
-  }, [signinState]);
+  }, [isSignin]);
 
   return (
     <>
-      {signinState.isSignin && (
+      {isSignin && (
         <div className="container">
           <Title label="채용 제안" />
           <SuggestionForm resumeId={resumeId} isEdit={true} />

@@ -17,15 +17,15 @@ const MyPage = () => {
   const SigninData = useRecoilValue(SigninAtom);
   const [userProfileData, setUserProfileData] = useRecoilState(UserProfileAtom);
 
-  const signinState = useRecoilValue(SigninStateAtom);
+  const { isSignin } = useRecoilValue(SigninStateAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!signinState.isSignin) {
+    if (!isSignin) {
       alert('로그인이 필요합니다.');
       navigate('/sign-in');
     }
-  }, [signinState]);
+  }, [isSignin]);
 
   const getSeniorData = async (id: number) => {
     const res = await GetSeniorProfile(id);
@@ -74,7 +74,7 @@ const MyPage = () => {
 
   return (
     <>
-      {signinState.isSignin && (
+      {isSignin && (
         <>
           <Title label="내 정보" />
           {isMobile ? (

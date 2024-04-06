@@ -12,19 +12,19 @@ const SuggestionManagementPage = () => {
   const [selectedOpt, setSelectedOpt] = useState('진행 중인 채용');
   const [searchValue, setSearchValue] = useState('');
 
-  const signinState = useRecoilValue(SigninStateAtom);
+  const { isSignin } = useRecoilValue(SigninStateAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!signinState.isSignin) {
+    if (!isSignin) {
       alert('로그인이 필요합니다.');
       navigate('/sign-in');
     }
-  }, [signinState]);
+  }, [isSignin]);
 
   return (
     <>
-      {signinState.isSignin && (
+      {isSignin && (
         <div className="container">
           <Title label="채용 제안 관리" />
           <div className="suggest-manage-div">

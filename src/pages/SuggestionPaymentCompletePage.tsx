@@ -6,19 +6,19 @@ import { useRecoilValue } from 'recoil';
 import { SigninStateAtom } from 'recoil/Signin';
 
 const SuggestionPaymentCompletePage = () => {
-  const signinState = useRecoilValue(SigninStateAtom);
+  const { isSignin } = useRecoilValue(SigninStateAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!signinState.isSignin) {
+    if (!isSignin) {
       alert('로그인이 필요합니다.');
       navigate('/sign-in');
     }
-  }, [signinState]);
+  }, [isSignin]);
 
   return (
     <>
-      {signinState.isSignin && (
+      {isSignin && (
         <div className="container">
           <Title label="결제 완료" />
           <PaymentComplete />
