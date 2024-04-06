@@ -1,10 +1,10 @@
 declare module 'data-type' {
   export type InfoFormData = {
-    id: number;
     name: string;
     username: string;
     phone_number: string;
     email: string;
+    id?: number;
     is_senior?: boolean;
     is_enterprise?: boolean;
 

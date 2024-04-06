@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { UserProfileAtom } from 'recoil/UserProfile';
 
 const DefaultResume = () => {
-  const UserProfileData = useRecoilValue(UserProfileAtom);
+  const userProfileData = useRecoilValue(UserProfileAtom);
   const navigate = useNavigate();
 
   return (
@@ -18,7 +18,7 @@ const DefaultResume = () => {
           styleClass="mypage-btn dark-green"
         />
       </div>
-      {UserProfileData.default_resume === -1 ? (
+      {userProfileData.default_resume === -1 ? (
         <div className="mypage-semi-outline light-gray">
           <p className="mypage-semi-notice">기본 이력서가 아직 없어요!</p>
         </div>

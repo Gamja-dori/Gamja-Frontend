@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { UserProfileAtom } from 'recoil/UserProfile';
 
 const Profile = () => {
-  const UserProfileData = useRecoilValue(UserProfileAtom);
+  const userProfileData = useRecoilValue(UserProfileAtom);
 
   return (
     <div className="mypage-profile-div">
@@ -13,10 +13,10 @@ const Profile = () => {
         <Picture />
         <div className="profile-user-box">
           <div className="profile-username">
-            <p>{UserProfileData.name}</p>
+            <p>{userProfileData.name}</p>
             <p>님</p>
           </div>
-          {UserProfileData.is_senior ? (
+          {userProfileData.is_senior ? (
             <UserTag user={'시니어 회원'} />
           ) : (
             <UserTag user={'기업 회원'} />

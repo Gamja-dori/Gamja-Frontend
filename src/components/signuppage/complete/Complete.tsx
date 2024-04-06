@@ -14,7 +14,7 @@ const Complete = () => {
       </p>
       <Btn
         label="로그인하러 가기"
-        onClick={() => navigate('/sign-in')}
+        onClick={() => navigate('/sign-in', { replace: true })}
         styleClass="long-btn dark-green"
       />
     </div>

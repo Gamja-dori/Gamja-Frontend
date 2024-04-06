@@ -10,6 +10,7 @@ import { useSetRecoilState } from 'recoil';
 
 import { useNavigate } from 'react-router-dom';
 import { SigninStateAtom, SigninAtom } from 'recoil/Signin';
+import moment from 'moment';
 
 const SignInForm = ({ user }: UserProps) => {
   const setSigninAtom = useSetRecoilState(SigninAtom);
@@ -77,13 +78,17 @@ const SignInForm = ({ user }: UserProps) => {
         isSignin: true,
         isSenior: data.is_senior,
       });
+      localStorage.setItem(
+        'expireAt',
+        moment().add(2, 'minute').format('yyyy-MM-DD HH:mm:ss'),
+      );
       navigate(-1);
     }
   };
 
   // mini btns click event handler
   const handleBtnClick = (path: string) => {
-    navigate(path);
+    navigate(path, { replace: true });
   };
 
   return (
@@ -122,7 +127,8 @@ const SignInForm = ({ user }: UserProps) => {
         <div className="line"></div>
         <button
           className="signup"
-          onClick={() => handleBtnClick('/sign-up/verification')}
+          // onClick={() => handleBtnClick('/sign-up/verification')} temporary setting
+          onClick={() => handleBtnClick('/sign-up/user-type')}
         >
           회원가입
         </button>

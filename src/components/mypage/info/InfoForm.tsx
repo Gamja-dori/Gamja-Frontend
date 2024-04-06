@@ -4,27 +4,36 @@ import WithdrawalModal from './WithdrawalModal';
 import { useRecoilValue } from 'recoil';
 import { UserProfileAtom } from 'recoil/UserProfile';
 import { parsePhoneNumber } from 'components/utils/PhoneUtils';
+import { Signout } from 'api/user';
 
 const InfoForm = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [modal, setModal] = useState(false);
 
-  const UserProfileData = useRecoilValue(UserProfileAtom);
+  const userProfileData = useRecoilValue(UserProfileAtom);
 
   useEffect(() => {
-    const parsed_result = parsePhoneNumber(UserProfileData.phone_number);
+    const parsed_result = parsePhoneNumber(userProfileData.phone_number);
     setPhoneNumber(parsed_result);
-  }, [UserProfileData]);
+  }, [userProfileData]);
+
+  const handleSignout = async () => {
+    const res = await Signout();
+    if (res?.status === 202) {
+      window.localStorage.clear();
+      window.location.href = '/';
+    }
+  };
 
   return (
     <div className="infoForm-div">
       <div className="infoForm-box">
         <p>이름</p>
-        <p>{UserProfileData.name}</p>
+        <p>{userProfileData.name}</p>
       </div>
       <div className="infoForm-box">
         <p>아이디</p>
-        <p>{UserProfileData.username}</p>
+        <p>{userProfileData.username}</p>
       </div>
       <div className="infoForm-box">
         <p>연락처</p>
@@ -32,12 +41,12 @@ const InfoForm = () => {
       </div>
       <div className="infoForm-box">
         <p>이메일</p>
-        <p>{UserProfileData.email}</p>
+        <p>{userProfileData.email}</p>
       </div>
       <div className="infoForm-btn-box">
         <Btn
           label="로그아웃"
-          onClick={() => console.log('로그아웃 클릭')}
+          onClick={handleSignout}
           styleClass="mini-btn light-gray"
         />
         <Btn
