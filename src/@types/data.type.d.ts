@@ -1,14 +1,20 @@
 declare module 'data-type' {
   export type InfoFormData = {
+    id: number;
     name: string;
     username: string;
     phone_number: string;
     email: string;
+    is_senior?: boolean;
+    is_enterprise?: boolean;
+
+    default_resume?: number;
+    business_number?: string;
+    is_certified?: boolean;
   };
 
   export type SignupData = InfoFormData & {
     password: string;
-    business_number?: string;
   };
 
   export type SigninData = {
@@ -38,5 +44,10 @@ declare module 'data-type' {
     profileImage: string;
     isFinished: boolean;
     reviewId: number;
+  };
+
+  export type SigninStateAtomType = {
+    isSignin: boolean;
+    isSenior: boolean;
   };
 }

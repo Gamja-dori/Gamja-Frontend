@@ -1,34 +1,38 @@
 import { useEffect, useState } from 'react';
-import { InfoFormData } from 'data-type';
-import info from '../../../assets/mock/info.json';
 import Btn from 'components/_common/Btn';
 import WithdrawalModal from './WithdrawalModal';
+import { useRecoilValue } from 'recoil';
+import { UserProfileAtom } from 'recoil/UserProfile';
+import { parsePhoneNumber } from 'components/utils/PhoneUtils';
 
 const InfoForm = () => {
-  const [data, setData] = useState<Partial<InfoFormData>>({});
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [modal, setModal] = useState(false);
 
+  const UserProfileData = useRecoilValue(UserProfileAtom);
+
   useEffect(() => {
-    setData(info);
-  }, []);
+    const parsed_result = parsePhoneNumber(UserProfileData.phone_number);
+    setPhoneNumber(parsed_result);
+  }, [UserProfileData]);
 
   return (
     <div className="infoForm-div">
       <div className="infoForm-box">
         <p>이름</p>
-        <p>{data.name}</p>
+        <p>{UserProfileData.name}</p>
       </div>
       <div className="infoForm-box">
         <p>아이디</p>
-        <p>{data.username}</p>
+        <p>{UserProfileData.username}</p>
       </div>
       <div className="infoForm-box">
         <p>연락처</p>
-        <p>{data.phone_number}</p>
+        <p>{phoneNumber}</p>
       </div>
       <div className="infoForm-box">
         <p>이메일</p>
-        <p>{data.email}</p>
+        <p>{UserProfileData.email}</p>
       </div>
       <div className="infoForm-btn-box">
         <Btn

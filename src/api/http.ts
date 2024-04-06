@@ -5,8 +5,8 @@ export const http = axios.create({
   withCredentials: true,
 });
 
-const token = window.localStorage.getItem('access') ?? false;
-
-http.defaults.headers.common['Authorization'] = token
-  ? `Bearer ${token}`
-  : null;
+http.interceptors.request.use(function (config) {
+  const token = window.localStorage.getItem('access') ?? false;
+  config.headers.Authorization = token ? `Bearer ${token}` : null;
+  return config;
+});

@@ -4,6 +4,8 @@
   position: relative;
   cursor: pointer;
   margin-left: 2.4rem;
+  display: flex;
+  align-items: center;
   @include pc {
     width: 11rem;
     height: 11rem;

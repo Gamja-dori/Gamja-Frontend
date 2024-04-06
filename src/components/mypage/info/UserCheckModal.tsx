@@ -2,18 +2,13 @@ import Btn from 'components/_common/Btn';
 import Input from 'components/_common/Input';
 import Modal from 'components/_common/Modal';
 import { ModalProps } from 'props-type';
-import { InfoFormData } from 'data-type';
-import info from '../../../assets/mock/info.json';
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { UserProfileAtom } from 'recoil/UserProfile';
 
 const UserCheckModal = ({ setModal }: ModalProps) => {
-  const [data, setData] = useState<Partial<InfoFormData>>({});
+  const UserProfileData = useRecoilValue(UserProfileAtom);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setData(info);
-  }, []);
 
   return (
     <Modal>
@@ -23,7 +18,7 @@ const UserCheckModal = ({ setModal }: ModalProps) => {
       </p>
       <Input
         label=""
-        defaultValue={data.username}
+        defaultValue={UserProfileData.username}
         disabled={true}
         isAlertRequired={false}
       />

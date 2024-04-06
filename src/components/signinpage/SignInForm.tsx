@@ -73,8 +73,11 @@ const SignInForm = ({ user }: UserProps) => {
       });
       window.localStorage.setItem('access', data.access);
       window.localStorage.setItem('refresh', data.refresh);
-      setSigninStateAtom(true);
-      navigate('/');
+      setSigninStateAtom({
+        isSignin: true,
+        isSenior: data.is_senior,
+      });
+      navigate(-1);
     }
   };
 

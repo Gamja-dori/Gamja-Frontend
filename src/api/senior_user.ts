@@ -41,9 +41,9 @@ export const SigninSenior = async (username: string, password: string) => {
 };
 
 // 현재 가능
-export const GetSeniorProfile = async (username: string) => {
+export const GetSeniorProfile = async (id: number) => {
   try {
-    const res = await http.get(`/users/${username}`);
+    const res = await http.get(`/users/${id}`);
     console.log('시니어 회원 정보 조회 성공');
     return res;
   } catch (err) {
