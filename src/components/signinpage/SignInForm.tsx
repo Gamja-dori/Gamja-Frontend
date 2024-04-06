@@ -88,7 +88,7 @@ const SignInForm = ({ user }: UserProps) => {
 
   // mini btns click event handler
   const handleBtnClick = (path: string) => {
-    navigate(path);
+    navigate(path, { replace: true });
   };
 
   return (
@@ -127,7 +127,8 @@ const SignInForm = ({ user }: UserProps) => {
         <div className="line"></div>
         <button
           className="signup"
-          onClick={() => handleBtnClick('/sign-up/verification')}
+          // onClick={() => handleBtnClick('/sign-up/verification')} temporary setting
+          onClick={() => handleBtnClick('/sign-up/user-type')}
         >
           회원가입
         </button>

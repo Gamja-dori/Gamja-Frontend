@@ -3,11 +3,14 @@ import { useEffect, useState } from 'react';
 
 import senior from '../../../assets/icons/senior.svg';
 import company from '../../../assets/icons/company.svg';
+import { useNavigate } from 'react-router-dom';
 
 const TypeContent = ({ user }: UserProps) => {
   const [color, setColor] = useState('dark-green');
   const [imgSrc, setImgSrc] = useState('');
   const [path, setPath] = useState('');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user === '시니어') {
@@ -24,7 +27,7 @@ const TypeContent = ({ user }: UserProps) => {
   return (
     <div
       className={`${color} signup-type-div`}
-      onClick={() => (window.location.href = `/sign-up/${path}/form`)}
+      onClick={() => navigate(`/sign-up/${path}/form`, { replace: true })}
     >
       <div>
         <p>{user} 회원가입</p>
