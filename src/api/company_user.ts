@@ -40,9 +40,9 @@ export const SigninCompany = async (username: string, password: string) => {
   }
 };
 
-export const GetCompanyProfile = async (username: string) => {
+export const GetCompanyProfile = async (id: number) => {
   try {
-    const res = await http.get(`/users/enterprise/${username}`);
+    const res = await http.get(`/users/enterprise/${id}`);
     console.log('기업 회원 정보 조회 성공');
     return res;
   } catch (err) {
