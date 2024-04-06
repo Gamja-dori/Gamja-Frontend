@@ -156,3 +156,18 @@
     font-size: 2rem;
   }
 }
+
+.mypage-btn {
+  @include btn {
+    padding: 2rem;
+    width: max-content;
+  }
+  @include pc {
+    height: 5rem;
+    font-size: 2.4rem;
+  }
+  @include mobile {
+    height: 4rem;
+    font-size: 2rem;
+  }
+}

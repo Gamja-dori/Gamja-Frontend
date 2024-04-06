@@ -8,23 +8,60 @@
   }
 }
 
-/* defaultResume  */
-.defaultResume-div {
+/* defaultResume & Suggestion */
+.mypage-semi-div {
   @include pc {
     display: flex;
     flex-direction: column;
   }
 }
 
-.defaultResume-outline {
+.mypage-semi-outline {
   border-radius: 1rem;
-  height: 23.8rem;
+  display: flex;
+  flex-direction: column;
   @include pc {
-    width: 37.8rem;
+    width: 33rem;
+    height: 19rem;
+    padding: 2.4rem;
+    gap: 2.4rem;
+    font-size: 2.4rem;
   }
   @include mobile {
+    &.mypage-semi-suggest {
+      box-shadow: none;
+    }
     width: 100%;
+    height: 23.8rem;
+    gap: 2rem;
+    font-size: 2rem;
   }
+}
+
+.mypage-semi-box {
+  width: 100%;
+  display: flex;
+  @include pc {
+    justify-content: space-between;
+  }
+  @include mobile {
+    flex-direction: column;
+    p:last-child {
+      margin-top: 0.7rem;
+    }
+  }
+  p:first-child {
+    font-weight: 600;
+  }
+}
+
+.mypage-semi-notice {
+  width: 100%;
+  height: 100%;
+  color: $gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* common style */
@@ -58,9 +95,6 @@
   @include mobile {
     font-size: 2.2rem;
     font-weight: 600;
-    &.profile-title {
-      display: none;
-    }
   }
 }
 
@@ -68,18 +102,30 @@
   * {
     margin: 0;
   }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   @include pc {
     width: 37.8rem;
-    display: flex;
-    justify-content: space-between;
     height: 7rem;
   }
   @include mobile {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-top: 2.4rem;
     margin-bottom: 1rem;
+  }
+}
+
+/* profile style */
+.mypage-profile-div {
+  @include pc {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.profile-title {
+  @include mobile {
+    display: none;
   }
 }
