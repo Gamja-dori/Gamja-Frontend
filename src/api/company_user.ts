@@ -10,7 +10,7 @@ export const SignupCompany = async ({
   business_number,
 }: SignupData) => {
   try {
-    const res = await http.post('/users/signup/', {
+    const res = await http.post('/users/enterprise/signup/', {
       user: {
         username: username,
         email: email,

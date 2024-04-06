@@ -1,22 +1,22 @@
 import Terms from './Terms';
 import Input from 'components/_common/Input';
 import Btn from 'components/_common/Btn';
-import mockUser from '../../../assets/mock/info.json';
 import { InfoFormData } from 'data-type';
 import { validateId, validatePw } from '../../utils/ValidationUtils';
 import { parseComNum } from 'components/utils/ComNumUtils';
 
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { SignupCompany } from 'api/company_user';
 
 const CompanyForm = () => {
   const navigate = useNavigate();
 
-  const [data, setData] = useState<Partial<InfoFormData>>({});
+  // const [data, setData] = useState<Partial<InfoFormData>>({});
 
-  useEffect(() => {
-    setData(mockUser);
-  }, []);
+  // temp settings
+  const [name, setName] = useState('');
+  const [phone_number, setPhone_number] = useState('');
 
   // terms agree value useState
   const [agree, setAgree] = useState(false);
@@ -133,7 +133,7 @@ const CompanyForm = () => {
   };
 
   // signup button click event handler
-  const handleSignupClick = () => {
+  const handleSignupClick = async () => {
     if (isFilled()) {
       if (
         agree &&
@@ -143,7 +143,17 @@ const CompanyForm = () => {
         !isPwCheckWrong &&
         !isComNumWrong
       ) {
-        navigate('/sign-up/complete');
+        const res = await SignupCompany({
+          username: id,
+          email: email,
+          password: pw,
+          name: name,
+          phone_number: phone_number,
+          business_number: comNum,
+        });
+        if (res?.status === 201) {
+          navigate('/sign-up/complete', { replace: true });
+        }
       } else {
         alert('회원가입 약관 동의 및 정보 작성을 완료해 주세요.');
       }
@@ -156,7 +166,9 @@ const CompanyForm = () => {
     <div className="signup-form-div">
       <Terms agree={agree} setAgree={setAgree} />
       <div className="input-div inputs-div">
-        <Input label="이름" defaultValue={data.name} disabled={true} />
+        {/* temporary setting */}
+        {/* <Input label="이름" defaultValue={data.name} disabled={true} /> */}
+        <Input label="이름" onChange={(e) => setName(e.target.value)} />
         <div className="input-div">
           <Input
             label="아이디"
@@ -194,10 +206,15 @@ const CompanyForm = () => {
           isWrong={isComNumWrong}
           value={parsedComNum}
         />
-        <Input
+        {/* temporary setting */}
+        {/* <Input
           label="전화번호"
           defaultValue={data.phone_number}
           disabled={true}
+        /> */}
+        <Input
+          label="전화번호"
+          onChange={(e) => setPhone_number(e.target.value)}
         />
         <Input label="이메일" onChange={(e) => setEmail(e.target.value)} />
       </div>
