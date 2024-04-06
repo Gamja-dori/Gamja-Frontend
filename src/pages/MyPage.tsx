@@ -14,7 +14,7 @@ import Suggestion from 'components/mypage/suggestion/Suggestion';
 import { useNavigate } from 'react-router-dom';
 
 const MyPage = () => {
-  const SigninData = useRecoilValue(SigninAtom);
+  const signinData = useRecoilValue(SigninAtom);
   const [userProfileData, setUserProfileData] = useRecoilState(UserProfileAtom);
 
   const { isSignin } = useRecoilValue(SigninStateAtom);
@@ -57,8 +57,8 @@ const MyPage = () => {
   };
 
   useEffect(() => {
-    const id = SigninData.id;
-    const isSenior = SigninData.is_senior;
+    const id = signinData.id;
+    const isSenior = signinData.is_senior;
     if (id !== -1) {
       if (isSenior) {
         getSeniorData(id);
@@ -66,7 +66,7 @@ const MyPage = () => {
         getCompanyData(id);
       }
     }
-  }, [SigninData]);
+  }, [signinData]);
 
   const isMobile = useMediaQuery({
     query: '(max-width:802px)',
