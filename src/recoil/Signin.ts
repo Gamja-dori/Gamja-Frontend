@@ -23,4 +23,5 @@ export const SigninStateAtom = atom<SigninStateAtomType>({
     isSignin: false,
     isSenior: false,
   },
+  effects_UNSTABLE: [persistAtom],
 });
