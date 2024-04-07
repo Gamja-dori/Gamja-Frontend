@@ -47,16 +47,21 @@ const SignInForm = ({ user }: UserProps) => {
 
   // signin button click event handler
   const handleSubmit = async () => {
+    let data;
     if (isFilled()) {
       // API connection is required
       if (user === 'senior') {
         const res = await SigninSenior(id, pw);
-        const data = res?.data;
-        saveData(data);
+        data = res?.data;
+        // saveData(data);
       } else if (user === 'company') {
         const res = await SigninCompany(id, pw);
-        const data = res?.data;
+        data = res?.data;
+      }
+      if (data) {
         saveData(data);
+      } else {
+        setAlertText('아이디 또는 비밀번호를 잘못 입력했습니다.');
       }
     }
   };
