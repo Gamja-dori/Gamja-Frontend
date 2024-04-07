@@ -80,7 +80,7 @@ const SignInForm = ({ user }: UserProps) => {
       });
       localStorage.setItem(
         'expireAt',
-        moment().add(2, 'minute').format('yyyy-MM-DD HH:mm:ss'),
+        moment().add(2, 'hour').format('yyyy-MM-DD HH:mm:ss'),
       );
       navigate(-1);
     }
