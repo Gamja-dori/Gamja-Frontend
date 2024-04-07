@@ -2,6 +2,7 @@
 @import '../abstracts/mixin';
 
 .usertag {
+  width: max-content;
   border-radius: 0.5rem;
   padding: 0.4rem 0.6rem;
   @include pc {

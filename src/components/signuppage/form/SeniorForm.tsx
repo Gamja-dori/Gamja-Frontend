@@ -1,21 +1,21 @@
 import Terms from './Terms';
 import Input from 'components/_common/Input';
 import Btn from 'components/_common/Btn';
-import mockUser from '../../../assets/mock/info.json';
 import { InfoFormData } from 'data-type';
 import { validateId, validatePw } from '../../utils/ValidationUtils';
 
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { SignupSenior } from 'api/senior_user';
 
 const SeniorForm = () => {
   const navigate = useNavigate();
 
-  const [data, setData] = useState<Partial<InfoFormData>>({});
+  // const [data, setData] = useState<Partial<InfoFormData>>({});
 
-  useEffect(() => {
-    setData(mockUser);
-  }, []);
+  // temp settings
+  const [name, setName] = useState('');
+  const [phone_number, setPhone_number] = useState('');
 
   // terms agree value useState
   const [agree, setAgree] = useState(false);
@@ -113,10 +113,19 @@ const SeniorForm = () => {
   };
 
   // signup button click event handler
-  const handleSignupClick = () => {
+  const handleSignupClick = async () => {
     if (isFilled()) {
       if (agree && !isIdWrong && idDuplCheck && !isPwWrong && !isPwCheckWrong) {
-        navigate('/sign-up/complete');
+        const res = await SignupSenior({
+          username: id,
+          email: email,
+          password: pw,
+          name: name,
+          phone_number: phone_number,
+        });
+        if (res?.status === 201) {
+          navigate('/sign-up/complete', { replace: true });
+        }
       } else {
         alert('회원가입 약관 동의 및 정보 작성을 완료해 주세요.');
       }
@@ -129,7 +138,9 @@ const SeniorForm = () => {
     <div className="signup-form-div">
       <Terms agree={agree} setAgree={setAgree} />
       <div className="input-div inputs-div">
-        <Input label="이름" defaultValue={data.name} disabled={true} />
+        {/* temporary setting */}
+        {/* <Input label="이름" defaultValue={data.name} disabled={true} /> */}
+        <Input label="이름" onChange={(e) => setName(e.target.value)} />
         <div className="input-div">
           <Input
             label="아이디"
@@ -160,10 +171,15 @@ const SeniorForm = () => {
           isWrong={isPwCheckWrong}
           alertText={pwCheckAlert}
         />
-        <Input
+        {/* temporary setting */}
+        {/* <Input
           label="전화번호"
           defaultValue={data.phone_number}
           disabled={true}
+        /> */}
+        <Input
+          label="전화번호"
+          onChange={(e) => setPhone_number(e.target.value)}
         />
         <Input label="이메일" onChange={(e) => setEmail(e.target.value)} />
       </div>

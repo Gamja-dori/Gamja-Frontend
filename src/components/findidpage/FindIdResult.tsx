@@ -12,12 +12,12 @@ const FindIdResult = () => {
       <div className="btns-div">
         <Btn
           label="로그인하기"
-          onClick={() => navigate('/sign-in')}
+          onClick={() => navigate('/sign-in', { replace: true })}
           styleClass="abreast-btn dark-green"
         />
         <Btn
           label="비밀번호 찾기"
-          onClick={() => navigate('/find/pw/form')}
+          onClick={() => navigate('/find/pw/form', { replace: true })}
           styleClass="abreast-btn white"
         />
       </div>

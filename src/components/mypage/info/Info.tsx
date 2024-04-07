@@ -5,6 +5,7 @@ import UserCheckModal from './UserCheckModal';
 
 const Info = () => {
   const [modal, setModal] = useState(false);
+
   return (
     <>
       <div className="info-div">
@@ -13,7 +14,7 @@ const Info = () => {
           <Btn
             label="수정"
             onClick={() => setModal(true)}
-            styleClass="short-btn dark-green"
+            styleClass="mypage-btn dark-green"
           />
         </div>
         <InfoForm />

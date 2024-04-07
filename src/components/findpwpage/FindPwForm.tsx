@@ -28,12 +28,12 @@ const FindPwForm = () => {
       <div className="btns-div">
         <Btn
           label="취소"
-          onClick={() => navigate('/sign-in')}
+          onClick={() => navigate('/sign-in', { replace: true })}
           styleClass="abreast-btn white"
         />
         <Btn
           label="비밀번호 찾기"
-          onClick={() => navigate('/find/pw/reset')}
+          onClick={() => navigate('/find/pw/reset', { replace: true })}
           styleClass="abreast-btn dark-green"
         />
       </div>

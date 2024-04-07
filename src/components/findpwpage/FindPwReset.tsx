@@ -18,12 +18,12 @@ const FindPwReset = () => {
       <div className="btns-div">
         <Btn
           label="취소"
-          onClick={() => navigate('/sign-in')}
+          onClick={() => navigate('/sign-in', { replace: true })}
           styleClass="abreast-btn white"
         />
         <Btn
           label="확인"
-          onClick={() => navigate('/sign-in')}
+          onClick={() => navigate('/sign-in', { replace: true })}
           styleClass="abreast-btn dark-green"
         />
       </div>

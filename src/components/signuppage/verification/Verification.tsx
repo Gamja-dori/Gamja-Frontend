@@ -17,7 +17,7 @@ const Verification = () => {
       </p>
       <Btn
         label="휴대폰 본인 인증"
-        onClick={() => navigate('/sign-up/user-type')}
+        onClick={() => navigate('/sign-up/user-type', { replace: true })}
         styleClass="long-btn dark-green"
       />
       <KakaoBtn />

@@ -27,12 +27,12 @@ const FindIdForm = () => {
       <div className="btns-div">
         <Btn
           label="취소"
-          onClick={() => navigate('/sign-in')}
+          onClick={() => navigate('/sign-in', { replace: true })}
           styleClass="abreast-btn white"
         />
         <Btn
           label="아이디 찾기"
-          onClick={() => navigate('/find/id/result')}
+          onClick={() => navigate('/find/id/result', { replace: true })}
           styleClass="abreast-btn dark-green"
         />
       </div>
