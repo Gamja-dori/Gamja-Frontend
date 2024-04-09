@@ -34,7 +34,7 @@ http.interceptors.request.use(async (config) => {
       localStorage.setItem('access', access);
       localStorage.setItem(
         'expireAt',
-        moment().add(2, 'minute').format('yyyy-MM-DD HH:mm:ss'),
+        moment().add(2, 'hour').format('yyyy-MM-DD HH:mm:ss'),
       );
     }
     config.headers.Authorization = access ? `Bearer ${access}` : null;
