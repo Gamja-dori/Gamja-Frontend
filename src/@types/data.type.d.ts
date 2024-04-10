@@ -50,4 +50,19 @@ declare module 'data-type' {
     isSignin: boolean;
     isSenior: boolean;
   };
+
+  export type ResumeData = SeniorDetailProps & {
+    is_submitted: boolean;
+    keyword: string;
+    introduction: string;
+    job_group: string;
+    job_role: string;
+    career_year: number;
+
+    duration_start: number;
+    duration_end: number;
+    min_month_pay: number;
+    max_month_pay: number;
+    commute_type: string;
+  };
 }
