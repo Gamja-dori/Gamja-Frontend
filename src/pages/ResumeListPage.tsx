@@ -21,7 +21,7 @@ const ResumeListPage = () => {
 
   return (
     <>
-      {signinState.isSignin && (
+      {signinState.isSignin && signinState.isSenior && (
         <div className="container">
           <Title label="이력서 관리" />
           <ResumeList />

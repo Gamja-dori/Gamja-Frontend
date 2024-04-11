@@ -21,7 +21,7 @@ const ResumeEditPage = () => {
 
   return (
     <>
-      {signinState.isSignin && (
+      {signinState.isSignin && signinState.isSenior && (
         <div className="container">
           <Title label="인재풀 등록" />
           <ResumeEdit />
