@@ -1,18 +1,16 @@
 import Terms from './Terms';
 import Input from 'components/_common/Input';
 import Btn from 'components/_common/Btn';
-import { InfoFormData } from 'data-type';
 import { validateId, validatePw } from '../../utils/ValidationUtils';
 import { parseComNum } from 'components/utils/ComNumUtils';
 
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SignupCompany } from 'api/company_user';
+import { CheckUsername } from 'api/user';
 
 const CompanyForm = () => {
   const navigate = useNavigate();
-
-  // const [data, setData] = useState<Partial<InfoFormData>>({});
 
   // temp settings
   const [name, setName] = useState('');
@@ -101,10 +99,22 @@ const CompanyForm = () => {
   };
 
   // duplicate check button click event handler
-  const handleDuplClick = () => {
-    setIdAlert('사용 가능한 아이디입니다.');
-    setIdDuplCheck(true);
-    setIsIdWrong(false);
+  const handleDuplClick = async () => {
+    if (!id || isIdWrong) {
+      return;
+    }
+    const res = await CheckUsername(id);
+    console.log(res);
+    const data = res?.data;
+    if (data[0]) {
+      setIdAlert('이미 사용 중인 아이디입니다.');
+      setIdDuplCheck(false);
+      setIsIdWrong(true);
+    } else {
+      setIdAlert('사용 가능한 아이디입니다.');
+      setIdDuplCheck(true);
+      setIsIdWrong(false);
+    }
   };
 
   // check id or idDupleCheck or pw or pwCheck is filled

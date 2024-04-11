@@ -19,3 +19,13 @@ export const DeleteUser = async (id: number) => {
     console.log('탈퇴 에러');
   }
 };
+
+export const CheckUsername = async (username: string) => {
+  try {
+    const res = await http.get(`/users/check/${username}`);
+    console.log('아이디 중복 체크 성공');
+    return res;
+  } catch (err) {
+    console.log('아이디 중복 체크 실패');
+  }
+};
