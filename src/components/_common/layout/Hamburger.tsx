@@ -9,6 +9,8 @@ import arrow from './../../../assets/icons/hamburger/arrow-down.svg';
 import setting from './../../../assets/icons/hamburger/setting.svg';
 import profile from './../../../assets/images/profile.png';
 import { Signout } from 'api/user';
+import { useRecoilValue } from 'recoil';
+import { SigninStateAtom } from 'recoil/Signin';
 
 const HamburgerAccordion = ({
   title,
@@ -57,7 +59,7 @@ const Hamburger = ({ setIsOpen, isLogin }: HamburgerProps) => {
     navigate(uri);
     setIsOpen(false);
   };
-  const isSenior = true;
+  const { isSenior } = useRecoilValue(SigninStateAtom);
   const infoSubMenus = [
     {
       subMenu: '시니어 전문가',
@@ -77,6 +79,14 @@ const Hamburger = ({ setIsOpen, isLogin }: HamburgerProps) => {
       subMenu: '이력서 관리',
       onClick: () => {
         handleNavigate('resume');
+      },
+    },
+  ];
+  const suggestionSubMenus = [
+    {
+      subMenu: '채용 제안 관리',
+      onClick: () => {
+        handleNavigate('suggestion/management');
       },
     },
   ];
@@ -149,14 +159,25 @@ const Hamburger = ({ setIsOpen, isLogin }: HamburgerProps) => {
             handleNavigate('about-us');
           }}
         />
-        <HamburgerAccordion
-          title="이력서 관리"
-          icon={doc}
-          subMenus={resumeSubMenus}
-          onTitleClick={() => {
-            handleNavigate('resume');
-          }}
-        />
+        {isSenior ? (
+          <HamburgerAccordion
+            title="이력서 관리"
+            icon={doc}
+            subMenus={resumeSubMenus}
+            onTitleClick={() => {
+              handleNavigate('resume');
+            }}
+          />
+        ) : (
+          <HamburgerAccordion
+            title="채용 제안 관리"
+            icon={doc}
+            subMenus={suggestionSubMenus}
+            onTitleClick={() => {
+              handleNavigate('suggestion/management');
+            }}
+          />
+        )}
         <HamburgerAccordion
           title="인재풀 조회"
           icon={user}

@@ -21,7 +21,7 @@ export const SigninStateAtom = atom<SigninStateAtomType>({
   key: 'SigninStateAtom',
   default: {
     isSignin: false,
-    isSenior: false,
+    isSenior: true,
   },
   effects_UNSTABLE: [persistAtom],
 });

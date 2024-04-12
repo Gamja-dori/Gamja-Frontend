@@ -9,7 +9,7 @@ import { useRecoilValue } from 'recoil';
 import { SigninStateAtom } from 'recoil/Signin';
 
 const Header = () => {
-  const { isSignin } = useRecoilValue(SigninStateAtom);
+  const { isSignin, isSenior } = useRecoilValue(SigninStateAtom);
   const isMobile: boolean = useMediaQuery({
     query: '(max-width:802px)',
   });
@@ -44,9 +44,18 @@ const Header = () => {
             >
               서비스 소개
             </div>
-            <div className="header_txt" onClick={() => navigate('/resume')}>
-              이력서 관리
-            </div>
+            {isSenior ? (
+              <div className="header_txt" onClick={() => navigate('/resume')}>
+                이력서 관리
+              </div>
+            ) : (
+              <div
+                className="header_txt"
+                onClick={() => navigate('/suggestion/management')}
+              >
+                채용 제안 관리
+              </div>
+            )}
             <div className="header_txt" onClick={() => navigate('/search')}>
               인재풀 조회
             </div>
