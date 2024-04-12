@@ -33,7 +33,6 @@ export const UpdateResume = async (
 ) => {
   try {
     const res = await http.put(`/resumes/edit/${user_id}/${resume_id}`, {
-      is_submitted: resume.is_submitted,
       keyword: resume.keyword,
       introduction: resume.introduction,
       job_group: resume.job_group,

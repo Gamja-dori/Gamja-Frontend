@@ -27,7 +27,7 @@ const ResumeIntro = ({ isSubmitted }: ResumeEditProps) => {
         <Input
           label="키워드"
           isRequired={true}
-          placeholder="전문가님을 어필할 수 있는 키워드들을 적어주세요."
+          placeholder="전문가님의 핵심 키워드들을 적어주세요."
           isAlertRequired={false}
         />
         <div>
