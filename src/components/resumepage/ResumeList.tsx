@@ -16,6 +16,8 @@ const ResumeList = () => {
 
   const createResume = async (user_id: number) => {
     const res = await CreateResume(user_id);
+    const url = `/resume/edit/${res?.data.resume_id}`;
+    navigate(url);
   };
 
   const getResumeList = async (user_id: number) => {
@@ -34,7 +36,7 @@ const ResumeList = () => {
         content="새로운 이력서 등록하기"
         svg={resume}
         styleClass="dark-green"
-        onClick={() => navigate('/resume/edit/new')}
+        onClick={() => createResume(id)}
       />
       <div className="resume-card-container">
         {resumeList.length > 0 ? (

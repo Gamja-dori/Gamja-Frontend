@@ -4,7 +4,7 @@ import { http } from './http';
 // 이력서 생성
 export const CreateResume = async (user_id: number) => {
   try {
-    const res = await http.post('/resume/create/', {
+    const res = await http.post('/resumes/create/', {
       user_id: user_id,
     });
     console.log('이력서 생성 성공', res);
