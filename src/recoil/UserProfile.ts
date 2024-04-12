@@ -4,8 +4,8 @@ import { InfoFormData } from 'data-type';
 
 const { persistAtom } = recoilPersist();
 
-export const UserProfileAtom = atom<InfoFormData>({
-  key: 'UserProfileAtom',
+export const UserInfoAtom = atom<InfoFormData>({
+  key: 'UserInfoAtom',
   default: {
     id: -1,
     name: '',
@@ -18,5 +18,11 @@ export const UserProfileAtom = atom<InfoFormData>({
     business_number: '',
     is_certified: false,
   },
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const UserProfileAtom = atom({
+  key: 'UserProfileAtom',
+  default: '',
   effects_UNSTABLE: [persistAtom],
 });

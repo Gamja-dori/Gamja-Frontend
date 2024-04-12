@@ -4,18 +4,20 @@ import Profile from 'components/mypage/profile/Profile';
 import DefaultResume from 'components/mypage/defaultResume/DefaultResume';
 import { useMediaQuery } from 'react-responsive';
 import { useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { SigninAtom, SigninStateAtom } from 'recoil/Signin';
-import { UserProfileAtom } from 'recoil/UserProfile';
+import { UserInfoAtom, UserProfileAtom } from 'recoil/UserProfile';
 import { InfoFormData } from 'data-type';
 import { GetCompanyProfile } from 'api/company_user';
 import { GetSeniorProfile } from 'api/senior_user';
 import Suggestion from 'components/mypage/suggestion/Suggestion';
 import { useNavigate } from 'react-router-dom';
+import { GetProfile } from 'api/user';
 
 const MyPage = () => {
   const signinData = useRecoilValue(SigninAtom);
-  const [userProfileData, setUserProfileData] = useRecoilState(UserProfileAtom);
+  const [userInfoData, setUserInfoData] = useRecoilState(UserInfoAtom);
+  const setUserProfileData = useSetRecoilState(UserProfileAtom);
 
   const { isSignin } = useRecoilValue(SigninStateAtom);
   const navigate = useNavigate();
@@ -26,6 +28,12 @@ const MyPage = () => {
       navigate('/sign-in');
     }
   }, [isSignin]);
+
+  const getProfile = async (id: number) => {
+    const res = await GetProfile(id);
+    const data = res?.data;
+    setUserProfileData(data.image);
+  };
 
   const getSeniorData = async (id: number) => {
     const res = await GetSeniorProfile(id);
@@ -41,7 +49,7 @@ const MyPage = () => {
 
   const saveData = (data: InfoFormData) => {
     if (data) {
-      setUserProfileData({
+      setUserInfoData({
         id: data.id,
         name: data.name,
         username: data.username,
@@ -60,6 +68,7 @@ const MyPage = () => {
     const id = signinData.id;
     const isSenior = signinData.is_senior;
     if (id !== -1) {
+      getProfile(id);
       if (isSenior) {
         getSeniorData(id);
       } else {
@@ -82,7 +91,7 @@ const MyPage = () => {
               <div className="mypage-mobile-div">
                 <Profile />
                 <Info />
-                {userProfileData.is_senior ? <DefaultResume /> : <Suggestion />}
+                {userInfoData.is_senior ? <DefaultResume /> : <Suggestion />}
               </div>
             </div>
           ) : (
@@ -90,7 +99,7 @@ const MyPage = () => {
               <Info />
               <div className="mypage-small-div">
                 <Profile />
-                {userProfileData.is_senior ? <DefaultResume /> : <Suggestion />}
+                {userInfoData.is_senior ? <DefaultResume /> : <Suggestion />}
               </div>
             </div>
           )}

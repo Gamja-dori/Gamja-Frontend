@@ -1,10 +1,10 @@
 import Picture from 'components/_common/Picture';
 import UserTag from './UserTag';
 import { useRecoilValue } from 'recoil';
-import { UserProfileAtom } from 'recoil/UserProfile';
+import { UserInfoAtom } from 'recoil/UserProfile';
 
 const Profile = () => {
-  const userProfileData = useRecoilValue(UserProfileAtom);
+  const userInfoData = useRecoilValue(UserInfoAtom);
 
   return (
     <div className="mypage-profile-div">
@@ -13,10 +13,10 @@ const Profile = () => {
         <Picture />
         <div className="profile-user-box">
           <div className="profile-username">
-            <p>{userProfileData.name}</p>
+            <p>{userInfoData.name}</p>
             <p>님</p>
           </div>
-          {userProfileData.is_senior ? (
+          {userInfoData.is_senior ? (
             <UserTag user={'시니어 회원'} />
           ) : (
             <UserTag user={'기업 회원'} />
