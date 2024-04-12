@@ -53,6 +53,8 @@ const ResumeList = () => {
                   isVerified={rs.is_verified}
                   careerYear={rs.career_year}
                   key={index}
+                  resumeList={resumeList}
+                  setResumeList={setResumeList}
                 />
               );
             })}

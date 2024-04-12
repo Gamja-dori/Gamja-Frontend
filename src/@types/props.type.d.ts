@@ -65,6 +65,8 @@ declare module 'props-type' {
     date?: string; // 이력서 최종 수정일
     careerYear: number;
     commuteType: string;
+    resumeList?: ResumeCardData[];
+    setResumeList?: React.Dispatch<React.SetStateAction<ResumeCard>[]>;
   };
 
   export type ResumeLongCardProps = ResumeCardProps & {
@@ -168,7 +170,11 @@ declare module 'props-type' {
   };
 
   export type EditModalProps = {
+    userId: number;
+    resumeId: number;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    resumeList?: ResumeCardData[];
+    setResumeList?: React.Dispatch<React.SetStateAction<ResumeCard>[]>;
   };
 
   export type HamburgerProps = {
