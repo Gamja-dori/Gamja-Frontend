@@ -51,88 +51,15 @@ declare module 'data-type' {
     isSenior: boolean;
   };
 
-  export type ResumeData = SeniorDetailProps & {
-    is_submitted: boolean;
+  export type ResumeData = {
+    resume_id: number;
+    // 전문가 소개
     keyword: string;
     introduction: string;
+    // 이력서
     job_group: string;
     job_role: string;
     career_year: number;
-
-    duration_start: number;
-    duration_end: number;
-    min_month_pay: number;
-    max_month_pay: number;
-    commute_type: string;
-  };
-
-  export type ResumeData = {
-    resumeId: number;
-    userId: number;
-    title: string;
-    isDefault: boolean;
-    isVerified: boolean;
-    isSubmitted: boolean;
-    // 전문가 소개
-    keyword: string;
-    introduction: string;
-    // 이력서
-    jobGroup: string;
-    jobName: string;
-    careerYear: number;
-    skills: string; // 배열 json stringify
-    durationStart: number;
-    durationEnd: number;
-    minPay: number;
-    maxPay: number;
-    commuteType: number;
-  };
-
-  export type ResumeCardData = {
-    resumeId: number;
-    isDefault: boolean;
-    isVerified: boolean;
-    careerYear: number;
-    commuteType: string;
-    title: string;
-    jobGroup: string;
-    jobName: string;
-    updated_at: string; // 이력서 최종 수정일
-  };
-
-  export type ResumeLongCardData = {
-    resumeId: number;
-    isVerified: boolean;
-    careerYear: number;
-    commuteType: string;
-    profileImage: string;
-    seniorName: string;
-    jobGroup: string;
-    jobName: string;
-    keyword: string;
-    skills: string;
-    //comments:
-  };
-
-  export type ResumeDetailData = {
-    // 인적사항 및 기본 정보
-    resumeId: number;
-    userId: number;
-    profileImage: string;
-    seniorName: string;
-    careerYear: number;
-    commuteType: string;
-    isVerified: boolean;
-    jobGroup: string;
-    jobName: string;
-    keyword: string;
-    durationStart: number;
-    durationEnd: number;
-    minPay: number;
-    maxPay: number;
-    // 전문가 소개
-    introduction: string;
-    // 이력서
     skills: string; // 배열 json stringify
     careers: {
       id: number;
@@ -162,10 +89,47 @@ declare module 'data-type' {
       name: string;
       detail: string;
     }[];
-    portfolios?: {
+    portfolios: {
       id: number;
       name: string;
-      file: File;
+      portfolio_file: File;
     }[];
+    duration_start: number;
+    duration_end: number;
+    min_month_pay: number;
+    max_month_pay: number;
+    commute_type: string;
+  };
+
+  export type ResumeCardData = {
+    resume_id: number;
+    is_default: boolean;
+    is_verified: boolean;
+    career_year: number;
+    commute_type: string;
+    title: string;
+    job_group: string;
+    job_role: string;
+    updated_at: string; // 이력서 최종 수정일
+  };
+
+  export type ResumeLongCardData = {
+    resume_id: number;
+    is_verified: boolean;
+    career_year: number;
+    commute_type: string;
+    profile_image: string;
+    senior_name: string;
+    job_group: string;
+    job_role: string;
+    keyword: string;
+    skills: string;
+    comments?: { comment_type: number; comments: string[] }[];
+  };
+
+  export type ResumeDetailData = ResumeData & {
+    // 인적사항 및 기본 정보
+    profile_image: string;
+    senior_name: string;
   };
 }
