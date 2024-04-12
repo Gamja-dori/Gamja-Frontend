@@ -140,3 +140,9 @@
     }
   }
 }
+
+.resume-list-empty {
+  @extend .mypage-semi-notice;
+  height: 30vh;
+  font-size: 2rem;
+}
