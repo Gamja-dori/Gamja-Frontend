@@ -2,10 +2,10 @@ import Btn from 'components/_common/Btn';
 import ResumeCard from 'components/resumepage/ResumeCard';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { UserProfileAtom } from 'recoil/UserProfile';
+import { UserInfoAtom } from 'recoil/UserProfile';
 
 const DefaultResume = () => {
-  const userProfileData = useRecoilValue(UserProfileAtom);
+  const userInfoData = useRecoilValue(UserInfoAtom);
   const navigate = useNavigate();
 
   return (
@@ -18,7 +18,7 @@ const DefaultResume = () => {
           styleClass="mypage-btn dark-green"
         />
       </div>
-      {userProfileData.default_resume === -1 ? (
+      {userInfoData.default_resume === -1 ? (
         <div className="mypage-semi-outline light-gray">
           <p className="mypage-semi-notice">기본 이력서가 아직 없어요!</p>
         </div>
