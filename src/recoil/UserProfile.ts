@@ -20,3 +20,9 @@ export const UserInfoAtom = atom<InfoFormData>({
   },
   effects_UNSTABLE: [persistAtom],
 });
+
+export const UserProfileAtom = atom({
+  key: 'UserProfileAtom',
+  default: '',
+  effects_UNSTABLE: [persistAtom],
+});
