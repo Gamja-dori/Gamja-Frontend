@@ -7,7 +7,9 @@ const { persistAtom } = recoilPersist();
 export const ResumeAtom = atom<ResumeData>({
   key: 'ResumeAtom',
   default: {
+    user_id: -1,
     resume_id: -1,
+    is_submitted: false,
     keyword: '',
     introduction: '',
     job_group: '',

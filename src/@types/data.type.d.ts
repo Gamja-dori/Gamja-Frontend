@@ -52,7 +52,9 @@ declare module 'data-type' {
   };
 
   export type ResumeData = {
+    user_id: number;
     resume_id: number;
+    is_submitted: boolean;
     // 전문가 소개
     keyword: string;
     introduction: string;
