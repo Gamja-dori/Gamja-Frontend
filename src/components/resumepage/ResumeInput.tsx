@@ -1,7 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Select } from 'antd';
-import type { SelectProps } from 'antd';
+import {
+  areaData,
+  jobData,
+  yearData,
+  skillData,
+  commuteTypeData,
+} from './ResumeData';
+import { useRecoilState } from 'recoil';
+import { ResumeAtom } from 'recoil/Resume';
 import SelectTag from './SelectTag';
 import BannerBtn from './BannerBtn';
 import Record from './Record';
@@ -13,34 +20,62 @@ import bulb from '../../assets/icons/resume/bulb.svg';
 
 const ResumeInput = () => {
   const [selectedArea, setSelectedArea] = useState('직군');
-  const [selectedJob, setSelectedJob] = useState('직무');
-  const [selectedCareer, setSelectedCareer] = useState('0년');
-  const navigate = useNavigate();
+  const [resumeData, setResumeData] = useRecoilState(ResumeAtom);
+  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
 
-  const onAreaChange = () => {
-    setSelectedJob('직무');
+  useEffect(() => {
+    setSelectedArea(resumeData.job_group);
+    setSelectedSkills(JSON.parse(resumeData.skills));
+  }, []);
+
+  const onAreaChange = (value: string) => {
+    setSelectedArea(value);
+    setResumeData((prev) => {
+      return {
+        ...prev,
+        job_group: value,
+        job_role: '직무',
+      };
+    });
   };
 
-  const areaData = [
-    { value: 'jack', label: 'Jack' },
-    { value: 'lucy', label: 'Lucy' },
-    { value: 'Yiminghe', label: 'yiminghe' },
-  ];
-  const jobData = [{ value: 'Yiminghe', label: 'yiminghe' }];
-  const yearData = [
-    { value: 1, label: '1년' },
-    { value: 2, label: '2년' },
-  ];
-  const skills: SelectProps['options'] = [
-    // 보유 기술
-    { value: 1, label: '1년' },
-    { value: 2, label: '2년' },
-  ];
-  const commuteTypeData = [
-    { value: '상주 근무', label: '상주 근무' },
-    { value: '원격 근무', label: '원격 근무' },
-    { value: '상주 근무 및 원격 근무', label: '상주 근무 및 원격 근무' },
-  ];
+  const onJobChange = (value: string) => {
+    setResumeData((prev) => {
+      return {
+        ...prev,
+        job_role: value,
+      };
+    });
+  };
+
+  const onYearChange = (value: number) => {
+    setResumeData((prev) => {
+      return {
+        ...prev,
+        career_year: value,
+      };
+    });
+  };
+
+  const onSkillChange = (value: string[]) => {
+    setSelectedSkills(value);
+    setResumeData((prev) => {
+      const convertedSkills = JSON.stringify(value);
+      return {
+        ...prev,
+        skills: convertedSkills,
+      };
+    });
+  };
+
+  const onCommuteChange = (value: string) => {
+    setResumeData((prev) => {
+      return {
+        ...prev,
+        commute_type: value,
+      };
+    });
+  };
 
   return (
     <>
@@ -64,15 +99,21 @@ const ResumeInput = () => {
           <div className="select-container">
             <Select
               className="select-mini"
-              defaultValue="직군"
               onChange={onAreaChange}
-              options={areaData}
+              value={resumeData.job_group}
+              options={areaData.map((a) => ({
+                label: a,
+                value: a,
+              }))}
             />
             <Select
               className="select-mini"
-              defaultValue="직무"
-              onChange={onAreaChange}
-              options={jobData}
+              onChange={onJobChange}
+              value={resumeData.job_role}
+              options={jobData[areaData.indexOf(selectedArea)]?.map((job) => ({
+                label: job,
+                value: job,
+              }))}
             />
           </div>
         </div>
@@ -80,9 +121,13 @@ const ResumeInput = () => {
           <Label label="총 경력" isRequired={true} />
           <Select
             className="select"
-            defaultValue="총 경력"
-            onChange={onAreaChange}
-            options={yearData}
+            placeholder="총 경력"
+            onChange={onYearChange}
+            value={resumeData.career_year}
+            options={yearData.map((y) => ({
+              label: String(y) + '년',
+              value: y,
+            }))}
           />
         </div>
         <div>
@@ -93,8 +138,9 @@ const ResumeInput = () => {
             tagRender={SelectTag}
             allowClear
             placeholder="스킬을 검색해 주세요"
-            defaultValue={[]}
-            options={skills}
+            value={selectedSkills}
+            onChange={onSkillChange}
+            options={skillData}
           />
         </div>
         <div style={{ position: 'relative' }}>
@@ -128,21 +174,24 @@ const ResumeInput = () => {
         </div>
         <div style={{ position: 'relative' }}>
           <Label label="희망 근무 기간" isRequired={true} />
-          <PaySlider isDuration={true} />
+          <PaySlider isDuration={true} isSearch={false} />
         </div>
         <div>
           <Label label="희망 급여" isRequired={true} />
           <div className="slider-container">
-            <PaySlider isPay={true} />
+            <PaySlider isPay={true} isSearch={false} />
           </div>
         </div>
         <div>
           <Label label="희망 근무 형태" isRequired={true} />
           <Select
             className="select-long"
-            defaultValue="상주 근무"
-            onChange={onAreaChange}
-            options={commuteTypeData}
+            onChange={onCommuteChange}
+            value={resumeData.commute_type}
+            options={commuteTypeData.map((c) => ({
+              label: c,
+              value: c,
+            }))}
           />
         </div>
       </div>

@@ -5,7 +5,7 @@ import ResumeIntro from './ResumeIntro';
 import { ResumeAtom } from 'recoil/Resume';
 import { SigninAtom } from 'recoil/Signin';
 import { useRecoilValue, useRecoilState } from 'recoil';
-import { GetResume } from 'api/resume';
+import { GetResume, UpdateResume } from 'api/resume';
 
 const ResumeEdit = () => {
   const navigate = useNavigate();
@@ -18,6 +18,7 @@ const ResumeEdit = () => {
   const { id } = useRecoilValue(SigninAtom);
   const resumeId = Number(useParams()['resumeId']);
   const [resume, setResume] = useRecoilState(ResumeAtom);
+
   const getResume = async (user_id: number, resume_id: number) => {
     const res = await GetResume(user_id, resume_id);
     setResume((prev) => {
@@ -29,6 +30,11 @@ const ResumeEdit = () => {
         is_submitted: res?.data.is_submitted,
       };
     });
+  };
+
+  const updateResume = async (user_id: number, resume_id: number) => {
+    const res = await UpdateResume(user_id, resume_id, resume);
+    alert('성공적으로 저장되었습니다.');
   };
 
   useEffect(() => {
@@ -57,7 +63,7 @@ const ResumeEdit = () => {
           <div className="work-type-container">
             <button
               className={`resume-submit-btn ${'white'}`}
-              onClick={() => navigate('/resume')}
+              onClick={() => updateResume(id, resumeId)}
             >
               임시 저장
             </button>

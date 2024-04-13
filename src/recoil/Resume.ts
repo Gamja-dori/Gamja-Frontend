@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-import { ResumeData, ResumeCardData } from 'data-type';
+import { ResumeData } from 'data-type';
 
 const { persistAtom } = recoilPersist();
 

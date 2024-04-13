@@ -147,6 +147,7 @@ declare module 'props-type' {
   };
 
   export type PaySliderProps = {
+    isSearch?: boolean;
     isPay?: boolean;
     isCareer?: boolean;
     isDuration?: boolean;

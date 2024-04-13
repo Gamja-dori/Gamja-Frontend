@@ -32,7 +32,7 @@ export const UpdateResume = async (
   resume: ResumeData,
 ) => {
   try {
-    const res = await http.put(`/resumes/edit/${user_id}/${resume_id}`, {
+    const res = await http.put(`/resumes/edit/${user_id}/${resume_id}/`, {
       keyword: resume.keyword,
       introduction: resume.introduction,
       job_group: resume.job_group,
