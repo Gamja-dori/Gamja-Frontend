@@ -1,7 +1,6 @@
 import { SignupData } from 'data-type';
 import { http } from './http';
 
-// 현재 가능
 export const SignupSenior = async ({
   username,
   email,
@@ -26,7 +25,6 @@ export const SignupSenior = async ({
   }
 };
 
-// 현재 가능
 export const SigninSenior = async (username: string, password: string) => {
   try {
     const res = await http.post('/users/login/', {
@@ -40,7 +38,6 @@ export const SigninSenior = async (username: string, password: string) => {
   }
 };
 
-// 현재 가능
 export const GetSeniorProfile = async (id: number) => {
   try {
     const res = await http.get(`/users/${id}`);

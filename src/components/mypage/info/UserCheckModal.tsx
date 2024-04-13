@@ -4,10 +4,10 @@ import Modal from 'components/_common/Modal';
 import { ModalProps } from 'props-type';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { UserProfileAtom } from 'recoil/UserProfile';
+import { UserInfoAtom } from 'recoil/UserProfile';
 
 const UserCheckModal = ({ setModal }: ModalProps) => {
-  const userProfileData = useRecoilValue(UserProfileAtom);
+  const userInfoData = useRecoilValue(UserInfoAtom);
   const navigate = useNavigate();
 
   return (
@@ -18,7 +18,7 @@ const UserCheckModal = ({ setModal }: ModalProps) => {
       </p>
       <Input
         label=""
-        defaultValue={userProfileData.username}
+        defaultValue={userInfoData.username}
         disabled={true}
         isAlertRequired={false}
       />

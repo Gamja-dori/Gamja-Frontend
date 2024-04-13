@@ -42,10 +42,6 @@ declare module 'props-type' {
     label: string;
   };
 
-  export type PictureProps = {
-    src?: string;
-  };
-
   // UserTag, SignInForm, TypeContent props
   export type UserProps = {
     user: string;
