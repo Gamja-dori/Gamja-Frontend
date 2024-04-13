@@ -66,7 +66,7 @@ declare module 'props-type' {
     careerYear: number;
     commuteType: string;
     resumeList?: ResumeCardData[];
-    setResumeList?: React.Dispatch<React.SetStateAction<ResumeCard>[]>;
+    setResumeList?: React.Dispatch<React.SetStateAction<ResumeCardData[]>>;
   };
 
   export type ResumeLongCardProps = ResumeCardProps & {
@@ -174,7 +174,7 @@ declare module 'props-type' {
     resumeId: number;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
     resumeList?: ResumeCardData[];
-    setResumeList?: React.Dispatch<React.SetStateAction<ResumeCard>[]>;
+    setResumeList?: React.Dispatch<React.SetStateAction<ResumeCardData[]>>;
   };
 
   export type HamburgerProps = {

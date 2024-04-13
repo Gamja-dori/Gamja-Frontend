@@ -1,6 +1,7 @@
 import { EditModalProps } from 'props-type';
 import { useMediaQuery } from 'react-responsive';
 import { GetResumeList, DeleteResume, PatchDefaultResume } from 'api/resume';
+import { ResumeCardData } from 'data-type';
 
 const EditModal = ({
   userId,
@@ -15,7 +16,13 @@ const EditModal = ({
 
   const deleteResume = async (user_id: number, resume_id: number) => {
     const res = await DeleteResume(user_id, resume_id);
-    getResumeList(user_id);
+    if (resumeList && setResumeList && res) {
+      setResumeList((prevResumeList: ResumeCardData[]) =>
+        prevResumeList.filter(
+          (resume: ResumeCardData) => resume.id !== resume_id,
+        ),
+      );
+    }
   };
 
   const getResumeList = async (user_id: number) => {
@@ -27,7 +34,20 @@ const EditModal = ({
 
   const patchDefaultResume = async (user_id: number, resume_id: number) => {
     const res = await PatchDefaultResume(user_id, resume_id);
-    getResumeList(user_id);
+    if (resumeList && setResumeList && res) {
+      /*
+      setResumeList((prevResumeList: ResumeCardData[]) =>
+        prevResumeList.map((resume: ResumeCardData) => {
+          if (resume.id == resume_id) {
+            resume.is_default = true;
+          } else {
+            resume.is_default = false;
+          }
+        }),
+      );
+      */
+      getResumeList(user_id);
+    }
     setIsOpen(false);
   };
 
