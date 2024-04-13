@@ -85,7 +85,7 @@ const SeniorForm = () => {
 
   // duplicate check button click event handler
   const handleDuplClick = async () => {
-    if (!username || isUsernameWrong) {
+    if (!username || !validateId(username)) {
       return;
     }
     const res = await CheckUsername(username);
