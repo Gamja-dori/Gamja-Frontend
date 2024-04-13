@@ -173,3 +173,25 @@ export const DeleteResumeDetail = async (
     console.log('이력서 세부 삭제 실패', err);
   }
 };
+
+// 기존 이력서 정보 추출
+export const ExtractPriorResume = async (
+  user_id: number,
+  resume_id: number,
+  prior_resume_name: string,
+  prior_resume_file: File,
+) => {
+  try {
+    const res = await http.post(
+      `/resumes/prior-resume/${user_id}/${resume_id}/`,
+      {
+        prior_resume_name: prior_resume_name,
+        prior_resume_file: prior_resume_file,
+      },
+    );
+    console.log('기존 이력서 정보 추출 성공', res);
+    return res;
+  } catch (err) {
+    console.log('기존 이력서 정보 추출 실패', err);
+  }
+};
