@@ -35,7 +35,7 @@ declare module 'props-type' {
     content: string;
     styleClass: string;
     subtitle?: string;
-    onClick?: () => void;
+    onClick?: (e: MouseEventHandler<HTMLDivElement>) => void;
   };
 
   export type TitleProps = {

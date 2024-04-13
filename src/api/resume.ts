@@ -188,6 +188,9 @@ export const ExtractPriorResume = async (
         prior_resume_name: prior_resume_name,
         prior_resume_file: prior_resume_file,
       },
+      {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      },
     );
     console.log('기존 이력서 정보 추출 성공', res);
     return res;

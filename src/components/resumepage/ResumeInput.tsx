@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Select } from 'antd';
 import {
   areaData,
@@ -9,6 +9,7 @@ import {
 } from './ResumeData';
 import { useRecoilState } from 'recoil';
 import { ResumeAtom } from 'recoil/Resume';
+import { ExtractPriorResume } from 'api/resume';
 import SelectTag from './SelectTag';
 import BannerBtn from './BannerBtn';
 import Record from './Record';
@@ -17,6 +18,7 @@ import PaySlider from '../_common/PaySlider';
 import Label from 'components/_common/Label';
 import resume from '../../assets/icons/resume/resume.svg';
 import bulb from '../../assets/icons/resume/bulb.svg';
+import { InputFiles } from 'typescript';
 
 const ResumeInput = () => {
   const [selectedArea, setSelectedArea] = useState('직군');
@@ -27,6 +29,20 @@ const ResumeInput = () => {
     setSelectedArea(resumeData.job_group);
     setSelectedSkills(JSON.parse(resumeData.skills));
   }, []);
+
+  const extractPriorResume = async (
+    user_id: number,
+    resume_id: number,
+    prior_resume_name: string,
+    prior_resume_file: File,
+  ) => {
+    const res = ExtractPriorResume(
+      user_id,
+      resume_id,
+      prior_resume_name,
+      prior_resume_file,
+    );
+  };
 
   const onAreaChange = (value: string) => {
     setSelectedArea(value);
@@ -77,6 +93,26 @@ const ResumeInput = () => {
     });
   };
 
+  const fileInput = useRef<HTMLInputElement>(null);
+
+  // 파일 업로드 버튼 클릭 시 파일 입력 요소 클릭 이벤트 발생
+  const handleButtonClick = (e: React.ChangeEvent<HTMLInputElement>) => {
+    fileInput.current?.click();
+  };
+
+  // 파일 입력 요소의 값이 변경되면 호출되는 함수
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.files);
+    if (e.target.files) {
+      extractPriorResume(
+        resumeData.user_id,
+        resumeData.resume_id,
+        e.target.files[0].name,
+        e.target.files[0],
+      );
+    }
+  };
+
   return (
     <>
       <div className="resume-banner-container">
@@ -85,6 +121,14 @@ const ResumeInput = () => {
           content="기존 이력서 파일 업로드"
           svg={resume}
           styleClass="dark-green"
+          onClick={handleButtonClick}
+        />
+        <input
+          type="file"
+          ref={fileInput}
+          accept=".pdf"
+          onChange={handleChange}
+          style={{ display: 'none' }}
         />
         <BannerBtn
           title="경력 인증하기"
