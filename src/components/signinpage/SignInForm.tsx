@@ -22,18 +22,18 @@ const SignInForm = ({ user }: UserProps) => {
 
   // make input field empty when user is changed
   useEffect(() => {
-    setId('');
+    setUsername('');
     setPw('');
     setAlertText('');
   }, [user]);
 
   // input useStates
-  const [id, setId] = useState('');
+  const [username, setUsername] = useState('');
   const [pw, setPw] = useState('');
 
-  // check id or pw is filled
+  // check username or pw is filled
   const isFilled = () => {
-    if (!id) {
+    if (!username) {
       setAlertText('아이디를 입력해 주세요.');
       return false;
     }
@@ -51,11 +51,11 @@ const SignInForm = ({ user }: UserProps) => {
     if (isFilled()) {
       // API connection is required
       if (user === 'senior') {
-        const res = await SigninSenior(id, pw);
+        const res = await SigninSenior(username, pw);
         data = res?.data;
         // saveData(data);
       } else if (user === 'company') {
-        const res = await SigninCompany(id, pw);
+        const res = await SigninCompany(username, pw);
         data = res?.data;
       }
       if (data) {
@@ -101,8 +101,8 @@ const SignInForm = ({ user }: UserProps) => {
       <div className="input-signin-div">
         <Input
           label="아이디"
-          onChange={(e) => setId(e.target.value)}
-          value={id}
+          onChange={(e) => setUsername(e.target.value)}
+          value={username}
         />
         <Input
           label="비밀번호"
