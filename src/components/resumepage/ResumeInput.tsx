@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Select } from 'antd';
+import { Select, Spin } from 'antd';
 import {
   areaData,
   jobData,
@@ -18,9 +18,9 @@ import PaySlider from '../_common/PaySlider';
 import Label from 'components/_common/Label';
 import resume from '../../assets/icons/resume/resume.svg';
 import bulb from '../../assets/icons/resume/bulb.svg';
-import { InputFiles } from 'typescript';
 
 const ResumeInput = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedArea, setSelectedArea] = useState('직군');
   const [resumeData, setResumeData] = useRecoilState(ResumeAtom);
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
@@ -36,12 +36,20 @@ const ResumeInput = () => {
     prior_resume_name: string,
     prior_resume_file: File,
   ) => {
-    const res = ExtractPriorResume(
+    const res = await ExtractPriorResume(
       user_id,
       resume_id,
       prior_resume_name,
       prior_resume_file,
     );
+    setResumeData((prev) => {
+      return {
+        ...prev,
+        careers: [...prev.careers, ...res?.data.careers],
+        educations: [...prev.educations, ...res?.data.educations],
+      };
+    });
+    setIsLoading(false);
   };
 
   const onAreaChange = (value: string) => {
@@ -93,6 +101,25 @@ const ResumeInput = () => {
     });
   };
 
+  const onDetailChange = (
+    target_id: number,
+    target: string,
+    target_detail: string,
+    value: string,
+  ) => {
+    setResumeData((prev) => {
+      const newItems = prev[target].map((item: any) => {
+        const newItem = { ...item };
+        newItem[target_detail] =
+          item.id == target_id ? value : item[target_detail];
+        return newItem;
+      });
+      const newResume = { ...prev };
+      newResume[target] = newItems;
+      return newResume;
+    });
+  };
+
   const fileInput = useRef<HTMLInputElement>(null);
 
   // 파일 업로드 버튼 클릭 시 파일 입력 요소 클릭 이벤트 발생
@@ -102,8 +129,8 @@ const ResumeInput = () => {
 
   // 파일 입력 요소의 값이 변경되면 호출되는 함수
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files);
     if (e.target.files) {
+      setIsLoading(true);
       extractPriorResume(
         resumeData.user_id,
         resumeData.resume_id,
@@ -115,6 +142,11 @@ const ResumeInput = () => {
 
   return (
     <>
+      {isLoading && (
+        <div className="modal-bg-div">
+          <Spin tip="이력서 정보 추출중 ..." size="large"></Spin>
+        </div>
+      )}
       <div className="resume-banner-container">
         <BannerBtn
           title="이력서 자동완성"
@@ -190,27 +222,88 @@ const ResumeInput = () => {
         <div style={{ position: 'relative' }}>
           <Label label="경력사항" isRequired={true} />
           <button className="add-record-btn">+추가</button>
-          <Record firstPlaceholder="회사명" secondPlaceholder="부서/직책명" />
-          <button className="add-mini-record-btn">+주요 성과 추가</button>
-          <Record
-            isMini={true}
-            firstPlaceholder="성과명"
-            secondPlaceholder="상세 업무 내용을 기입해주세요"
-          />
+          {resumeData.careers?.map((c, index) => {
+            return (
+              <div key={index}>
+                <Record
+                  startDate={c.start_year_month}
+                  endDate={c.end_year_month}
+                  firstPlaceholder="회사명"
+                  secondPlaceholder="부서/직책명"
+                  firstValue={c.company_name}
+                  secondValue={c.job_name}
+                  targetId={c.id}
+                  target="careers"
+                  target_detail={['company_name', 'job_name']}
+                  onDetailChange={onDetailChange}
+                />
+                <button className="add-mini-record-btn">+주요 성과 추가</button>
+                {c.performances.map((p, index) => {
+                  return (
+                    <Record
+                      key={index}
+                      isMini={true}
+                      startDate={p.start_year_month}
+                      endDate={p.end_year_month}
+                      firstPlaceholder="성과명"
+                      secondPlaceholder="상세 업무 내용을 기입해주세요"
+                      firstValue={c.company_name}
+                      secondValue={c.job_name}
+                      targetId={c.id}
+                      target="projects"
+                      target_detail={['name', 'detail']}
+                      onDetailChange={onDetailChange}
+                    />
+                  );
+                })}
+              </div>
+            );
+          })}
         </div>
         <div style={{ position: 'relative' }}>
           <Label label="학력사항" isRequired={true} />
           <button className="add-record-btn">+추가</button>
-          <Record firstPlaceholder="학교명" secondPlaceholder="학위/전공명" />
+          <div className="record-div">
+            {resumeData.educations?.map((e, index) => {
+              return (
+                <Record
+                  key={index}
+                  startDate={e.start_year_month}
+                  endDate={e.end_year_month}
+                  firstPlaceholder="학교명"
+                  secondPlaceholder="학위/전공명"
+                  firstValue={e.education_name}
+                  secondValue={e.education_info}
+                  targetId={e.id}
+                  target="educations"
+                  target_detail={['education_name', 'education_info']}
+                  onDetailChange={onDetailChange}
+                />
+              );
+            })}
+          </div>
         </div>
         <div style={{ position: 'relative' }}>
           <Label label="프로젝트 이력" isRequired={true} />
           <button className="add-record-btn">+추가</button>
-          <Record
-            needDetail={true}
-            firstPlaceholder="프로젝트명"
-            secondPlaceholder="상세 작업 내용을 기입해주세요"
-          />
+          {resumeData.projects?.map((p, index) => {
+            return (
+              <Record
+                key={index}
+                needDetail={true}
+                startDate={p.start_year_month}
+                endDate={p.end_year_month}
+                firstPlaceholder="프로젝트명"
+                secondPlaceholder="상세 작업 내용을 기입해주세요"
+                firstValue={p.name}
+                secondValue={p.detail}
+                targetId={p.id}
+                target="projects"
+                target_detail={['name', 'detail']}
+                onDetailChange={onDetailChange}
+              />
+            );
+          })}
         </div>
         <div>
           <Label label="포트폴리오 파일" />

@@ -52,6 +52,7 @@ declare module 'data-type' {
   };
 
   export type ResumeData = {
+    [key: string]: any;
     user_id: number;
     resume_id: number;
     is_submitted: boolean;
@@ -81,7 +82,7 @@ declare module 'data-type' {
       id: number;
       start_year_month: string;
       end_year_month: string;
-      school_name: string;
+      education_info: string;
       education_name: string;
     }[];
     projects: {

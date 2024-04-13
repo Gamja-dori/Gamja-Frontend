@@ -123,11 +123,27 @@ declare module 'props-type' {
     isSubmitted?: boolean;
   };
 
-  export type RecordProps = {
+  export type RecordDateProps = {
+    target: string;
+    targetId: number;
+    startDate: string;
+    endDate: string;
+    onDetailChange: (
+      target_id: number,
+      target: string,
+      target_detail: string,
+      value: string,
+    ) => void;
+  };
+
+  export type RecordProps = RecordDateProps & {
     isMini?: boolean;
     needDetail?: boolean;
     firstPlaceholder: string;
     secondPlaceholder: string;
+    firstValue: string;
+    secondValue: string;
+    target_detail: string[];
   };
 
   export type ShowRecordProps = {
