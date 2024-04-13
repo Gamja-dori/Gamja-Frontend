@@ -45,7 +45,7 @@ const ResumeList = () => {
               const formattedDate = formatDate(rs.updated_at);
               return (
                 <ResumeCard
-                  resumeId={rs.resume_id}
+                  resumeId={rs.id}
                   isDefault={rs.is_default}
                   title={rs.title}
                   jobGroup={rs.job_group}

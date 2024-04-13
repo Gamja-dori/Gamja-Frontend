@@ -98,7 +98,6 @@ export const PatchResumeTitle = async (
 };
 
 // 기본 이력서 변경
-// 오류
 export const PatchDefaultResume = async (
   user_id: number,
   resume_id: number,
@@ -106,7 +105,7 @@ export const PatchDefaultResume = async (
   try {
     const res = await http.patch('/resumes/set-default/', {
       user_id: user_id,
-      id: resume_id,
+      resume_id: resume_id,
     });
     console.log('기본 이력서 변경 성공', res);
     return res;

@@ -1,6 +1,6 @@
 import { EditModalProps } from 'props-type';
 import { useMediaQuery } from 'react-responsive';
-import { DeleteResume } from 'api/resume';
+import { GetResumeList, DeleteResume, PatchDefaultResume } from 'api/resume';
 
 const EditModal = ({
   userId,
@@ -15,11 +15,20 @@ const EditModal = ({
 
   const deleteResume = async (user_id: number, resume_id: number) => {
     const res = await DeleteResume(user_id, resume_id);
+    getResumeList(user_id);
+  };
+
+  const getResumeList = async (user_id: number) => {
+    const res = await GetResumeList(user_id);
     if (resumeList && setResumeList && res) {
-      setResumeList(resumeList.filter((item) => item.resume_id !== resume_id));
-      console.log(resumeList.filter((item) => item.resume_id !== resume_id));
+      setResumeList(res?.data?.resumes);
     }
-    return;
+  };
+
+  const patchDefaultResume = async (user_id: number, resume_id: number) => {
+    const res = await PatchDefaultResume(user_id, resume_id);
+    getResumeList(user_id);
+    setIsOpen(false);
   };
 
   return (
@@ -28,9 +37,16 @@ const EditModal = ({
       <div className="edit-modal-container">
         <div className="edit-modal-text">이력서 이름 변경</div>
         {isMobile && <hr className="modal-division-line"></hr>}
-        <div className="edit-modal-text">사본 만들기</div>
+        <div
+          className="edit-modal-text"
+          onClick={() => {
+            patchDefaultResume(userId, resumeId);
+          }}
+        >
+          기본 이력서로 설정
+        </div>
         {isMobile && <hr className="modal-division-line"></hr>}
-        <div className="edit-modal-text">다운로드</div>
+        <div className="edit-modal-text">사본 만들기</div>
         {isMobile && <hr className="modal-division-line"></hr>}
         <div
           className="edit-modal-text-alert"

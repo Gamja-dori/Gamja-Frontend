@@ -102,7 +102,7 @@ declare module 'data-type' {
   };
 
   export type ResumeCardData = {
-    resume_id: number;
+    id: number;
     is_default: boolean;
     is_verified: boolean;
     career_year: number;
