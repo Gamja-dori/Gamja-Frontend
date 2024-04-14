@@ -2,9 +2,33 @@ import BannerBtn from './BannerBtn';
 import ResumeCard from './ResumeCard';
 import resume from '../../assets/icons/resume/resume.svg';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { CreateResume, GetResumeList } from 'api/resume';
+import { ResumeCardData } from 'data-type';
+import { useRecoilValue } from 'recoil';
+import { SigninAtom } from 'recoil/Signin';
+import { formatDate } from 'components/utils/DateUtils';
 
 const ResumeList = () => {
   const navigate = useNavigate();
+  const [resumeList, setResumeList] = useState<ResumeCardData[]>([]);
+  const { id } = useRecoilValue(SigninAtom);
+
+  const createResume = async (user_id: number) => {
+    const res = await CreateResume(user_id);
+    const url = `/resume/edit/${res?.data.resume_id}`;
+    navigate(url);
+  };
+
+  const getResumeList = async (user_id: number) => {
+    const res = await GetResumeList(user_id);
+    setResumeList(res?.data?.resumes);
+  };
+
+  useEffect(() => {
+    getResumeList(id);
+  }, []);
+
   return (
     <div className="sub-container">
       <BannerBtn
@@ -12,38 +36,34 @@ const ResumeList = () => {
         content="새로운 이력서 등록하기"
         svg={resume}
         styleClass="dark-green"
-        onClick={() => navigate('/resume/edit/new')}
+        onClick={() => createResume(id)}
       />
       <div className="resume-card-container">
-        <ResumeCard
-          isDefault={true}
-          title="이력서 1"
-          jobGroup="개발"
-          jobName="프론트엔드 개발자"
-          date="2024.01.18"
-          commuteType="원격"
-          isVerified={true}
-          resumeId={1}
-          careerYear={10}
-        />
-        <ResumeCard
-          title="이력서 2"
-          jobGroup="개발"
-          jobName="프론트엔드 개발자"
-          date="2024.01.18"
-          commuteType="원격"
-          resumeId={2}
-          careerYear={10}
-        />
-        <ResumeCard
-          title="이력서 3"
-          jobGroup="개발"
-          jobName="프론트엔드 개발자"
-          date="2024.01.18"
-          commuteType="원격"
-          resumeId={3}
-          careerYear={10}
-        />
+        {resumeList.length > 0 ? (
+          <>
+            {resumeList?.map((rs, index) => {
+              const formattedDate = formatDate(rs.updated_at);
+              return (
+                <ResumeCard
+                  resumeId={rs.id}
+                  isDefault={rs.is_default}
+                  title={rs.title}
+                  jobGroup={rs.job_group}
+                  jobName={rs.job_role}
+                  date={formattedDate}
+                  commuteType={rs.commute_type}
+                  isVerified={rs.is_verified}
+                  careerYear={rs.career_year}
+                  key={index}
+                  resumeList={resumeList}
+                  setResumeList={setResumeList}
+                />
+              );
+            })}
+          </>
+        ) : (
+          <p className="resume-list-empty">작성 중인 이력서가 아직 없어요!</p>
+        )}
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { http } from './http';
 // 이력서 생성
 export const CreateResume = async (user_id: number) => {
   try {
-    const res = await http.post('/resume/create/', {
+    const res = await http.post('/resumes/create/', {
       user_id: user_id,
     });
     console.log('이력서 생성 성공', res);
@@ -32,7 +32,7 @@ export const UpdateResume = async (
   resume: ResumeData,
 ) => {
   try {
-    const res = await http.put(`/resumes/edit/${user_id}/${resume_id}`, {
+    const res = await http.put(`/resumes/edit/${user_id}/${resume_id}/`, {
       keyword: resume.keyword,
       introduction: resume.introduction,
       job_group: resume.job_group,
@@ -98,7 +98,6 @@ export const PatchResumeTitle = async (
 };
 
 // 기본 이력서 변경
-// 오류
 export const PatchDefaultResume = async (
   user_id: number,
   resume_id: number,
@@ -106,7 +105,7 @@ export const PatchDefaultResume = async (
   try {
     const res = await http.patch('/resumes/set-default/', {
       user_id: user_id,
-      id: resume_id,
+      resume_id: resume_id,
     });
     console.log('기본 이력서 변경 성공', res);
     return res;
@@ -130,7 +129,7 @@ export const SubmitResume = async (user_id: number, resume_id: number) => {
 };
 
 // 경력사항 등 생성
-export const CreateResumeDatail = async (
+export const CreateResumeDetail = async (
   user_id: number,
   resume_id: number,
   detail_type: string,
@@ -175,12 +174,27 @@ export const DeleteResumeDetail = async (
   }
 };
 
-export const GetDefaultResume = async (user_id: number) => {
+// 기존 이력서 정보 추출
+export const ExtractPriorResume = async (
+  user_id: number,
+  resume_id: number,
+  prior_resume_name: string,
+  prior_resume_file: File,
+) => {
   try {
-    const res = await http.get(`/resumes/default-resume/${user_id}`);
-    console.log('기본 이력서 조회 성공');
+    const res = await http.post(
+      `/resumes/prior-resume/${user_id}/${resume_id}/`,
+      {
+        prior_resume_name: prior_resume_name,
+        prior_resume_file: prior_resume_file,
+      },
+      {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      },
+    );
+    console.log('기존 이력서 정보 추출 성공', res);
     return res;
   } catch (err) {
-    console.log('기본 이력서 조회 실패', err);
+    console.log('기존 이력서 정보 추출 실패', err);
   }
 };

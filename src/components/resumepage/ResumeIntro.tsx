@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { ResumeEditProps } from 'props-type';
 import Input from 'components/_common/Input';
 import Label from 'components/_common/Label';
@@ -10,9 +9,39 @@ import '@toast-ui/editor/dist/i18n/ko-kr';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
+import { useRecoilState } from 'recoil';
+import { ResumeAtom } from 'recoil/Resume';
+import { useRef } from 'react';
+import { useEffect } from 'react';
 
 const ResumeIntro = ({ isSubmitted }: ResumeEditProps) => {
-  const navigate = useNavigate();
+  const [resumeData, setResumeData] = useRecoilState(ResumeAtom);
+
+  const onKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setResumeData((prev) => {
+      return {
+        ...prev,
+        keyword: e.target.value,
+      };
+    });
+  };
+
+  const editorRef = useRef<Editor>(null);
+
+  const onIntroChange = () => {
+    const content = editorRef.current?.getInstance().getHTML() || '';
+    setResumeData((prev) => {
+      return {
+        ...prev,
+        introduction: content,
+      };
+    });
+  };
+
+  useEffect(() => {
+    editorRef?.current?.getInstance().setHTML(resumeData.introduction);
+  }, []);
+
   return (
     <>
       <div className="resume-banner-container">
@@ -28,6 +57,8 @@ const ResumeIntro = ({ isSubmitted }: ResumeEditProps) => {
           label="키워드"
           isRequired={true}
           placeholder="전문가님의 핵심 키워드들을 적어주세요."
+          value={resumeData.keyword}
+          onChange={onKeywordChange}
           isAlertRequired={false}
         />
         <div>
@@ -40,6 +71,8 @@ const ResumeIntro = ({ isSubmitted }: ResumeEditProps) => {
             useCommandShortcut={true}
             plugins={[colorSyntax]}
             language="ko-KR"
+            ref={editorRef}
+            onChange={onIntroChange}
           />
         </div>
       </div>

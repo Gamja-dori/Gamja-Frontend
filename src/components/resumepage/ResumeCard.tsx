@@ -1,9 +1,12 @@
 import { ResumeCardProps } from 'props-type';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { SigninAtom } from 'recoil/Signin';
 import more from '../../assets/icons/more.svg';
 import verified from '../../assets/icons/verified.svg';
 import EditModal from './EditModal';
+
 const ResumeCard = ({
   isDefault = false,
   title,
@@ -14,10 +17,14 @@ const ResumeCard = ({
   isVerified = false,
   resumeId,
   careerYear,
+  resumeList,
+  setResumeList,
 }: ResumeCardProps) => {
   const url = `/resume/edit/${resumeId}`;
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const { id } = useRecoilValue(SigninAtom);
+
   return (
     <div className="resume-card-wrapper">
       <div className="resume-card" onClick={() => navigate(url)}>
@@ -47,7 +54,15 @@ const ResumeCard = ({
           setIsOpen(true);
         }}
       />
-      {isOpen && <EditModal setIsOpen={setIsOpen} />}
+      {isOpen && (
+        <EditModal
+          userId={id}
+          resumeId={resumeId}
+          setIsOpen={setIsOpen}
+          resumeList={resumeList}
+          setResumeList={setResumeList}
+        />
+      )}
     </div>
   );
 };

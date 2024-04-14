@@ -35,7 +35,7 @@ declare module 'props-type' {
     content: string;
     styleClass: string;
     subtitle?: string;
-    onClick?: () => void;
+    onClick?: (e: MouseEventHandler<HTMLDivElement>) => void;
   };
 
   export type TitleProps = {
@@ -61,6 +61,8 @@ declare module 'props-type' {
     date?: string; // 이력서 최종 수정일
     careerYear: number;
     commuteType: string;
+    resumeList?: ResumeCardData[];
+    setResumeList?: React.Dispatch<React.SetStateAction<ResumeCardData[]>>;
   };
 
   export type ResumeLongCardProps = ResumeCardProps & {
@@ -121,11 +123,29 @@ declare module 'props-type' {
     isSubmitted?: boolean;
   };
 
-  export type RecordProps = {
+  export type RecordDateProps = {
+    target: string;
+    targetId: number;
+    careerId?: number;
+    startDate: string;
+    endDate: string;
+    onDetailChange: (
+      target_id: number,
+      target: string,
+      target_detail: string,
+      value: string,
+      career_id?: number,
+    ) => void;
+  };
+
+  export type RecordProps = RecordDateProps & {
     isMini?: boolean;
     needDetail?: boolean;
     firstPlaceholder: string;
     secondPlaceholder: string;
+    firstValue: string;
+    secondValue: string;
+    target_detail: string[];
   };
 
   export type ShowRecordProps = {
@@ -145,6 +165,7 @@ declare module 'props-type' {
   };
 
   export type PaySliderProps = {
+    isSearch?: boolean;
     isPay?: boolean;
     isCareer?: boolean;
     isDuration?: boolean;
@@ -164,7 +185,11 @@ declare module 'props-type' {
   };
 
   export type EditModalProps = {
+    userId: number;
+    resumeId: number;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    resumeList?: ResumeCardData[];
+    setResumeList?: React.Dispatch<React.SetStateAction<ResumeCardData[]>>;
   };
 
   export type HamburgerProps = {
