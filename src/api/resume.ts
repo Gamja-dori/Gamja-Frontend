@@ -174,3 +174,13 @@ export const DeleteResumeDetail = async (
     console.log('이력서 세부 삭제 실패', err);
   }
 };
+
+export const GetDefaultResume = async (user_id: number) => {
+  try {
+    const res = await http.get(`/resumes/default-resume/${user_id}`);
+    console.log('기본 이력서 조회 성공');
+    return res;
+  } catch (err) {
+    console.log('기본 이력서 조회 실패', err);
+  }
+};
