@@ -4,12 +4,14 @@ import { SearchLog } from './SearchLog';
 import { Select, Tooltip } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { ResumeSearchAtom } from 'recoil/Recommendation';
-import { useRecoilState } from 'recoil';
-import { ResumeLongCardData } from 'data-type';
-import { GetMainSeniorList } from 'api/recommends';
+import { SigninAtom } from 'recoil/Signin';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { ResumeLongCardData, ResumeSearchData } from 'data-type';
+import { GetMainSeniorList, PostRecommendation } from 'api/recommends';
 import filter from '../../assets/icons/search/filter.svg';
 import info from '../../assets/icons/search/info.svg';
-import profile from '../../assets/images/profile.png';
+import bigDel from '../../assets/icons/search/circle-delete.svg';
+import Btn from 'components/_common/Btn';
 
 const Search = () => {
   const [searchData, setSearchData] = useRecoilState(ResumeSearchAtom);
@@ -24,14 +26,36 @@ const Search = () => {
   ];
   const tooltipTxt = `예시) 기계 산업 도면에 대한 경험 또는 교육을 받은 자`;
   const navigate = useNavigate();
+  const { id } = useRecoilValue(SigninAtom);
 
   const getMainSeniorList = async () => {
     const res = await GetMainSeniorList();
     setResumeList(res?.data?.resumes);
   };
+
+  const postRecommendation = async (
+    user_id: number,
+    search: ResumeSearchData,
+  ) => {
+    const res = await PostRecommendation(user_id, search);
+    setResumeList(res?.data.resumes);
+  };
+
   useEffect(() => {
     getMainSeniorList();
   }, []);
+
+  const onQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchData((prev: ResumeSearchData) => {
+      return { ...prev, query: e.target.value };
+    });
+  };
+
+  const resetQuery = () => {
+    setSearchData((prev: ResumeSearchData) => {
+      return { ...prev, query: '' };
+    });
+  };
 
   return (
     <div className="sub-container">
@@ -55,6 +79,8 @@ const Search = () => {
         <input
           className="search-input"
           placeholder="업무를 한 줄로 소개해 주세요."
+          value={searchData.query}
+          onChange={onQueryChange}
           /*
           onClick={() => {
             setIsLogOn(true);
@@ -64,6 +90,14 @@ const Search = () => {
           }}
           */
         />
+        <Btn
+          label="검색"
+          onClick={() => {
+            postRecommendation(id, searchData);
+          }}
+          styleClass="search-btn white-blue"
+        />
+        <img src={bigDel} className="search-delete" onClick={resetQuery} />
         {isLogOn && <SearchLog />}
       </div>
       <div className="search-title-container">

@@ -1,5 +1,4 @@
 import del from '../../assets/icons/search/delete.svg';
-import bigDel from '../../assets/icons/search/circle-delete.svg';
 import miniSearch from '../../assets/icons/search/mini-search.svg';
 export const SearchLog = () => {
   const searchRecord: string[] = [
@@ -8,7 +7,6 @@ export const SearchLog = () => {
   ];
   return (
     <>
-      <img src={bigDel} className="search-delete" />
       {searchRecord.length != 0 && (
         <div className="search-history-container">
           <div className="search-history-title">

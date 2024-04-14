@@ -30,8 +30,6 @@ const ResumeInput = () => {
       setSelectedArea(resumeData.job_group);
       const newSkills = '{"skills": ' + resumeData.skills + '}';
       setSelectedSkills(JSON.parse(newSkills).skills);
-      console.log(newSkills);
-      console.log(JSON.parse(newSkills).skills);
     }
   }, [resumeData.successfully_get]);
 
