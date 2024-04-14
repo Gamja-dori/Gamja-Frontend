@@ -120,15 +120,27 @@ declare module 'data-type' {
   export type ResumeLongCardData = {
     resume_id: number;
     is_verified: boolean;
+    keyword: string;
+    job_group: string;
+    job_role: string;
     career_year: number;
+    skills: string;
     commute_type: string;
     profile_image: string;
     senior_name: string;
+    comments?: { comment_type: number; comments: string[] }[];
+  };
+
+  export type ResumeSearchData = {
+    query: string;
     job_group: string;
     job_role: string;
-    keyword: string;
+    min_career_year: number;
+    max_career_year: number;
     skills: string;
-    comments?: { comment_type: number; comments: string[] }[];
+    min_month_pay: string;
+    max_month_pay: string;
+    commute_type: string;
   };
 
   export type ResumeDetailData = ResumeData & {
