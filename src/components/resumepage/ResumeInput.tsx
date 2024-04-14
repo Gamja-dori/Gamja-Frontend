@@ -27,7 +27,9 @@ const ResumeInput = () => {
 
   useEffect(() => {
     setSelectedArea(resumeData.job_group);
-    setSelectedSkills(JSON.parse(resumeData.skills));
+    setSelectedSkills(
+      JSON.parse('{"skills": ' + resumeData.skills + '}').skills,
+    );
   }, [resumeData.successfully_get]);
 
   const extractPriorResume = async (
