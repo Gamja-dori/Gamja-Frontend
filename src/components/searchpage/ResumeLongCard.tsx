@@ -22,6 +22,7 @@ const ResumeLongCard = ({
     query: '(max-width:802px)',
   });
   const leftSkillLen = skills.length - 3;
+  const pcLeftSkillLen = skills.length - 7;
   return (
     <div
       className="resume-long-card"
@@ -63,11 +64,14 @@ const ResumeLongCard = ({
           </div>
         ) : (
           <div className="resume-card-tags">
-            {skills.map((sk, index) => (
+            {skills.slice(0, 7).map((sk, index) => (
               <div className="resume-tag gray-tag" key={index}>
                 {sk}
               </div>
             ))}
+            {pcLeftSkillLen > 0 && (
+              <div className="text">+{pcLeftSkillLen}개</div>
+            )}
           </div>
         )}
       </div>

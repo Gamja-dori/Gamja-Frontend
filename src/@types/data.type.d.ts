@@ -128,7 +128,7 @@ declare module 'data-type' {
     commute_type: string;
     profile_image: string;
     senior_name: string;
-    comments?: { comment_type: number; comments: string[] }[];
+    comments?: { commentType: number; comments: string[] }[];
   };
 
   export type ResumeSearchData = {
@@ -137,9 +137,10 @@ declare module 'data-type' {
     job_role: string;
     min_career_year: number;
     max_career_year: number;
+    // 희망 근무 기간
     skills: string;
-    min_month_pay: string;
-    max_month_pay: string;
+    min_month_pay: number;
+    max_month_pay: number;
     commute_type: string;
   };
 
