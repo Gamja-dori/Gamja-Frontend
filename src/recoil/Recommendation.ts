@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-import { ResumeSearchData } from 'data-type';
+import { ResumeLongCardData, ResumeSearchData } from 'data-type';
 
 const { persistAtom } = recoilPersist();
 
@@ -18,4 +18,9 @@ export const ResumeSearchAtom = atom<ResumeSearchData>({
     commute_type: '',
   },
   effects_UNSTABLE: [persistAtom],
+});
+
+export const ResumeListAtom = atom<ResumeLongCardData[]>({
+  key: 'ResumeListAtom',
+  default: [],
 });

@@ -1,15 +1,14 @@
 import { Select } from 'antd';
 import type { SelectProps } from 'antd';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Title from 'components/_common/Title';
 import Label from 'components/_common/Label';
 import SelectTag from '../resumepage/SelectTag';
 import PaySlider from 'components/_common/PaySlider';
 import close from '../../assets/icons/hamburger/close.svg';
+import { SearchFilterProps } from 'props-type';
 
-const Filter = () => {
-  const navigate = useNavigate();
+const Filter = ({ setIsFilterOn }: SearchFilterProps) => {
   const [selectedArea, setSelectedArea] = useState('직군');
   const [selectedJob, setSelectedJob] = useState('직무');
   const [selectedCareer, setSelectedCareer] = useState('0년');
@@ -47,7 +46,7 @@ const Filter = () => {
         <img
           src={close}
           onClick={() => {
-            navigate('/search');
+            setIsFilterOn(false);
           }}
         />
       </div>
@@ -113,7 +112,7 @@ const Filter = () => {
         <button
           className="search-filter-confirm-btn"
           onClick={() => {
-            navigate('/search');
+            setIsFilterOn(false);
           }}
         >
           확인

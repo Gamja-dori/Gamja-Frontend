@@ -236,4 +236,8 @@ declare module 'props-type' {
     resumeId: Readonly<Params<string>>;
     isEdit?: boolean;
   };
+
+  export type SearchFilterProps = {
+    setIsFilterOn: React.Dispatch<React.SetStateAction<boolean>>;
+  };
 }
