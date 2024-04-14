@@ -34,6 +34,7 @@ const EditModal = ({
         ),
       );
     }
+    setIsOpen(false);
   };
 
   const patchDefaultResume = async (user_id: number, resume_id: number) => {
