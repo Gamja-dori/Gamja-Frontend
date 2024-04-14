@@ -4,6 +4,7 @@ import { GetDefaultResume } from 'api/resume';
 import { ResumeCardProps } from 'props-type';
 import { useRecoilValue } from 'recoil';
 import { SigninAtom } from 'recoil/Signin';
+import { formatDate } from 'components/utils/DateUtils';
 
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -22,6 +23,7 @@ const DefaultResume = () => {
     const res = await GetDefaultResume(id);
     const data = res?.data.resume;
     if (data && Object.keys(data).length !== 0) {
+      const formattedDate = formatDate(data.updated_at);
       setDefaultResume({
         resumeId: data.id,
         isDefault: data.is_default,
@@ -31,7 +33,7 @@ const DefaultResume = () => {
         title: data.title,
         jobGroup: data.job_group,
         jobName: data.job_role,
-        date: data.updated_at,
+        date: formattedDate,
       });
     }
   };
