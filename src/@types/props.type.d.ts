@@ -126,6 +126,7 @@ declare module 'props-type' {
   export type RecordDateProps = {
     target: string;
     targetId: number;
+    careerId?: number;
     startDate: string;
     endDate: string;
     onDetailChange: (
@@ -133,6 +134,7 @@ declare module 'props-type' {
       target: string,
       target_detail: string,
       value: string,
+      career_id?: number,
     ) => void;
   };
 

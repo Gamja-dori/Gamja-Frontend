@@ -9,7 +9,7 @@ import {
 } from './ResumeData';
 import { useRecoilState } from 'recoil';
 import { ResumeAtom } from 'recoil/Resume';
-import { ExtractPriorResume } from 'api/resume';
+import { ExtractPriorResume, CreateResumeDetail } from 'api/resume';
 import SelectTag from './SelectTag';
 import BannerBtn from './BannerBtn';
 import Record from './Record';
@@ -28,7 +28,7 @@ const ResumeInput = () => {
   useEffect(() => {
     setSelectedArea(resumeData.job_group);
     setSelectedSkills(JSON.parse(resumeData.skills));
-  }, []);
+  }, [resumeData.successfully_get]);
 
   const extractPriorResume = async (
     user_id: number,
@@ -50,6 +50,42 @@ const ResumeInput = () => {
       };
     });
     setIsLoading(false);
+  };
+
+  const createResumeDetail = async (
+    user_id: number,
+    resume_id: number,
+    detail_type: string,
+    career_id = 0,
+  ) => {
+    const res = await CreateResumeDetail(
+      user_id,
+      resume_id,
+      detail_type,
+      career_id,
+    );
+    setResumeData((prev) => {
+      if (detail_type !== 'performances') {
+        const newItems = [...prev[detail_type], { ...res?.data.detail }];
+        const newResume = { ...prev };
+        newResume[detail_type] = newItems;
+        return newResume;
+      } else {
+        const newCareers = prev['careers'].map((item: any) => {
+          const newCareer = { ...item };
+          if (career_id == item.id) {
+            newCareer['performances'] = [
+              ...item.performances,
+              { ...res?.data.detail },
+            ];
+          }
+          return newCareer;
+        });
+        const newResume = { ...prev };
+        newResume['careers'] = newCareers;
+        return newResume;
+      }
+    });
   };
 
   const onAreaChange = (value: string) => {
@@ -106,17 +142,39 @@ const ResumeInput = () => {
     target: string,
     target_detail: string,
     value: string,
+    career_id?: number,
   ) => {
     setResumeData((prev) => {
-      const newItems = prev[target].map((item: any) => {
-        const newItem = { ...item };
-        newItem[target_detail] =
-          item.id == target_id ? value : item[target_detail];
-        return newItem;
-      });
-      const newResume = { ...prev };
-      newResume[target] = newItems;
-      return newResume;
+      if (target !== 'performances') {
+        const newItems = prev[target].map((item: any) => {
+          // newItems 배열 반환
+          const newItem = { ...item };
+          newItem[target_detail] =
+            item.id == target_id ? value : item[target_detail];
+          return newItem; // newItem 객체 반환
+        });
+        const newResume = { ...prev };
+        newResume[target] = newItems; // newItems 배열 교체
+        return newResume; // resumeData 객체 반환
+      } else {
+        const newCareers = prev['careers'].map((item: any) => {
+          const newCareer = { ...item };
+          if (career_id == item.id) {
+            newCareer['performances'] = newCareer['performances'].map(
+              (p: any) => {
+                const newPerformance = { ...p };
+                newPerformance[target_detail] =
+                  p.id == target_id ? value : p[target_detail];
+                return newPerformance; // newItem 객체 반환
+              },
+            );
+          }
+          return newCareer;
+        });
+        const newResume = { ...prev };
+        newResume['careers'] = newCareers;
+        return newResume;
+      }
     });
   };
 
@@ -217,11 +275,23 @@ const ResumeInput = () => {
             value={selectedSkills}
             onChange={onSkillChange}
             options={skillData}
+            style={{ height: 'auto' }}
           />
         </div>
         <div style={{ position: 'relative' }}>
           <Label label="경력사항" isRequired={true} />
-          <button className="add-record-btn">+추가</button>
+          <button
+            className="add-record-btn"
+            onClick={() =>
+              createResumeDetail(
+                resumeData.user_id,
+                resumeData.resume_id,
+                'careers',
+              )
+            }
+          >
+            +추가
+          </button>
           {resumeData.careers?.map((c, index) => {
             return (
               <div key={index}>
@@ -237,32 +307,61 @@ const ResumeInput = () => {
                   target_detail={['company_name', 'job_name']}
                   onDetailChange={onDetailChange}
                 />
-                <button className="add-mini-record-btn">+주요 성과 추가</button>
-                {c.performances.map((p, index) => {
-                  return (
-                    <Record
-                      key={index}
-                      isMini={true}
-                      startDate={p.start_year_month}
-                      endDate={p.end_year_month}
-                      firstPlaceholder="성과명"
-                      secondPlaceholder="상세 업무 내용을 기입해주세요"
-                      firstValue={c.company_name}
-                      secondValue={c.job_name}
-                      targetId={c.id}
-                      target="projects"
-                      target_detail={['name', 'detail']}
-                      onDetailChange={onDetailChange}
-                    />
-                  );
-                })}
+                <button
+                  className="add-mini-record-btn"
+                  onClick={() =>
+                    createResumeDetail(
+                      resumeData.user_id,
+                      resumeData.resume_id,
+                      'performances',
+                      c.id,
+                    )
+                  }
+                >
+                  +주요 성과 추가
+                </button>
+                <div className="record-div">
+                  {c.performances.map((p, index) => {
+                    return (
+                      <Record
+                        key={index}
+                        isMini={true}
+                        startDate={p.start_year_month}
+                        endDate={p.end_year_month}
+                        firstPlaceholder="성과명"
+                        secondPlaceholder="상세 업무 내용을 기입해주세요"
+                        firstValue={p.performance_name}
+                        secondValue={p.performance_detail}
+                        targetId={p.id}
+                        careerId={c.id}
+                        target="performances"
+                        target_detail={[
+                          'performance_name',
+                          'performance_detail',
+                        ]}
+                        onDetailChange={onDetailChange}
+                      />
+                    );
+                  })}
+                </div>
               </div>
             );
           })}
         </div>
         <div style={{ position: 'relative' }}>
           <Label label="학력사항" isRequired={true} />
-          <button className="add-record-btn">+추가</button>
+          <button
+            className="add-record-btn"
+            onClick={() =>
+              createResumeDetail(
+                resumeData.user_id,
+                resumeData.resume_id,
+                'educations',
+              )
+            }
+          >
+            +추가
+          </button>
           <div className="record-div">
             {resumeData.educations?.map((e, index) => {
               return (
@@ -285,25 +384,38 @@ const ResumeInput = () => {
         </div>
         <div style={{ position: 'relative' }}>
           <Label label="프로젝트 이력" isRequired={true} />
-          <button className="add-record-btn">+추가</button>
-          {resumeData.projects?.map((p, index) => {
-            return (
-              <Record
-                key={index}
-                needDetail={true}
-                startDate={p.start_year_month}
-                endDate={p.end_year_month}
-                firstPlaceholder="프로젝트명"
-                secondPlaceholder="상세 작업 내용을 기입해주세요"
-                firstValue={p.name}
-                secondValue={p.detail}
-                targetId={p.id}
-                target="projects"
-                target_detail={['name', 'detail']}
-                onDetailChange={onDetailChange}
-              />
-            );
-          })}
+          <button
+            className="add-record-btn"
+            onClick={() =>
+              createResumeDetail(
+                resumeData.user_id,
+                resumeData.resume_id,
+                'projects',
+              )
+            }
+          >
+            +추가
+          </button>
+          <div className="record-div">
+            {resumeData.projects?.map((p, index) => {
+              return (
+                <Record
+                  key={index}
+                  needDetail={true}
+                  startDate={p.start_year_month}
+                  endDate={p.end_year_month}
+                  firstPlaceholder="프로젝트명"
+                  secondPlaceholder="상세 작업 내용을 기입해주세요"
+                  firstValue={p.project_name}
+                  secondValue={p.project_detail}
+                  targetId={p.id}
+                  target="projects"
+                  target_detail={['project_name', 'project_detail']}
+                  onDetailChange={onDetailChange}
+                />
+              );
+            })}
+          </div>
         </div>
         <div>
           <Label label="포트폴리오 파일" />

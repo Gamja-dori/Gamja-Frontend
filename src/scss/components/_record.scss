@@ -32,6 +32,12 @@
   display: flex;
   color: $dark-gray;
   gap: 0.5rem;
+  @include pc {
+    line-height: 3rem;
+  }
+  @include mobile {
+    line-height: 2rem;
+  }
   input {
     &:focus {
       box-shadow: none;
@@ -42,7 +48,7 @@
       height: 3rem;
     }
     @include mobile {
-      width: 7rem;
+      width: 7.4rem;
       height: 2rem;
     }
   }
@@ -50,14 +56,12 @@
     @extend .date-font;
     color: $dark-gray;
   }
-  .record-date-mini {
-    @include pc {
-      width: 3rem;
-    }
-    @include mobile {
-      width: 2.5rem;
-    }
-  }
+}
+
+.record-delete {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
 }
 
 .show-record-wrapper {

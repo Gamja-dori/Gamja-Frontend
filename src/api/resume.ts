@@ -129,7 +129,7 @@ export const SubmitResume = async (user_id: number, resume_id: number) => {
 };
 
 // 경력사항 등 생성
-export const CreateResumeDatail = async (
+export const CreateResumeDetail = async (
   user_id: number,
   resume_id: number,
   detail_type: string,

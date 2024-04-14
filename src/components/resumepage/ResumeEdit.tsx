@@ -28,6 +28,7 @@ const ResumeEdit = () => {
         user_id: id,
         resume_id: res?.data.resume_id,
         is_submitted: res?.data.is_submitted,
+        successfully_get: true,
       };
     });
   };
