@@ -3,6 +3,11 @@
   flex-direction: column;
 }
 
+.record-div {
+  @extend .record-wrapper;
+  gap: 2rem;
+}
+
 .record-container {
   display: flex;
   justify-content: space-between;
@@ -24,19 +29,26 @@
 
 .record-date {
   @extend .date-font;
+  display: flex;
   color: $dark-gray;
   gap: 0.5rem;
+  @include pc {
+    line-height: 3rem;
+  }
+  @include mobile {
+    line-height: 2rem;
+  }
   input {
     &:focus {
       box-shadow: none;
     }
     @extend .date-font;
     @include pc {
-      width: 6rem;
+      width: 9rem;
       height: 3rem;
     }
     @include mobile {
-      width: 5rem;
+      width: 7.4rem;
       height: 2rem;
     }
   }
@@ -44,14 +56,12 @@
     @extend .date-font;
     color: $dark-gray;
   }
-  .record-date-mini {
-    @include pc {
-      width: 3rem;
-    }
-    @include mobile {
-      width: 2.5rem;
-    }
-  }
+}
+
+.record-delete {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
 }
 
 .show-record-wrapper {

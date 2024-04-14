@@ -52,7 +52,11 @@ declare module 'data-type' {
   };
 
   export type ResumeData = {
+    [key: string]: any;
+    successfully_get: boolean;
+    user_id: number;
     resume_id: number;
+    is_submitted: boolean;
     // 전문가 소개
     keyword: string;
     introduction: string;
@@ -71,23 +75,23 @@ declare module 'data-type' {
         id: number;
         start_year_month: string;
         end_year_month: string;
-        name: string;
-        detail: string;
+        performance_name: string;
+        performance_detail: string;
       }[];
     }[];
     educations: {
       id: number;
       start_year_month: string;
       end_year_month: string;
-      school_name: string;
+      education_info: string;
       education_name: string;
     }[];
     projects: {
       id: number;
       start_year_month: string;
       end_year_month: string;
-      name: string;
-      detail: string;
+      project_name: string;
+      project_detail: string;
     }[];
     portfolios: {
       id: number;
@@ -102,7 +106,7 @@ declare module 'data-type' {
   };
 
   export type ResumeCardData = {
-    resume_id: number;
+    id: number;
     is_default: boolean;
     is_verified: boolean;
     career_year: number;

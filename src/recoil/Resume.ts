@@ -1,13 +1,16 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-import { ResumeData, ResumeCardData } from 'data-type';
+import { ResumeData } from 'data-type';
 
 const { persistAtom } = recoilPersist();
 
 export const ResumeAtom = atom<ResumeData>({
   key: 'ResumeAtom',
   default: {
+    successfully_get: false,
+    user_id: -1,
     resume_id: -1,
+    is_submitted: false,
     keyword: '',
     introduction: '',
     job_group: '',
