@@ -127,7 +127,7 @@ declare module 'data-type' {
     skills: string;
     commute_type: string;
     profile_image: string;
-    senior_name: string;
+    name: string;
     comments?: { commentType: number; comments: string[] }[];
   };
 

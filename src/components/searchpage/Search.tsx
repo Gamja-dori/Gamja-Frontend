@@ -5,8 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { ResumeSearchAtom, ResumeListAtom } from 'recoil/Recommendation';
 import { SigninAtom } from 'recoil/Signin';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { ResumeLongCardData, ResumeSearchData } from 'data-type';
+import { ResumeSearchData } from 'data-type';
 import { GetMainSeniorList, PostRecommendation } from 'api/recommends';
+import { blurName, parseSkills } from 'components/utils/ResumeUtils';
 import ResumeLongCard from './ResumeLongCard';
 import Filter from './Filter';
 import filter from '../../assets/icons/search/filter.svg';
@@ -28,7 +29,7 @@ const Search = () => {
   ];
   const tooltipTxt = `예시) 기계 산업 도면에 대한 경험 또는 교육을 받은 자`;
   const navigate = useNavigate();
-  const { id } = useRecoilValue(SigninAtom);
+  const { id, name } = useRecoilValue(SigninAtom);
 
   const getMainSeniorList = async () => {
     const res = await GetMainSeniorList();
@@ -46,6 +47,20 @@ const Search = () => {
 
   useEffect(() => {
     getMainSeniorList();
+    setSearchData((prev) => {
+      // 검색 데이터 초기화
+      return {
+        query: '',
+        job_group: '직군',
+        job_role: '직무',
+        min_career_year: 0,
+        max_career_year: 50,
+        skills: '[]',
+        min_month_pay: 0,
+        max_month_pay: 1000,
+        commute_type: '희망 근무 형태',
+      };
+    });
   }, []);
 
   const onQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -109,7 +124,7 @@ const Search = () => {
           </div>
           <div className="search-title-container">
             {isSearch ? (
-              <div className="search-subtitle">OO님께 딱 맞는 인재</div>
+              <div className="search-subtitle">{name}님께 딱 맞는 전문가</div>
             ) : (
               <div className="search-subtitle">지금 떠오르는 인재</div>
             )}
@@ -119,29 +134,30 @@ const Search = () => {
               options={filterData}
             />
           </div>
-          <div className="resume-long-card-container">
-            {resumeList?.map((r, index) => {
-              const convertedSkills = JSON.parse(
-                '{"skills": ' + r.skills + '}',
-              ).skills;
-              return (
-                <ResumeLongCard
-                  key={index}
-                  seniorName="김**"
-                  careerYear={r.career_year}
-                  jobGroup={r.job_group}
-                  jobName={r.job_role}
-                  keyword={r.keyword}
-                  skills={convertedSkills}
-                  commuteType={r.commute_type}
-                  isVerified={r.is_verified}
-                  resumeId={r.resume_id}
-                  profileImage={r.profile_image}
-                  recommendComments={r.comments}
-                />
-              );
-            })}
-          </div>
+          {resumeList.length > 0 ? (
+            <div className="resume-long-card-container">
+              {resumeList?.map((r, index) => {
+                return (
+                  <ResumeLongCard
+                    key={index}
+                    seniorName={blurName(r.name)}
+                    careerYear={r.career_year}
+                    jobGroup={r.job_group}
+                    jobName={r.job_role}
+                    keyword={r.keyword}
+                    skills={parseSkills(r.skills)}
+                    commuteType={r.commute_type}
+                    isVerified={r.is_verified}
+                    resumeId={r.resume_id}
+                    profileImage={r.profile_image}
+                    recommendComments={r.comments}
+                  />
+                );
+              })}
+            </div>
+          ) : (
+            <p className="resume-list-empty">검색 결과가 없습니다!</p>
+          )}
         </div>
       )}
     </>

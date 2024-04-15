@@ -7,7 +7,7 @@ import { CreateResume, GetResumeList } from 'api/resume';
 import { ResumeCardData } from 'data-type';
 import { useRecoilValue } from 'recoil';
 import { SigninAtom } from 'recoil/Signin';
-import { formatDate } from 'components/utils/DateUtils';
+import { formatDate } from 'components/utils/ResumeUtils';
 
 const ResumeList = () => {
   const navigate = useNavigate();
