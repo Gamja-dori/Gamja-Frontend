@@ -1,0 +1,7 @@
+@import './mixin';
+@import './variables';
+
+:export {
+  colorPrimary: $dark-green;
+  colorPrimaryHover: $light-gray;
+}

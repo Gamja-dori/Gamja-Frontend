@@ -1,0 +1,20 @@
+import variables from '../abstracts/_variables.module.scss';
+
+const { colorPrimary, colorPrimaryHover } = variables;
+
+const theme = {
+  token: {
+    fontFamily: 'Pretendard Variable',
+    colorPrimary: colorPrimary,
+    colorPrimaryHover: colorPrimaryHover,
+  },
+  components: {
+    Select: {
+      optionFontSize: 20,
+      optionHeight: 50,
+      optionPadding: '16px 10px',
+    },
+  },
+};
+
+export default theme;
