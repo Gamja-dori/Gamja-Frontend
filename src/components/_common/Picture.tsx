@@ -16,7 +16,7 @@ const Picture = () => {
       const id = signinData.id;
       const res = await ChangeProfile(id, form);
       if (res?.status === 200) {
-        setUserProfileData(res.data.image);
+        setUserProfileData('data:image/;base64,' + res.data.image);
       } else {
         alert(
           '프로필 사진 변경을 실패했습니다.\n작은 크기의 사진으로 설정해 주세요.',
@@ -28,10 +28,7 @@ const Picture = () => {
   return (
     <>
       <div className="picture-div">
-        <img
-          src={'data:image/;base64,' + userProfileData}
-          className="picture light-gray"
-        />
+        <img src={userProfileData} className="picture light-gray" />
         <div className="picture-icon light-gray">
           <input
             type="file"

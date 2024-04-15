@@ -1,20 +1,24 @@
-import { SigninCompany } from 'api/company_user';
-import { SigninSenior } from 'api/senior_user';
+import { GetCompanyProfile, SigninCompany } from 'api/company_user';
+import { GetSeniorProfile, SigninSenior } from 'api/senior_user';
+import { GetProfile } from 'api/user';
 import Btn from 'components/_common/Btn';
 import Input from 'components/_common/Input';
 import KakaoBtn from 'components/_common/KakaoBtn';
-import { SigninData } from 'data-type';
+import { InfoFormData, SigninData } from 'data-type';
 import { UserProps } from 'props-type';
-import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-
-import { useNavigate } from 'react-router-dom';
 import { SigninStateAtom, SigninAtom } from 'recoil/Signin';
+import { UserInfoAtom, UserProfileAtom } from 'recoil/UserProfile';
+
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
 const SignInForm = ({ user }: UserProps) => {
   const setSigninAtom = useSetRecoilState(SigninAtom);
   const setSigninStateAtom = useSetRecoilState(SigninStateAtom);
+  const setUserProfileAtom = useSetRecoilState(UserProfileAtom);
+  const setUserInfoAtom = useSetRecoilState(UserInfoAtom);
 
   const navigate = useNavigate();
 
@@ -22,18 +26,18 @@ const SignInForm = ({ user }: UserProps) => {
 
   // make input field empty when user is changed
   useEffect(() => {
-    setId('');
+    setUsername('');
     setPw('');
     setAlertText('');
   }, [user]);
 
   // input useStates
-  const [id, setId] = useState('');
+  const [username, setUsername] = useState('');
   const [pw, setPw] = useState('');
 
-  // check id or pw is filled
+  // check username or pw is filled
   const isFilled = () => {
-    if (!id) {
+    if (!username) {
       setAlertText('아이디를 입력해 주세요.');
       return false;
     }
@@ -51,23 +55,44 @@ const SignInForm = ({ user }: UserProps) => {
     if (isFilled()) {
       // API connection is required
       if (user === 'senior') {
-        const res = await SigninSenior(id, pw);
+        const res = await SigninSenior(username, pw);
         data = res?.data;
-        // saveData(data);
+        // saveUserData(data);
       } else if (user === 'company') {
-        const res = await SigninCompany(id, pw);
+        const res = await SigninCompany(username, pw);
         data = res?.data;
       }
       if (data) {
-        saveData(data);
+        saveSigninData(data);
       } else {
         setAlertText('아이디 또는 비밀번호를 잘못 입력했습니다.');
       }
     }
   };
 
+  // get user profile image api
+  const getProfile = async (id: number) => {
+    const res = await GetProfile(id);
+    const data = res?.data;
+    setUserProfileAtom('data:image/;base64,' + data.image);
+  };
+
+  // get senior user information data
+  const getSeniorData = async (id: number) => {
+    const res = await GetSeniorProfile(id);
+    const data = res?.data;
+    saveUserData(data);
+  };
+
+  // get senior user information data
+  const getCompanyData = async (id: number) => {
+    const res = await GetCompanyProfile(id);
+    const data = res?.data;
+    saveUserData(data);
+  };
+
   // save into recoil atom
-  const saveData = (data: SigninData) => {
+  const saveSigninData = (data: SigninData) => {
     if (data) {
       setSigninAtom({
         id: data.id,
@@ -87,7 +112,34 @@ const SignInForm = ({ user }: UserProps) => {
         'expireAt',
         moment().add(2, 'hour').format('yyyy-MM-DD HH:mm:ss'),
       );
+
+      // call user information data api
+      const id = data.id;
+      const isSenior = data.is_senior;
+      getProfile(id);
+      if (isSenior) {
+        getSeniorData(id);
+      } else {
+        getCompanyData(id);
+      }
       navigate(-1);
+    }
+  };
+
+  const saveUserData = (data: InfoFormData) => {
+    if (data) {
+      setUserInfoAtom({
+        id: data.id,
+        name: data.name,
+        username: data.username,
+        phone_number: data.phone_number,
+        email: data.email,
+        is_senior: data.is_senior,
+        is_enterprise: data.is_enterprise,
+        default_resume: data.default_resume ?? -1,
+        business_number: data.business_number ?? '',
+        is_certified: data.is_certified ?? false,
+      });
     }
   };
 
@@ -101,8 +153,8 @@ const SignInForm = ({ user }: UserProps) => {
       <div className="input-signin-div">
         <Input
           label="아이디"
-          onChange={(e) => setId(e.target.value)}
-          value={id}
+          onChange={(e) => setUsername(e.target.value)}
+          value={username}
         />
         <Input
           label="비밀번호"

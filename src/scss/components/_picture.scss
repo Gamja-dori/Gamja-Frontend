@@ -44,6 +44,10 @@
   @include mobile {
     width: 3.6rem;
     height: 3.6rem;
+    img {
+      width: 2rem;
+      height: 2rem;
+    }
   }
 
   input {
