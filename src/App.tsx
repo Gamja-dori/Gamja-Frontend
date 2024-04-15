@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './scss/main.scss';
 import Layout from './components/_common/layout/Layout';
-import { RecoilRoot } from 'recoil';
 import ScrollToTop from 'components/utils/ScrollToTop';
 import MainPage from './pages/MainPage';
 import SignInPage from 'pages/SignInPage';
@@ -39,71 +38,69 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <RecoilRoot>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/sign-in" element={<SignInPage />} />
-            <Route path="/sign-up" element={<SignUpPage />}>
-              <Route path="verification" element={<Verification />} />
-              <Route path="user-type" element={<UserType />} />
-              <Route path="senior/form" element={<SeniorForm />} />
-              <Route path="company/form" element={<CompanyForm />} />
-              <Route path="complete" element={<Complete />} />
-            </Route>
-            <Route path="/my-page" element={<MyPage />} />
-            <Route path="/my-page/edit" element={<InfoEditPage />} />
-            <Route path="/resume" element={<ResumeListPage />} />
-            <Route path="/resume/edit/:resumeId" element={<ResumeEditPage />} />
-            <Route path="/search" element={<SearchPage />} />
-            <Route
-              path="search/detail/:resumeId"
-              element={<ResumeDetailPage />}
-            />
-            <Route path="/find/id" element={<FindIdPage />}>
-              <Route path="form" element={<FindIdForm />} />
-              <Route path="result" element={<FindIdResult />} />
-            </Route>
-            <Route path="/find/pw" element={<FindPwPage />}>
-              <Route path="form" element={<FindPwForm />} />
-              <Route path="reset" element={<FindPwReset />} />
-            </Route>
-            <Route path="about-us" element={<AboutUsPage />}>
-              <Route path="senior" element={<SeniorTab />} />
-              <Route path="company" element={<CompanyTab />} />
-            </Route>
-            <Route path="/notice" element={<NoticePage />} />
-            <Route
-              path="/suggestion/resume/:resumeId"
-              element={<SuggestionPage />}
-            />
-            <Route
-              path="/suggestion/edit/:resumeId"
-              element={<SuggestionEditPage />}
-            />
-            <Route
-              path="/suggestion/management"
-              element={<SuggestionManagementPage />}
-            />
-            <Route
-              path="/suggestion/cancel/:resumeId"
-              element={<SuggestionCancelPage />}
-            />
-            <Route
-              path="/suggestion/payment/:resumeId"
-              element={<SuggestionPaymentPage />}
-            />
-            <Route
-              path="/suggestion/payment/complete"
-              element={<SuggestionPaymentCompletePage />}
-            />
-            <Route
-              path="/suggestion/detail/:suggestionId"
-              element={<SuggestionDetailPage />}
-            />
-          </Routes>
-        </Layout>
-      </RecoilRoot>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/sign-in" element={<SignInPage />} />
+          <Route path="/sign-up" element={<SignUpPage />}>
+            <Route path="verification" element={<Verification />} />
+            <Route path="user-type" element={<UserType />} />
+            <Route path="senior/form" element={<SeniorForm />} />
+            <Route path="company/form" element={<CompanyForm />} />
+            <Route path="complete" element={<Complete />} />
+          </Route>
+          <Route path="/my-page" element={<MyPage />} />
+          <Route path="/my-page/edit" element={<InfoEditPage />} />
+          <Route path="/resume" element={<ResumeListPage />} />
+          <Route path="/resume/edit/:resumeId" element={<ResumeEditPage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route
+            path="search/detail/:resumeId"
+            element={<ResumeDetailPage />}
+          />
+          <Route path="/find/id" element={<FindIdPage />}>
+            <Route path="form" element={<FindIdForm />} />
+            <Route path="result" element={<FindIdResult />} />
+          </Route>
+          <Route path="/find/pw" element={<FindPwPage />}>
+            <Route path="form" element={<FindPwForm />} />
+            <Route path="reset" element={<FindPwReset />} />
+          </Route>
+          <Route path="about-us" element={<AboutUsPage />}>
+            <Route path="senior" element={<SeniorTab />} />
+            <Route path="company" element={<CompanyTab />} />
+          </Route>
+          <Route path="/notice" element={<NoticePage />} />
+          <Route
+            path="/suggestion/resume/:resumeId"
+            element={<SuggestionPage />}
+          />
+          <Route
+            path="/suggestion/edit/:resumeId"
+            element={<SuggestionEditPage />}
+          />
+          <Route
+            path="/suggestion/management"
+            element={<SuggestionManagementPage />}
+          />
+          <Route
+            path="/suggestion/cancel/:resumeId"
+            element={<SuggestionCancelPage />}
+          />
+          <Route
+            path="/suggestion/payment/:resumeId"
+            element={<SuggestionPaymentPage />}
+          />
+          <Route
+            path="/suggestion/payment/complete"
+            element={<SuggestionPaymentCompletePage />}
+          />
+          <Route
+            path="/suggestion/detail/:suggestionId"
+            element={<SuggestionDetailPage />}
+          />
+        </Routes>
+      </Layout>
     </BrowserRouter>
   );
 }

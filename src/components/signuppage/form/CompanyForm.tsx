@@ -20,7 +20,7 @@ const CompanyForm = () => {
   const [agree, setAgree] = useState(false);
 
   // input value useStates
-  const [id, setId] = useState('');
+  const [username, setUsername] = useState('');
   const [pw, setPw] = useState('');
   const [pwCheck, setPwCheck] = useState('');
   const [parsedComNum, setParsedComNum] = useState('');
@@ -28,33 +28,35 @@ const CompanyForm = () => {
   const [email, setEmail] = useState('');
 
   // alert-text value useStates
-  const [idAlert, setIdAlert] = useState('6~12자 이내의 영문, 숫자만 가능');
+  const [usernameAlert, setUsernameAlert] = useState(
+    '6~12자 이내의 영문, 숫자만 가능',
+  );
   const [pwAlert, setPwAlert] = useState(
     '8~12자 이내의 영문, 숫자, 특수기호 중 2종류 조합',
   );
   const [pwCheckAlert, setPwCheckAlert] = useState('');
 
   // isWrong props useStates
-  const [isIdWrong, setIsIdWrong] = useState(false);
+  const [isUsernameWrong, setIsUsernameWrong] = useState(false);
   const [isPwWrong, setIsPwWrong] = useState(false);
   const [isPwCheckWrong, setIsPwCheckWrong] = useState(false);
   const [isComNumWrong, setIsComNumWrong] = useState(false);
 
-  // id duplication check useState
-  const [idDuplCheck, setIdDuplCheck] = useState(false);
+  // username duplication check useState
+  const [usernameDuplCheck, setUsernameDuplCheck] = useState(false);
 
-  // validation of id
-  const handleId = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // validation of username
+  const handleUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setId(value);
-    setIdDuplCheck(false);
+    setUsername(value);
+    setUsernameDuplCheck(false);
 
     if (validateId(value)) {
-      setIdAlert('6~12자 이내의 영문, 숫자만 가능');
-      setIsIdWrong(false);
+      setUsernameAlert('6~12자 이내의 영문, 숫자만 가능');
+      setIsUsernameWrong(false);
     } else {
-      setIdAlert('6~12자 이내의 영문, 숫자로 이루어져야 합니다.');
-      setIsIdWrong(true);
+      setUsernameAlert('6~12자 이내의 영문, 숫자로 이루어져야 합니다.');
+      setIsUsernameWrong(true);
     }
   };
 
@@ -100,30 +102,30 @@ const CompanyForm = () => {
 
   // duplicate check button click event handler
   const handleDuplClick = async () => {
-    if (!id || isIdWrong) {
+    if (!username || !validateId(username)) {
       return;
     }
-    const res = await CheckUsername(id);
+    const res = await CheckUsername(username);
     console.log(res);
     const data = res?.data;
     if (data[0]) {
-      setIdAlert('이미 사용 중인 아이디입니다.');
-      setIdDuplCheck(false);
-      setIsIdWrong(true);
+      setUsernameAlert('이미 사용 중인 아이디입니다.');
+      setUsernameDuplCheck(false);
+      setIsUsernameWrong(true);
     } else {
-      setIdAlert('사용 가능한 아이디입니다.');
-      setIdDuplCheck(true);
-      setIsIdWrong(false);
+      setUsernameAlert('사용 가능한 아이디입니다.');
+      setUsernameDuplCheck(true);
+      setIsUsernameWrong(false);
     }
   };
 
-  // check id or idDupleCheck or pw or pwCheck is filled
+  // check username or usernameDuplCheck or pw or pwCheck is filled
   const isFilled = () => {
-    if (!id) {
-      setIsIdWrong(true);
+    if (!username) {
+      setIsUsernameWrong(true);
     }
-    if (!idDuplCheck) {
-      setIsIdWrong(true);
+    if (!usernameDuplCheck) {
+      setIsUsernameWrong(true);
     }
     if (!pw) {
       setIsPwWrong(true);
@@ -135,10 +137,10 @@ const CompanyForm = () => {
       setIsComNumWrong(true);
     }
 
-    if (id && idDuplCheck && pw && pwCheck && comNum) {
+    if (username && usernameDuplCheck && pw && pwCheck && comNum) {
       return true;
     }
-    setIdAlert('6~12자 이내의 영문, 숫자만 가능');
+    setUsernameAlert('6~12자 이내의 영문, 숫자만 가능');
     return false;
   };
 
@@ -147,14 +149,14 @@ const CompanyForm = () => {
     if (isFilled()) {
       if (
         agree &&
-        !isIdWrong &&
-        idDuplCheck &&
+        !isUsernameWrong &&
+        usernameDuplCheck &&
         !isPwWrong &&
         !isPwCheckWrong &&
         !isComNumWrong
       ) {
         const res = await SignupCompany({
-          username: id,
+          username: username,
           email: email,
           password: pw,
           name: name,
@@ -182,10 +184,10 @@ const CompanyForm = () => {
         <div className="input-div">
           <Input
             label="아이디"
-            onChange={handleId}
+            onChange={handleUsername}
             isRequired={true}
-            isWrong={isIdWrong}
-            alertText={idAlert}
+            isWrong={isUsernameWrong}
+            alertText={usernameAlert}
           />
           <Btn
             label="중복 확인"

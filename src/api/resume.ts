@@ -198,3 +198,13 @@ export const ExtractPriorResume = async (
     console.log('기존 이력서 정보 추출 실패', err);
   }
 };
+
+export const GetDefaultResume = async (user_id: number) => {
+  try {
+    const res = await http.get(`/resumes/default-resume/${user_id}`);
+    console.log('기본 이력서 조회 성공');
+    return res;
+  } catch (err) {
+    console.log('기본 이력서 조회 실패', err);
+  }
+};
