@@ -323,7 +323,7 @@ const ResumeInput = () => {
                 >
                   +주요 성과 추가
                 </button>
-                <div className="record-div">
+                <div className="record-div-mini">
                   {c.performances.map((p, index) => {
                     return (
                       <Record
