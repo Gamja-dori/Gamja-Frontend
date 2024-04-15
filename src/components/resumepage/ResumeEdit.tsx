@@ -21,9 +21,8 @@ const ResumeEdit = () => {
 
   const getResume = async (user_id: number, resume_id: number) => {
     const res = await GetResume(user_id, resume_id);
-    setResume((prev) => {
+    setResume(() => {
       return {
-        ...prev,
         ...res?.data.resume,
         user_id: id,
         resume_id: res?.data.resume_id,
