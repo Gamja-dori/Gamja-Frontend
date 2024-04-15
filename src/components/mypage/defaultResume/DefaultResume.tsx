@@ -4,7 +4,7 @@ import { GetDefaultResume } from 'api/resume';
 import { ResumeCardProps } from 'props-type';
 import { useRecoilValue } from 'recoil';
 import { SigninAtom } from 'recoil/Signin';
-import { formatDate } from 'components/utils/DateUtils';
+import { formatDate } from 'components/utils/ResumeUtils';
 
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
