@@ -4,8 +4,11 @@ export const formatDate = (targetDate: string) => {
 };
 
 export const blurName = (name: string) => {
-  const blurredName = name[0] + '*'.repeat(name.length - 1);
-  return blurredName;
+  if (name.length > 1) {
+    const blurredName = name[0] + '*'.repeat(name.length - 1);
+    return blurredName;
+  }
+  return '';
 };
 
 export const parseSkills = (skills: string) => {

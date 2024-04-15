@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import { SearchLog } from './SearchLog';
 import { Select, Tooltip } from 'antd';
-import { useNavigate } from 'react-router-dom';
-import { ResumeSearchAtom, ResumeListAtom } from 'recoil/Recommendation';
+import {
+  ResumeSearchAtom,
+  ResumeListAtom,
+  ResumeDetailAtom,
+} from 'recoil/Recommendation';
 import { SigninAtom } from 'recoil/Signin';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { ResumeSearchData } from 'data-type';
@@ -18,6 +21,7 @@ import Btn from 'components/_common/Btn';
 const Search = () => {
   const [searchData, setSearchData] = useRecoilState(ResumeSearchAtom);
   const [resumeList, setResumeList] = useRecoilState(ResumeListAtom);
+  const [resumeData, setResumeData] = useRecoilState(ResumeDetailAtom);
   const [isLogOn, setIsLogOn] = useState(false); // 검색 기록 on off
   const [isSearch, setIsSearch] = useState(false); // 검색 실행 o x
   const [isFilterOn, setIsFilterOn] = useState(false); // 필터 on off
@@ -28,7 +32,6 @@ const Search = () => {
     { value: '업데이트순', label: '업데이트순' },
   ];
   const tooltipTxt = `예시) 기계 산업 도면에 대한 경험 또는 교육을 받은 자`;
-  const navigate = useNavigate();
   const { id, name } = useRecoilValue(SigninAtom);
 
   const getMainSeniorList = async () => {
@@ -59,6 +62,32 @@ const Search = () => {
         min_month_pay: 0,
         max_month_pay: 1000,
         commute_type: '희망 근무 형태',
+      };
+    });
+    setResumeData(() => {
+      return {
+        successfully_get: false,
+        user_id: -1,
+        resume_id: -1,
+        is_submitted: true,
+        keyword: '',
+        introduction: '',
+        job_group: '',
+        job_role: '',
+        career_year: -1,
+        skills: '[]',
+        careers: [],
+        educations: [],
+        projects: [],
+        portfolios: [],
+        duration_start: -1,
+        duration_end: -1,
+        min_month_pay: -1,
+        max_month_pay: -1,
+        commute_type: '',
+        profile_image: '',
+        name: '',
+        is_verified: false,
       };
     });
   }, []);

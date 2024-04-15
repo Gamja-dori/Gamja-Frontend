@@ -147,6 +147,7 @@ declare module 'data-type' {
   export type ResumeDetailData = ResumeData & {
     // 인적사항 및 기본 정보
     profile_image: string;
-    senior_name: string;
+    name: string;
+    is_verified: boolean;
   };
 }

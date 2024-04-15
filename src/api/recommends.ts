@@ -65,9 +65,9 @@ export const FilterSeniorList = async (
 };
 
 // 이력서(전문가) 상세 조회
-export const GetResumeDetail = async (user_id: number, resume_id: number) => {
+export const GetResumeDetail = async (resume_id: number) => {
   try {
-    const res = await http.get(`/recommends/${user_id}/${resume_id}/`);
+    const res = await http.get(`/recommends/detail/${resume_id}/`);
     console.log('전문가 상세 조회 성공', res);
     return res;
   } catch (err) {
