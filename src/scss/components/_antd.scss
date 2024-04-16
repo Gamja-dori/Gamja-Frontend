@@ -20,11 +20,7 @@
     height: 5rem;
   }
   border-radius: 1rem;
-  //box-shadow: inset 0 0 0 0.1rem $light-gray;
   color: $dark-gray;
-  &:focus {
-    //box-shadow: inset 0 0 0 0.1rem $dark-green;
-  }
 }
 
 .select-mini {
@@ -75,6 +71,10 @@
   @include mobile {
     font-size: 2rem;
   }
+}
+
+.ant-select-selection-placeholder {
+  color: $dark-gray !important;
 }
 
 .green-tooltip-inner {
