@@ -1,53 +1,116 @@
 import { Select } from 'antd';
-import type { SelectProps } from 'antd';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import Title from 'components/_common/Title';
 import Label from 'components/_common/Label';
 import SelectTag from '../resumepage/SelectTag';
 import PaySlider from 'components/_common/PaySlider';
 import close from '../../assets/icons/hamburger/close.svg';
+import { SearchFilterProps } from 'props-type';
+import {
+  areaData,
+  jobData,
+  skillData,
+  commuteTypeData,
+} from '../resumepage/ResumeData';
+import { ResumeSearchAtom, ResumeListAtom } from 'recoil/Recommendation';
+import { SigninAtom } from 'recoil/Signin';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { FilterSeniorList } from 'api/recommends';
+import { ResumeSearchData } from 'data-type';
 
-const Filter = () => {
-  const navigate = useNavigate();
+const Filter = ({ setIsFilterOn }: SearchFilterProps) => {
+  const [searchData, setSearchData] = useRecoilState(ResumeSearchAtom);
+  const [resumeList, setResumeList] = useRecoilState(ResumeListAtom);
   const [selectedArea, setSelectedArea] = useState('직군');
-  const [selectedJob, setSelectedJob] = useState('직무');
-  const [selectedCareer, setSelectedCareer] = useState('0년');
+  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+  const { id } = useRecoilValue(SigninAtom);
 
-  const onAreaChange = () => {
-    setSelectedJob('직무');
+  useEffect(() => {
+    setSelectedArea(searchData.job_group);
+    if (searchData.skills !== '[]') {
+      setSelectedSkills(
+        JSON.parse('{"skills": ' + searchData.skills + '}').skills,
+      );
+    }
+  }, []);
+
+  const filterSeniorList = async (
+    user_id: number,
+    search: ResumeSearchData,
+  ) => {
+    const res = await FilterSeniorList(user_id, search);
+    setResumeList(res?.data.resumes);
+    setIsFilterOn(false);
   };
 
-  const areaData = [
-    { value: 'jack', label: 'Jack' },
-    { value: 'lucy', label: 'Lucy' },
-    { value: 'Yiminghe', label: 'yiminghe' },
-  ];
-  const jobData = [{ value: 'Yiminghe', label: 'yiminghe' }];
-  const yearData = [
-    { value: 1, label: '1년' },
-    { value: 2, label: '2년' },
-  ];
-  const skills: SelectProps['options'] = [
-    // 보유 기술
-    { value: 1, label: '1년' },
-    { value: 2, label: '2년' },
-  ];
-  const commuteTypeData = [
-    { value: '상주 근무', label: '상주 근무' },
-    { value: '원격 근무', label: '원격 근무' },
-    { value: '상주 근무 및 원격 근무', label: '상주 근무 및 원격 근무' },
-  ];
+  const onAreaChange = (value: string) => {
+    setSelectedArea(value);
+    setSearchData((prev) => {
+      return {
+        ...prev,
+        job_group: value,
+        job_role: '직무',
+      };
+    });
+  };
+
+  const onJobChange = (value: string) => {
+    setSearchData((prev) => {
+      return {
+        ...prev,
+        job_role: value,
+      };
+    });
+  };
+
+  const onSkillChange = (value: string[]) => {
+    setSelectedSkills(value);
+    setSearchData((prev) => {
+      const convertedSkills = JSON.stringify(value);
+      return {
+        ...prev,
+        skills: convertedSkills,
+      };
+    });
+  };
+
+  const onCommuteChange = (value: string) => {
+    setSearchData((prev) => {
+      return {
+        ...prev,
+        commute_type: value,
+      };
+    });
+  };
+
+  const onResetClick = () => {
+    setSearchData((prev) => {
+      return {
+        ...prev,
+        job_group: '직군',
+        job_role: '직무',
+        min_career_year: 0,
+        max_career_year: 50,
+        skills: '[]',
+        min_month_pay: 0,
+        max_month_pay: 1000,
+        commute_type: '희망 근무 형태',
+      };
+    });
+    setSelectedSkills([]);
+  };
 
   return (
     <div className="search-filter-container">
       <Title label="필터링" />
       <div className="search-filter-title">
-        <div className="reset">초기화</div>
+        <div className="reset" onClick={onResetClick}>
+          초기화
+        </div>
         <img
           src={close}
           onClick={() => {
-            navigate('/search');
+            setIsFilterOn(false);
           }}
         />
       </div>
@@ -57,9 +120,12 @@ const Filter = () => {
             <Label label="희망 근무 형태" />
             <Select
               className="select-long"
-              defaultValue="상주 근무"
-              onChange={onAreaChange}
-              options={commuteTypeData}
+              value={searchData.commute_type}
+              onChange={onCommuteChange}
+              options={commuteTypeData.map((a) => ({
+                label: a,
+                value: a,
+              }))}
             />
           </div>
         </div>
@@ -68,15 +134,21 @@ const Filter = () => {
           <div className="select-container">
             <Select
               className="select-mini"
-              defaultValue="직군"
+              value={searchData.job_group}
               onChange={onAreaChange}
-              options={areaData}
+              options={areaData.map((a) => ({
+                label: a,
+                value: a,
+              }))}
             />
             <Select
               className="select-mini"
-              defaultValue="직무"
-              onChange={onAreaChange}
-              options={jobData}
+              onChange={onJobChange}
+              value={searchData.job_role}
+              options={jobData[areaData.indexOf(selectedArea)]?.map((a) => ({
+                label: a,
+                value: a,
+              }))}
             />
           </div>
         </div>
@@ -88,8 +160,9 @@ const Filter = () => {
             tagRender={SelectTag}
             allowClear
             placeholder="스킬을 검색해 주세요"
-            defaultValue={[]}
-            options={skills}
+            value={selectedSkills}
+            onChange={onSkillChange}
+            options={skillData}
           />
         </div>
         <div>
@@ -113,7 +186,7 @@ const Filter = () => {
         <button
           className="search-filter-confirm-btn"
           onClick={() => {
-            navigate('/search');
+            filterSeniorList(id, searchData);
           }}
         >
           확인

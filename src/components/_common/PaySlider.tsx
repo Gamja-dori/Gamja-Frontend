@@ -2,7 +2,8 @@ import { Slider } from 'antd';
 import type { SliderSingleProps } from 'antd';
 import { PaySliderProps } from 'props-type';
 import { ResumeAtom } from 'recoil/Resume';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { ResumeSearchAtom } from 'recoil/Recommendation';
+import { useRecoilState } from 'recoil';
 
 const hourMarks: SliderSingleProps['marks'] = {
   0: '0원',
@@ -30,10 +31,19 @@ const PaySlider = ({
   isCareer,
   isPay,
 }: PaySliderProps) => {
-  const [resume, setResume] = useRecoilState(ResumeAtom);
-
+  const [resumeData, setResumeData] = useRecoilState(ResumeAtom);
+  const [searchData, setSearchData] = useRecoilState(ResumeSearchAtom);
   const onDurationChange = (value: number[]) => {
-    setResume((prev) => {
+    if (isSearch) {
+      setSearchData((prev) => {
+        return {
+          ...prev,
+          duration_start: value[0],
+          duration_end: value[1],
+        };
+      });
+    }
+    setResumeData((prev) => {
       return {
         ...prev,
         duration_start: value[0],
@@ -43,11 +53,31 @@ const PaySlider = ({
   };
 
   const onPayChange = (value: number[]) => {
-    setResume((prev) => {
+    if (isSearch) {
+      setSearchData((prev) => {
+        return {
+          ...prev,
+          min_month_pay: value[0],
+          max_month_pay: value[1],
+        };
+      });
+    } else {
+      setResumeData((prev) => {
+        return {
+          ...prev,
+          min_month_pay: value[0],
+          max_month_pay: value[1],
+        };
+      });
+    }
+  };
+
+  const onCareerChange = (value: number[]) => {
+    setSearchData((prev) => {
       return {
         ...prev,
-        min_month_pay: value[0],
-        max_month_pay: value[1],
+        min_career_year: value[0],
+        max_career_year: value[1],
       };
     });
   };
@@ -61,6 +91,8 @@ const PaySlider = ({
             marks={durationMarks}
             max={12}
             defaultValue={[0, 12]}
+            //value={[searchData.duration_start, searchData.duration_end]}
+            //onChange={onDurationChange}
             tooltip={{ open: true }}
             style={{ marginTop: '4rem' }}
           />
@@ -69,7 +101,7 @@ const PaySlider = ({
             range
             marks={durationMarks}
             max={12}
-            value={[resume.duration_start, resume.duration_end]}
+            value={[resumeData.duration_start, resumeData.duration_end]}
             onChange={onDurationChange}
             tooltip={{ open: true }}
             style={{ marginTop: '4rem' }}
@@ -80,7 +112,8 @@ const PaySlider = ({
           range
           marks={careerMarks}
           max={50}
-          defaultValue={[0, 50]}
+          value={[searchData.min_career_year, searchData.max_career_year]}
+          onChange={onCareerChange}
           tooltip={{ open: true }}
           style={{ marginTop: '4rem' }}
         />
@@ -93,7 +126,8 @@ const PaySlider = ({
               range
               marks={monthMarks}
               max={1000}
-              defaultValue={[0, 1000]}
+              value={[searchData.min_month_pay, searchData.max_month_pay]}
+              onChange={onPayChange}
               tooltip={{ open: true }}
             />
           </>
@@ -104,7 +138,7 @@ const PaySlider = ({
               range
               marks={monthMarks}
               max={1000}
-              value={[resume.min_month_pay, resume.max_month_pay]}
+              value={[resumeData.min_month_pay, resumeData.max_month_pay]}
               onChange={onPayChange}
               tooltip={{ open: true }}
             />

@@ -8,6 +8,11 @@
   gap: 2rem;
 }
 
+.record-div-mini {
+  @extend .record-div;
+  margin-bottom: 2rem;
+}
+
 .record-container {
   display: flex;
   justify-content: space-between;

@@ -21,7 +21,7 @@ export const jobData = [
 const range = (size: number, start = 0) => {
   return [...Array(size).keys()].map((key) => key + start);
 };
-export const yearData = range(40, 1);
+export const yearData = range(50, 1);
 
 const skills = [
   'Python',

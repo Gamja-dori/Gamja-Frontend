@@ -120,20 +120,34 @@ declare module 'data-type' {
   export type ResumeLongCardData = {
     resume_id: number;
     is_verified: boolean;
-    career_year: number;
-    commute_type: string;
-    profile_image: string;
-    senior_name: string;
+    keyword: string;
     job_group: string;
     job_role: string;
-    keyword: string;
+    career_year: number;
     skills: string;
-    comments?: { comment_type: number; comments: string[] }[];
+    commute_type: string;
+    profile_image: string;
+    name: string;
+    comments?: { commentType: number; comments: string[] }[];
+  };
+
+  export type ResumeSearchData = {
+    query: string;
+    job_group: string;
+    job_role: string;
+    min_career_year: number;
+    max_career_year: number;
+    // 희망 근무 기간
+    skills: string;
+    min_month_pay: number;
+    max_month_pay: number;
+    commute_type: string;
   };
 
   export type ResumeDetailData = ResumeData & {
     // 인적사항 및 기본 정보
     profile_image: string;
-    senior_name: string;
+    name: string;
+    is_verified: boolean;
   };
 }

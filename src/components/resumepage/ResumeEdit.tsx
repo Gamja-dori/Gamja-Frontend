@@ -21,9 +21,8 @@ const ResumeEdit = () => {
 
   const getResume = async (user_id: number, resume_id: number) => {
     const res = await GetResume(user_id, resume_id);
-    setResume((prev) => {
+    setResume(() => {
       return {
-        ...prev,
         ...res?.data.resume,
         user_id: id,
         resume_id: res?.data.resume_id,
@@ -81,11 +80,8 @@ const ResumeEdit = () => {
               임시 저장
             </button>
             {resume.is_submitted ? (
-              <button
-                className={`resume-submit-btn ${'dark-green'}`}
-                onClick={() => navigate('/resume')}
-              >
-                인재풀 재등록
+              <button className={`resume-submit-btn ${'disabled'}`}>
+                인재풀 등록 완료
               </button>
             ) : (
               <button

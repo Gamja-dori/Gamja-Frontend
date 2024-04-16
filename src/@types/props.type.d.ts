@@ -115,10 +115,6 @@ declare module 'props-type' {
     }[];
   };
 
-  export type SeniorIntroProps = {
-    markdownText: string;
-  };
-
   export type ResumeEditProps = {
     isSubmitted?: boolean;
   };
@@ -154,14 +150,7 @@ declare module 'props-type' {
     secondName: string;
     durationStart: string;
     durationEnd: string;
-    hasDetail?: boolean;
-    details?: {
-      detailId: number;
-      detailName: string;
-      detailContents: string;
-      durationStart: string;
-      durationEnd: string;
-    }[];
+    isDetail?: boolean;
   };
 
   export type PaySliderProps = {
@@ -235,5 +224,9 @@ declare module 'props-type' {
   export type SuggestionProps = {
     resumeId: Readonly<Params<string>>;
     isEdit?: boolean;
+  };
+
+  export type SearchFilterProps = {
+    setIsFilterOn: React.Dispatch<React.SetStateAction<boolean>>;
   };
 }

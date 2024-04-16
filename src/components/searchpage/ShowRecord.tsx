@@ -6,35 +6,31 @@ const ShowRecord = ({
   secondName,
   durationStart,
   durationEnd,
-  hasDetail = false,
-  details,
+  isDetail = false,
 }: ShowRecordProps) => {
   return (
-    <div className="show-record-wrapper" key={recordId}>
-      <div className="first-name">{firstName}</div>
-      <div className="second-name">{secondName}</div>
-      <div className="duration">
-        {durationStart} - {durationEnd}
-      </div>
-      {hasDetail && (
-        <>
-          {details?.map((dt) => {
-            return (
-              <div className="show-record-mini-wrapper" key={dt.detailId}>
-                <div className="dot" />
-                <div className="show-record-wrapper">
-                  <div className="detail-name">{dt.detailName}</div>
-                  <div className="detail-contents">{dt.detailContents}</div>
-                  <div className="detail-duration">
-                    {dt.durationStart} - {dt.durationEnd}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </>
+    <>
+      {isDetail ? (
+        <div className="show-record-mini-wrapper" key={recordId}>
+          <div className="dot" />
+          <div className="show-record-wrapper">
+            <div className="detail-name">{firstName}</div>
+            <div className="detail-contents">{secondName}</div>
+            <div className="detail-duration">
+              {durationStart} - {durationEnd}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="show-record-wrapper" key={recordId}>
+          <div className="first-name">{firstName}</div>
+          <div className="second-name">{secondName}</div>
+          <div className="duration">
+            {durationStart} - {durationEnd}
+          </div>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

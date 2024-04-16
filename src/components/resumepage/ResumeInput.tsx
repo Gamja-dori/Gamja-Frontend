@@ -10,6 +10,7 @@ import {
 import { useRecoilState } from 'recoil';
 import { ResumeAtom } from 'recoil/Resume';
 import { ExtractPriorResume, CreateResumeDetail } from 'api/resume';
+import { parseSkills } from 'components/utils/ResumeUtils';
 import SelectTag from './SelectTag';
 import BannerBtn from './BannerBtn';
 import Record from './Record';
@@ -28,10 +29,7 @@ const ResumeInput = () => {
   useEffect(() => {
     if (resumeData.successfully_get) {
       setSelectedArea(resumeData.job_group);
-      const newSkills = '{"skills": ' + resumeData.skills + '}';
-      setSelectedSkills(JSON.parse(newSkills).skills);
-      console.log(newSkills);
-      console.log(JSON.parse(newSkills).skills);
+      setSelectedSkills(parseSkills(resumeData.skills));
     }
   }, [resumeData.successfully_get]);
 
@@ -325,7 +323,7 @@ const ResumeInput = () => {
                 >
                   +주요 성과 추가
                 </button>
-                <div className="record-div">
+                <div className="record-div-mini">
                   {c.performances.map((p, index) => {
                     return (
                       <Record
