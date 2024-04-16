@@ -1,0 +1,119 @@
+@import '../abstracts/variables';
+
+.select-container {
+  display: flex;
+  width: 100%;
+  @include pc {
+    gap: 3rem;
+  }
+  @include mobile {
+    gap: 2rem;
+  }
+}
+.select {
+  @include pc {
+    width: 78.6rem;
+    height: 6.4rem;
+  }
+  @include mobile {
+    width: 100%;
+    height: 5rem;
+  }
+  border-radius: 1rem;
+  //box-shadow: inset 0 0 0 0.1rem $light-gray;
+  color: $dark-gray;
+  &:focus {
+    //box-shadow: inset 0 0 0 0.1rem $dark-green;
+  }
+}
+
+.select-mini {
+  @extend .select;
+  @include pc {
+    width: 37.8rem;
+  }
+  @include mobile {
+    width: 100%;
+  }
+}
+
+.select-long {
+  @extend .select;
+  width: 100%;
+}
+
+.multiple {
+  width: 100%;
+}
+
+.select-tag {
+  background-color: $dark-green;
+  color: $white;
+}
+
+.slider-title {
+  @include pc {
+    margin: 2rem 0;
+    font-size: 2.8rem;
+  }
+  @include mobile {
+    margin: 1rem 0;
+    font-size: 2.2rem;
+  }
+  font-weight: 500;
+}
+
+.ant-select-selector {
+  box-shadow: none !important;
+}
+
+.ant-select-selection-item,
+.ant-select-selection-placeholder {
+  @include pc {
+    font-size: 2.4rem;
+  }
+  @include mobile {
+    font-size: 2rem;
+  }
+}
+
+.green-tooltip-inner {
+  color: $white !important;
+  padding: 3px 8px !important;
+  font-size: 1.8rem !important;
+  background-color: rgba(1, 186, 114, 0.7) !important;
+  text-align: center !important;
+}
+.blue-tooltip-inner {
+  color: $white !important;
+  padding: 3px 8px !important;
+  font-size: 1.8rem !important;
+  background-color: rgba(65, 192, 242, 0.7) !important;
+  text-align: center !important;
+}
+
+.green-tooltip-arrow::before {
+  background-color: rgba(1, 186, 114, 0.6) !important;
+}
+
+.blue-tooltip-arrow::before {
+  background-color: rgba(65, 192, 242, 0.6) !important;
+}
+
+.blue-slider {
+  .ant-slider-handle:hover::after {
+    box-shadow: 0 0 0 0.4rem $dark-blue !important;
+  }
+  .ant-slider-handle::after {
+    box-shadow: 0 0 0 0.2rem $dark-blue !important;
+  }
+  .ant-slider-handle:active::after {
+    box-shadow: 0 0 0 0.4rem $dark-blue !important;
+  }
+  .ant-slider-dot-active {
+    border-color: $dark-blue !important;
+  }
+  .ant-slider-track {
+    background-color: $dark-blue !important;
+  }
+}
