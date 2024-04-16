@@ -1,7 +1,6 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 import { InfoFormData } from 'data-type';
-import defaultProfile from '../assets/images/default_profile.png';
 
 const { persistAtom } = recoilPersist();
 
@@ -19,11 +18,5 @@ export const UserInfoAtom = atom<InfoFormData>({
     business_number: '',
     is_certified: false,
   },
-  effects_UNSTABLE: [persistAtom],
-});
-
-export const UserProfileAtom = atom({
-  key: 'UserProfileAtom',
-  default: defaultProfile,
   effects_UNSTABLE: [persistAtom],
 });

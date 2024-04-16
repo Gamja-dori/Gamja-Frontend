@@ -22,14 +22,9 @@ declare module 'data-type' {
     name: string;
     is_senior: boolean;
     is_enterprise: boolean;
+    profile_image: string;
     access: string;
     refresh: string;
-  };
-
-  export type ProfileData = {
-    name: string;
-    src: string;
-    user: string;
   };
 
   export type ManagementItemData = {
