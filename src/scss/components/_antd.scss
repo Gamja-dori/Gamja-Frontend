@@ -117,3 +117,53 @@
     background-color: $dark-blue !important;
   }
 }
+
+.multiple {
+  .ant-select-selection-search {
+    @include pc {
+      width: 78.6rem;
+      height: 6.4rem;
+    }
+    @include mobile {
+      width: 100%;
+      height: 5rem;
+    }
+  }
+  .ant-select-selection-search-input {
+    @include pc {
+      font-size: 2.4rem;
+    }
+    @include mobile {
+      font-size: 2rem;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.ant-tag {
+  display: flex;
+  align-items: center;
+  @include pc {
+    font-size: 2.4rem !important;
+    height: 5rem !important;
+    margin: 0.5rem;
+  }
+  @include mobile {
+    font-size: 2rem !important;
+    height: 4rem !important;
+    margin: 0.5rem;
+  }
+}
+
+.filter-select {
+  .ant-select-selection-item {
+    @include pc {
+      font-size: 2.2rem !important;
+    }
+    @include mobile {
+      font-size: 1.8rem !important;
+    }
+  }
+}
