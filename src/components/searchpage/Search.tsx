@@ -56,9 +56,11 @@ const Search = () => {
         query: '',
         job_group: '직군',
         job_role: '직무',
+        skills: '[]',
         min_career_year: 0,
         max_career_year: 50,
-        skills: '[]',
+        duration_start: 0,
+        duration_end: 12,
         min_month_pay: 0,
         max_month_pay: 1000,
         commute_type: '희망 근무 형태',
@@ -107,7 +109,7 @@ const Search = () => {
   return (
     <>
       {isFilterOn ? (
-        <Filter setIsFilterOn={setIsFilterOn} />
+        <Filter setIsFilterOn={setIsFilterOn} setIsSearch={setIsSearch} />
       ) : (
         <div className="sub-container">
           <div className="search-title-container">

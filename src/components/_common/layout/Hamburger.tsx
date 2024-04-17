@@ -7,10 +7,9 @@ import doc from './../../../assets/icons/hamburger/mono-doc.svg';
 import user from './../../../assets/icons/hamburger/mono-user.svg';
 import arrow from './../../../assets/icons/hamburger/arrow-down.svg';
 import setting from './../../../assets/icons/hamburger/setting.svg';
-import profile from './../../../assets/images/profile.png';
 import { Signout } from 'api/user';
 import { useRecoilValue } from 'recoil';
-import { SigninStateAtom } from 'recoil/Signin';
+import { SigninStateAtom, SigninAtom } from 'recoil/Signin';
 
 const HamburgerAccordion = ({
   title,
@@ -60,6 +59,7 @@ const Hamburger = ({ setIsOpen, isLogin }: HamburgerProps) => {
     setIsOpen(false);
   };
   const { isSenior } = useRecoilValue(SigninStateAtom);
+  const { name, profile_image } = useRecoilValue(SigninAtom); // profile image 추가 필요
   const infoSubMenus = [
     {
       subMenu: '시니어 전문가',
@@ -126,9 +126,9 @@ const Hamburger = ({ setIsOpen, isLogin }: HamburgerProps) => {
         />
         {isLogin ? (
           <div className="hamburger-profile-container">
-            <img className="resume-card-profile" src={profile} />
+            <img className="resume-card-profile" src={profile_image} />
             <div className="name">
-              <div>김다시 님</div>
+              <div>{name} 님</div>
               {isSenior ? (
                 <div className="senior">시니어 회원</div>
               ) : (
