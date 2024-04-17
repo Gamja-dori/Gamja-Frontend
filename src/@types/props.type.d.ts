@@ -228,5 +228,6 @@ declare module 'props-type' {
 
   export type SearchFilterProps = {
     setIsFilterOn: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
   };
 }

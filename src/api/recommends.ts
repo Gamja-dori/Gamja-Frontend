@@ -1,3 +1,4 @@
+import { duration } from 'moment';
 import { http } from './http';
 import { ResumeSearchData } from 'data-type';
 
@@ -23,9 +24,11 @@ export const PostRecommendation = async (
       query: search.query,
       job_group: search.job_group === '직군' ? '' : search.job_group,
       job_role: search.job_role === '직무' ? '' : search.job_role,
+      skills: search.skills,
       min_career_year: search.min_career_year,
       max_career_year: search.max_career_year,
-      skills: search.skills,
+      duration_start: search.duration_start,
+      duration_end: search.duration_end,
       min_month_pay: search.min_month_pay,
       max_month_pay: search.max_month_pay,
       commute_type:
@@ -49,9 +52,11 @@ export const FilterSeniorList = async (
       query: search.query,
       job_group: search.job_group === '직군' ? '' : search.job_group,
       job_role: search.job_role === '직무' ? '' : search.job_role,
+      skills: search.skills,
       min_career_year: search.min_career_year,
       max_career_year: search.max_career_year,
-      skills: search.skills,
+      duration_start: search.duration_start,
+      duration_end: search.duration_end,
       min_month_pay: search.min_month_pay,
       max_month_pay: search.max_month_pay,
       commute_type:

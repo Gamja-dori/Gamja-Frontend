@@ -18,7 +18,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { FilterSeniorList } from 'api/recommends';
 import { ResumeSearchData } from 'data-type';
 
-const Filter = ({ setIsFilterOn }: SearchFilterProps) => {
+const Filter = ({ setIsFilterOn, setIsSearch }: SearchFilterProps) => {
   const [searchData, setSearchData] = useRecoilState(ResumeSearchAtom);
   const [resumeList, setResumeList] = useRecoilState(ResumeListAtom);
   const [selectedArea, setSelectedArea] = useState('직군');
@@ -41,6 +41,7 @@ const Filter = ({ setIsFilterOn }: SearchFilterProps) => {
     const res = await FilterSeniorList(user_id, search);
     setResumeList(res?.data.resumes);
     setIsFilterOn(false);
+    setIsSearch(true);
   };
 
   const onAreaChange = (value: string) => {
@@ -91,11 +92,14 @@ const Filter = ({ setIsFilterOn }: SearchFilterProps) => {
         job_role: '직무',
         min_career_year: 0,
         max_career_year: 50,
+        duration_start: 0,
+        duration_end: 12,
         skills: '[]',
         min_month_pay: 0,
         max_month_pay: 1000,
         commute_type: '희망 근무 형태',
       };
+      // setIsSearch(false);
     });
     setSelectedSkills([]);
   };
