@@ -130,10 +130,11 @@ declare module 'data-type' {
     query: string;
     job_group: string;
     job_role: string;
+    skills: string;
     min_career_year: number;
     max_career_year: number;
-    // 희망 근무 기간
-    skills: string;
+    duration_start: number;
+    duration_end: number;
     min_month_pay: number;
     max_month_pay: number;
     commute_type: string;
