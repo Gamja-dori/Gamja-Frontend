@@ -2,7 +2,7 @@
   {
     "isVerified": true,
     "resumeId": 1,
-    "title": "김다시",
+    "seniorName": "김다시",
     "careerYear": 10,
     "jobGroup": "개발",
     "jobName": "프론트엔드 개발자",
@@ -15,7 +15,7 @@
   {
     "isVerified": true,
     "resumeId": 2,
-    "title": "가나다",
+    "seniorName": "가나다",
     "careerYear": 15,
     "jobGroup": "통신",
     "jobName": "네트워크 설계 전문가",

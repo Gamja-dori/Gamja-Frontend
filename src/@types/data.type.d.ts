@@ -30,7 +30,7 @@ declare module 'data-type' {
   export type ManagementItemData = {
     isVerified: boolean;
     resumeId: number;
-    title: string;
+    seniorName: string;
     careerYear: number;
     jobGroup: string;
     jobName: string;
