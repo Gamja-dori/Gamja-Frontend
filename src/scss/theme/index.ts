@@ -5,6 +5,7 @@ const { colorPrimary, colorPrimaryHover } = variables;
 const theme = {
   token: {
     fontFamily: 'Pretendard Variable',
+    fontSize: 24,
     colorPrimary: colorPrimary,
     colorPrimaryHover: colorPrimaryHover,
   },
