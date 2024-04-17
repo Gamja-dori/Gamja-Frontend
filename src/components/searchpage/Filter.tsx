@@ -163,6 +163,7 @@ const Filter = ({ setIsFilterOn }: SearchFilterProps) => {
             value={selectedSkills}
             onChange={onSkillChange}
             options={skillData}
+            style={{ height: 'auto' }}
           />
         </div>
         <div>

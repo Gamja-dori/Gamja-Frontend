@@ -1,6 +1,7 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 import { SigninData, SigninStateAtomType } from 'data-type';
+import defaultProfile from '../assets/images/default_profile.png';
 
 const { persistAtom } = recoilPersist();
 
@@ -11,6 +12,7 @@ export const SigninAtom = atom<SigninData>({
     name: '',
     is_senior: false,
     is_enterprise: false,
+    profile_image: defaultProfile,
     access: '',
     refresh: '',
   },
