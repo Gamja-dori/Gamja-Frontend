@@ -1,6 +1,5 @@
 import { GetCompanyProfile, SigninCompany } from 'api/company_user';
 import { GetSeniorProfile, SigninSenior } from 'api/senior_user';
-import { GetProfile } from 'api/user';
 import Btn from 'components/_common/Btn';
 import Input from 'components/_common/Input';
 import KakaoBtn from 'components/_common/KakaoBtn';
@@ -8,7 +7,7 @@ import { InfoFormData, SigninData } from 'data-type';
 import { UserProps } from 'props-type';
 import { useSetRecoilState } from 'recoil';
 import { SigninStateAtom, SigninAtom } from 'recoil/Signin';
-import { UserInfoAtom, UserProfileAtom } from 'recoil/UserProfile';
+import { UserInfoAtom } from 'recoil/UserProfile';
 
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -17,7 +16,6 @@ import moment from 'moment';
 const SignInForm = ({ user }: UserProps) => {
   const setSigninAtom = useSetRecoilState(SigninAtom);
   const setSigninStateAtom = useSetRecoilState(SigninStateAtom);
-  const setUserProfileAtom = useSetRecoilState(UserProfileAtom);
   const setUserInfoAtom = useSetRecoilState(UserInfoAtom);
 
   const navigate = useNavigate();
@@ -70,13 +68,6 @@ const SignInForm = ({ user }: UserProps) => {
     }
   };
 
-  // get user profile image api
-  const getProfile = async (id: number) => {
-    const res = await GetProfile(id);
-    const data = res?.data;
-    setUserProfileAtom('data:image/;base64,' + data.image);
-  };
-
   // get senior user information data
   const getSeniorData = async (id: number) => {
     const res = await GetSeniorProfile(id);
@@ -99,6 +90,7 @@ const SignInForm = ({ user }: UserProps) => {
         name: data.name,
         is_senior: data.is_senior,
         is_enterprise: data.is_enterprise,
+        profile_image: data.profile_image,
         access: data.access,
         refresh: data.refresh,
       });
@@ -116,7 +108,6 @@ const SignInForm = ({ user }: UserProps) => {
       // call user information data api
       const id = data.id;
       const isSenior = data.is_senior;
-      getProfile(id);
       if (isSenior) {
         getSeniorData(id);
       } else {
