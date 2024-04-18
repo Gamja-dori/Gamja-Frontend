@@ -6,6 +6,7 @@ import { ResumeAtom } from 'recoil/Resume';
 import { SigninAtom } from 'recoil/Signin';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { GetResume, UpdateResume, SubmitResume } from 'api/resume';
+import { ResumeData } from 'data-type';
 
 const ResumeEdit = () => {
   const navigate = useNavigate();
@@ -18,6 +19,23 @@ const ResumeEdit = () => {
   const { id } = useRecoilValue(SigninAtom);
   const resumeId = Number(useParams()['resumeId']);
   const [resume, setResume] = useRecoilState(ResumeAtom);
+
+  const validateResume = (resume: ResumeData) => {
+    if (
+      resume.keyword == '' ||
+      resume.introduction == '' ||
+      resume.job_group == '직군' ||
+      resume.job_role == '직무' ||
+      resume.skills == '[]' ||
+      resume.commute_type == '희망 근무 형태' ||
+      resume.careers.length == 0 ||
+      resume.educations.length == 0 ||
+      resume.projects.length == 0
+    ) {
+      return false;
+    }
+    return true;
+  };
 
   const getResume = async (user_id: number, resume_id: number) => {
     const res = await GetResume(user_id, resume_id);
@@ -32,21 +50,50 @@ const ResumeEdit = () => {
     });
   };
 
-  const updateResume = async (user_id: number, resume_id: number) => {
+  const updateResume = async (
+    user_id: number,
+    resume_id: number,
+    is_submit = false,
+  ) => {
     const res = await UpdateResume(user_id, resume_id, resume);
-    setResume((prev) => {
-      return {
-        ...prev,
-        is_submitted: false,
-      };
-    });
-    alert('이력서가 성공적으로 저장되었습니다.');
+    if (res?.data) {
+      setResume((prev) => {
+        return {
+          ...prev,
+          is_submitted: false,
+        };
+      });
+      if (!is_submit) {
+        alert('이력서가 성공적으로 저장되었습니다.');
+      } else {
+        return true;
+      }
+    } else {
+      if (!is_submit) {
+        alert('이력서 저장에 실패했습니다.');
+      } else {
+        return false;
+      }
+    }
   };
 
   const submitResume = async (user_id: number, resume_id: number) => {
-    const res = await SubmitResume(user_id, resume_id);
-    alert('이력서가 성공적으로 인재풀에 등록되었습니다.');
-    navigate('/resume');
+    const update = await updateResume(user_id, resume_id, true);
+    const is_validate = validateResume(resume);
+    if (!is_validate) {
+      alert('아직 작성하지 않은 항목이 있습니다.');
+    }
+    if (update && is_validate) {
+      const res = await SubmitResume(user_id, resume_id);
+      if (res?.data) {
+        alert('이력서가 성공적으로 인재풀에 등록되었습니다.');
+        navigate('/resume');
+      } else {
+        alert('인재풀 등록에 실패했습니다.');
+      }
+    } else {
+      alert('이력서 저장에 실패했습니다.');
+    }
   };
 
   useEffect(() => {
