@@ -90,7 +90,10 @@ const ResumeLongCard = ({
             </div>
           ))}
           {hiddenSkillCnt > 0 && (
-            <div className="text">+{hiddenSkillCnt}개</div>
+            <div className="text">
+              {skills.length === hiddenSkillCnt && '보유 스킬 및 자격증 '}+
+              {hiddenSkillCnt}개
+            </div>
           )}
         </div>
       </div>
