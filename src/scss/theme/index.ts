@@ -15,9 +15,6 @@ const theme = {
       optionHeight: 50,
       optionPadding: '16px 10px',
     },
-    Input: {
-      inputFontSize: 22,
-    },
   },
 };
 

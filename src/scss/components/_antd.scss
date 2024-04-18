@@ -118,6 +118,15 @@
   }
 }
 
+.ant-slider-mark-text {
+  @include pc {
+    font-size: 1.8rem;
+  }
+  @include mobile {
+    font-size: 1.4rem;
+  }
+}
+
 .multiple {
   .ant-select-selection-search {
     @include pc {

@@ -5,27 +5,27 @@ import Btn from 'components/_common/Btn';
 const ManagementItem = ({ item }: ManagementItemProps) => {
   return (
     <div className="resume-long-card">
-      <div className="resume-long-sub">
-        <div className="suggest-manage-profile-div">
-          <img src={item.profileImage} />
-        </div>
+      <div className="resume-long-profile">
+        <img className="resume-card-profile" src={item.profileImage} />
         <div className="resume-card-contents">
           <div className="resume-title-container">
-            <div className="resume-card-title">{item.title}</div>
+            <div className="resume-card-title">{item.seniorName}</div>
             <div className="resume-card-tags">
               <div className="resume-tag blue-tag">{item.commuteType}</div>
               <div className="resume-tag blue-tag">{item.careerYear}년차</div>
               {item.isVerified && (
                 <div className="resume-tag blue-tag">
                   <img src={verified} />
-                  경력 검증
+                  검증됨
                 </div>
               )}
             </div>
           </div>
-          <div className="resume-card-job">
-            {item.jobGroup} &gt; {item.jobName}
-          </div>
+        </div>
+      </div>
+      <div className="resume-long-sub">
+        <div className="resume-card-job">
+          {item.jobGroup} {`>`} {item.jobName}
         </div>
       </div>
       {item.isFinished && (
