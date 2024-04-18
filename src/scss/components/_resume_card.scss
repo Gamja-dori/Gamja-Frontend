@@ -95,11 +95,15 @@
 
 .resume-title-container {
   display: flex;
+  flex-shrink: 0;
   gap: 1rem;
   margin-bottom: 0.5rem;
 }
 
 .resume-card-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
   font-weight: 700;
   @include pc {
     font-size: 2.4rem;
@@ -126,9 +130,11 @@
 
 .resume-card-tags {
   display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 0.5rem;
-  height: 3rem;
   .text {
+    flex-wrap: nowrap;
     font-size: 1.6rem;
     color: $dark-gray;
     margin-top: 0.5rem;

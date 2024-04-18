@@ -1,6 +1,6 @@
 import { ResumeLongCardProps } from 'props-type';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
 import verified from '../../assets/icons/verified.svg';
 import check from '../../assets/icons/check.svg';
 const ResumeLongCard = ({
@@ -18,11 +18,41 @@ const ResumeLongCard = ({
 }: ResumeLongCardProps) => {
   const url = `/search/detail/${resumeId}`;
   const navigate = useNavigate();
-  const isMobile: boolean = useMediaQuery({
-    query: '(max-width:802px)',
-  });
-  const leftSkillLen = skills.length - 3;
-  const pcLeftSkillLen = skills.length - 7;
+
+  const [visibleSkills, setVisibleSkills] = useState<string[]>([]);
+  const [hiddenSkillCnt, setHiddenSkillCnt] = useState(0);
+
+  const calculateVisibleSkills = () => {
+    const containerWidth =
+      document.getElementById('skill-tags')?.clientWidth ?? 0;
+    let totalWidth = 0;
+    let visibleCnt = 0;
+    for (let i = 0; i < skills.length; i++) {
+      const skillWidth = calculateSkillItemWidth(skills[i]);
+      totalWidth += skillWidth;
+      if (totalWidth <= containerWidth) {
+        visibleCnt++;
+      } else {
+        break;
+      }
+    }
+    setVisibleSkills(skills.slice(0, visibleCnt));
+    setHiddenSkillCnt(skills.length - visibleCnt);
+  };
+
+  const calculateSkillItemWidth = (skill: string) => {
+    const charWidth = 15;
+    return skill.length * charWidth;
+  };
+
+  useEffect(() => {
+    calculateVisibleSkills();
+    window.addEventListener('resize', calculateVisibleSkills);
+    return () => {
+      window.removeEventListener('resize', calculateVisibleSkills);
+    };
+  }, [skills]);
+
   return (
     <div
       className="resume-long-card"
@@ -53,27 +83,16 @@ const ResumeLongCard = ({
           {jobGroup} {`>`} {jobName}
         </div>
         <div className="resume-card-summary">{keyword}</div>
-        {isMobile ? (
-          <div className="resume-card-tags">
-            {skills.slice(0, 3).map((sk, index) => (
-              <div className="resume-tag gray-tag" key={index}>
-                {sk}
-              </div>
-            ))}
-            {leftSkillLen > 0 && <div className="text">+{leftSkillLen}개</div>}
-          </div>
-        ) : (
-          <div className="resume-card-tags">
-            {skills.slice(0, 7).map((sk, index) => (
-              <div className="resume-tag gray-tag" key={index}>
-                {sk}
-              </div>
-            ))}
-            {pcLeftSkillLen > 0 && (
-              <div className="text">+{pcLeftSkillLen}개</div>
-            )}
-          </div>
-        )}
+        <div className="resume-card-tags" id="skill-tags">
+          {visibleSkills.map((sk, index) => (
+            <div className="resume-tag gray-tag" key={index}>
+              {sk}
+            </div>
+          ))}
+          {hiddenSkillCnt > 0 && (
+            <div className="text">+{hiddenSkillCnt}개</div>
+          )}
+        </div>
       </div>
       {recommendComments.length != 0 && (
         <div className="resume-comment-container">
