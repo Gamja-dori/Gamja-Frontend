@@ -32,7 +32,7 @@ const skills = [
   'HTML',
   'JavaScript',
   'TypeScript',
-  'MySQl',
+  'MySQL',
   'Linux',
   'C/C++',
   'PHP',
