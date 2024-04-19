@@ -77,6 +77,18 @@
   color: $dark-gray !important;
 }
 
+.ant-select-dropdown {
+  z-index: 1090;
+}
+
+.blue-select {
+  &.ant-select-focused {
+    .ant-select-selector {
+      border-color: $dark-blue !important;
+    }
+  }
+}
+
 .green-tooltip-inner {
   color: $white !important;
   padding: 3px 8px !important;
@@ -175,4 +187,12 @@
       font-size: 1.8rem !important;
     }
   }
+}
+
+.ant-spin {
+  color: $dark-blue;
+}
+
+.ant-spin-dot-item {
+  background-color: $dark-blue !important;
 }
