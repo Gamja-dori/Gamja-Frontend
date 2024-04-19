@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { SearchLog } from './SearchLog';
-import { Select, Tooltip } from 'antd';
+import { Select, Tooltip, Spin } from 'antd';
 import {
   ResumeSearchAtom,
   ResumeListAtom,
@@ -22,6 +22,7 @@ const Search = () => {
   const [searchData, setSearchData] = useRecoilState(ResumeSearchAtom);
   const [resumeList, setResumeList] = useRecoilState(ResumeListAtom);
   const [resumeData, setResumeData] = useRecoilState(ResumeDetailAtom);
+  const [isLoading, setIsLoading] = useState(false); // 로딩 애니메이션 on off
   const [isLogOn, setIsLogOn] = useState(false); // 검색 기록 on off
   const [isSearch, setIsSearch] = useState(false); // 검색 실행 o x
   const [isFilterOn, setIsFilterOn] = useState(false); // 필터 on off
@@ -43,9 +44,11 @@ const Search = () => {
     user_id: number,
     search: ResumeSearchData,
   ) => {
+    setIsLoading(true);
     const res = await PostRecommendation(user_id, search);
     setResumeList(res?.data.resumes);
     setIsSearch(true);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -108,8 +111,17 @@ const Search = () => {
 
   return (
     <>
+      {isLoading && (
+        <div className="modal-bg-div">
+          <Spin tip="이력서 정보 추출중 ..." size="large"></Spin>
+        </div>
+      )}
       {isFilterOn ? (
-        <Filter setIsFilterOn={setIsFilterOn} setIsSearch={setIsSearch} />
+        <Filter
+          setIsFilterOn={setIsFilterOn}
+          setIsSearch={setIsSearch}
+          setIsLoading={setIsLoading}
+        />
       ) : (
         <div className="sub-container">
           <div className="search-title-container">
