@@ -1,6 +1,6 @@
 [
   {
-    "isVerified": true,
+    "isVerified": false,
     "resumeId": 1,
     "seniorName": "김다시",
     "careerYear": 10,
@@ -13,7 +13,7 @@
     "reviewId": -1
   },
   {
-    "isVerified": true,
+    "isVerified": false,
     "resumeId": 2,
     "seniorName": "가나다",
     "careerYear": 15,

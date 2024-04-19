@@ -153,7 +153,7 @@ const Search = () => {
             <img src={bigDel} className="search-delete" onClick={resetQuery} />
             {isLogOn && <SearchLog />}
           </div>
-          <div className="search-title-container">
+          <div className="search-title-container search-select-container">
             {isSearch ? (
               <div className="search-subtitle">{name}님께 딱 맞는 전문가</div>
             ) : (
