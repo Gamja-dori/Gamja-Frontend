@@ -129,7 +129,7 @@ const Filter = ({
           <div>
             <Label label="희망 근무 형태" />
             <Select
-              className="select-long"
+              className="select-long blue-select"
               value={searchData.commute_type}
               onChange={onCommuteChange}
               options={commuteTypeData.map((a) => ({
@@ -143,7 +143,7 @@ const Filter = ({
           <Label label="직군 및 직무" />
           <div className="select-container">
             <Select
-              className="select-mini"
+              className="select-mini blue-select"
               value={searchData.job_group}
               onChange={onAreaChange}
               options={areaData.map((a) => ({
@@ -152,7 +152,7 @@ const Filter = ({
               }))}
             />
             <Select
-              className="select-mini"
+              className="select-mini blue-select"
               onChange={onJobChange}
               value={searchData.job_role}
               options={jobData[areaData.indexOf(selectedArea)]?.map((a) => ({
@@ -165,7 +165,7 @@ const Filter = ({
         <div>
           <Label label="보유 스킬 및 자격증" />
           <Select
-            className="select multiple"
+            className="select multiple blue-select"
             mode="multiple"
             tagRender={SelectTag}
             allowClear

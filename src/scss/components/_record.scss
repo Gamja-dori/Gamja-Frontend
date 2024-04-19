@@ -138,14 +138,16 @@
 .dot {
   border-radius: 100rem;
   background-color: $black;
+  display: flex;
+  flex-shrink: 0;
   @include pc {
     width: 0.8rem;
     height: 0.8rem;
-    margin-top: 1.6rem;
+    margin-top: 1rem;
   }
   @include mobile {
-    width: 0.8rem;
+    width: 0.6rem;
     height: 0.6rem;
-    margin-top: 1rem;
+    margin-top: 0.8rem;
   }
 }
