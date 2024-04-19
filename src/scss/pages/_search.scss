@@ -36,6 +36,15 @@
   }
 }
 
+.search-select-container {
+  @include mobile {
+    width: 100%;
+    flex-direction: column;
+    align-items: start;
+    gap: 1.5rem;
+  }
+}
+
 .search-info-container {
   display: flex;
   gap: 1rem;
