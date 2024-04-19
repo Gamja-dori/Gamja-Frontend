@@ -173,6 +173,7 @@ const Search = () => {
             )}
             <Select
               className="filter-select"
+              prefixCls="blue-select ant-select"
               defaultValue="조회수 높은순"
               options={filterData}
             />
