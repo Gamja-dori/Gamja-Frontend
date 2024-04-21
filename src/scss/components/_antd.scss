@@ -81,7 +81,8 @@
   color: $dark-gray !important;
 }
 
-.ant-select-dropdown {
+.ant-select-dropdown,
+.blue-select-dropdown {
   z-index: 1090;
 }
 
@@ -194,7 +195,7 @@
 }
 
 .filter-select {
-  .ant-select-selection-item {
+  .blue-select-selection-item {
     @include pc {
       font-size: 2.2rem !important;
     }
