@@ -59,12 +59,15 @@
   font-weight: 500;
 }
 
-.ant-select-selector {
+.ant-select-selector,
+.blue-select-selector {
   box-shadow: none !important;
 }
 
 .ant-select-selection-item,
-.ant-select-selection-placeholder {
+.ant-select-selection-placeholder,
+.blue-select-selection-item,
+.blue-select-selection-placeholder {
   @include pc {
     font-size: 2.4rem;
   }
@@ -73,7 +76,8 @@
   }
 }
 
-.ant-select-selection-placeholder {
+.ant-select-selection-placeholder,
+.blue-select-selection-placeholder {
   color: $dark-gray !important;
 }
 
@@ -81,18 +85,18 @@
   z-index: 1090;
 }
 
-.blue-select {
-  &.ant-select-focused {
-    .ant-select-selector {
-      border-color: $dark-blue !important;
-    }
-  }
-
-  .ant-select-item-option-selected {
-    background-color: $light-blue !important;
-  }
-  .ant-select-item-option-state {
-    color: $dark-blue !important;
+.blue-select-item-option-selected {
+  background-color: $light-blue !important;
+}
+.blue-select-item-option-state {
+  color: $dark-blue !important;
+}
+.blue-select-selection-placeholder {
+  color: $dark-gray !important;
+}
+.blue-select-focused {
+  .blue-select-selector {
+    border-color: $dark-blue !important;
   }
 }
 
@@ -149,7 +153,8 @@
 }
 
 .multiple {
-  .ant-select-selection-search {
+  .ant-select-selection-search,
+  .blue-select-selection-search {
     @include pc {
       width: 78.6rem;
       height: 6.4rem;
@@ -159,7 +164,8 @@
       height: 5rem;
     }
   }
-  .ant-select-selection-search-input {
+  .ant-select-selection-search-input,
+  .blue-select-selection-search-input {
     @include pc {
       font-size: 2.4rem;
     }

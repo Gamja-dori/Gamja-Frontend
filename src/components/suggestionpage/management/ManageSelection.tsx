@@ -12,6 +12,7 @@ const ManagementSelection = ({ value, setValue }: ManagementProps) => {
     <div className="suggest-manage-select-wrapper light-gray">
       <Select
         className="select"
+        prefixCls="blue-select"
         onChange={handleClick}
         value={value}
         options={tabType.map((t) => ({
