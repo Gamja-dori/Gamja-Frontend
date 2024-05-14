@@ -230,4 +230,13 @@ declare module 'props-type' {
     setIsFilterOn: React.Dispatch<React.SetStateAction<boolean>>;
     setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
   };
+
+  export type ReviewItemProps = {
+    review: ReviewData;
+  };
+
+  export type ReviewStarProps = {
+    starRate: number;
+    styleClass?: string;
+  };
 }

@@ -1,0 +1,135 @@
+@import '../abstracts/colors';
+@import '../abstracts/mixin';
+
+/* ReviewStar styles */
+.review-star {
+  display: flex;
+}
+
+.small-star {
+  img {
+    @include pc {
+      width: 2.8rem;
+      height: 2.8rem;
+    }
+    @include mobile {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+  }
+}
+
+/* ReviewList style */
+.review-list-div {
+  .resume-detail-card {
+    margin-bottom: 0rem;
+  }
+  @include pc {
+    gap: 3rem;
+  }
+  @include mobile {
+    gap: 2rem;
+  }
+}
+
+.review-avgstar-div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  p {
+    font-weight: 500;
+    @include pc {
+      font-size: 2.8rem;
+    }
+    @include mobile {
+      font-size: 2.4rem;
+    }
+  }
+}
+
+/* ReviewItem style */
+.review-item-div {
+  width: calc(100% - 4rem);
+  padding: 2rem;
+  border-radius: 1rem;
+}
+.review-profile-div {
+  display: flex;
+}
+.review-profile-img {
+  border-radius: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 0.1rem solid $light-gray;
+  @include pc {
+    width: 6rem;
+    height: 6rem;
+  }
+  @include mobile {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+.review-profile-detail-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 1rem;
+  div:last-child {
+    display: flex;
+    gap: 1rem;
+    @include pc {
+      font-size: 1.8rem;
+    }
+    @include mobile {
+      font-size: 1.6rem;
+    }
+    p:first-child {
+      font-weight: 500;
+    }
+    p:last-child {
+      color: $dark-gray;
+    }
+  }
+}
+
+.review-duration-p {
+  color: $dark-gray;
+  margin: 1rem 0;
+  @include pc {
+    font-size: 1.8rem;
+  }
+  @include mobile {
+    font-size: 1.6rem;
+  }
+}
+
+.review-tags-div {
+  display: flex;
+  gap: 1rem;
+  p {
+    padding: 0.4rem 0.6rem;
+    color: $dark-green;
+    background-color: $pale-green;
+    border-radius: 0.5rem;
+    @include pc {
+      font-size: 2rem;
+    }
+    @include mobile {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+.review-content-p {
+  @include pc {
+    font-size: 2rem;
+    margin-top: 2rem;
+  }
+  @include mobile {
+    font-size: 1.8rem;
+    margin-top: 1rem;
+  }
+}

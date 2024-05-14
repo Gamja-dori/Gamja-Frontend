@@ -146,4 +146,16 @@ declare module 'data-type' {
     name: string;
     is_verified: boolean;
   };
+
+  export type ReviewData = {
+    id: number;
+    name: string;
+    star: number;
+    date: string;
+    profile_image: string;
+    duration_start: string;
+    duration_end: string;
+    tags: string[];
+    contents: string;
+  };
 }
