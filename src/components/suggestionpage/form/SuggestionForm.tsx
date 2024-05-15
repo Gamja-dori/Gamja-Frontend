@@ -56,6 +56,7 @@ const SuggestionForm = ({ resumeId, isEdit }: SuggestionProps) => {
           <div className="select-container">
             <Select
               className="select-long"
+              prefixCls="blue-select"
               defaultValue="근무 형태"
               onChange={onAreaChange}
               options={startDate}
@@ -67,12 +68,14 @@ const SuggestionForm = ({ resumeId, isEdit }: SuggestionProps) => {
           <div className="select-container">
             <Select
               className="select-mini"
+              prefixCls="blue-select"
               defaultValue="시작일"
               onChange={onAreaChange}
               options={startDate}
             />
             <Select
               className="select-mini"
+              prefixCls="blue-select"
               defaultValue="종료일"
               onChange={onAreaChange}
               options={endDate}

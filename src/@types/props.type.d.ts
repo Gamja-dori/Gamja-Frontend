@@ -231,4 +231,17 @@ declare module 'props-type' {
     setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   };
+
+  export type ReviewItemProps = {
+    review: ReviewData;
+  };
+
+  export type ReviewStarProps = {
+    starRate: number;
+    styleClass?: string;
+  };
+
+  export type StarRateProps = {
+    setStarRate: React.Dispatch<React.SetStateAction<number>>;
+  };
 }
