@@ -22,7 +22,7 @@ const ReviewItem = ({ review }: ReviewItemProps) => {
           return <p key={tag}>{tag}</p>;
         })}
       </div>
-      <p className="review-content-p">{review.contents}</p>
+      <p className="review-content-p">{review.content}</p>
     </div>
   );
 };

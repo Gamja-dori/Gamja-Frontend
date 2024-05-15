@@ -156,6 +156,6 @@ declare module 'data-type' {
     duration_start: string;
     duration_end: string;
     tags: string[];
-    contents: string;
+    content: string;
   };
 }
