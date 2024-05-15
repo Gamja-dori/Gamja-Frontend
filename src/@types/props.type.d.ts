@@ -239,4 +239,8 @@ declare module 'props-type' {
     starRate: number;
     styleClass?: string;
   };
+
+  export type StarRateProps = {
+    setStarRate: React.Dispatch<React.SetStateAction<number>>;
+  };
 }
