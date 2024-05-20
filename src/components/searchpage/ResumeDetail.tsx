@@ -57,7 +57,7 @@ const ResumeDetail = () => {
       <button
         className="search-filter-confirm-btn"
         onClick={() => {
-          navigate('/proposal');
+          navigate(`/suggestion/resume/${resumeId}`);
         }}
       >
         채용 제안하기
