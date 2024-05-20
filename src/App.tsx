@@ -101,11 +101,8 @@ function App() {
             path="/suggestion/detail/:suggestionId"
             element={<SuggestionDetailPage />}
           />
-          <Route
-            path="/search/detail/:resumeId/review"
-            element={<ReviewPage />}
-          />
-          <Route path="/review/new/:resumeId" element={<ReviewWritePage />} />
+          <Route path="/review/:seniorId" element={<ReviewPage />} />
+          <Route path="/review/new/:seniorId" element={<ReviewWritePage />} />
         </Routes>
       </Layout>
     </BrowserRouter>
