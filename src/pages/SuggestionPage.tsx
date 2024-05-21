@@ -6,7 +6,7 @@ import { useRecoilValue } from 'recoil';
 import { SigninStateAtom } from 'recoil/Signin';
 
 const SuggestionPage = () => {
-  const resumeId = useParams();
+  const { resumeId } = useParams();
 
   const { isSignin } = useRecoilValue(SigninStateAtom);
   const navigate = useNavigate();

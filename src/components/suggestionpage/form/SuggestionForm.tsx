@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Select } from 'antd';
 
 import Subtitle from 'components/_common/Subtitle';
@@ -6,42 +6,96 @@ import Label from 'components/_common/Label';
 import Btn from 'components/_common/Btn';
 import { SuggestionProps } from 'props-type';
 import ResumeDetailCard from 'components/searchpage/ResumeDetailCard';
-import profile from '../../../assets/images/profile.png';
+import { commuteTypeData } from 'components/resumepage/ResumeData';
+import { useRecoilValue } from 'recoil';
+import { ResumeDetailAtom } from 'recoil/Recommendation';
+import { blurName } from 'components/utils/ResumeUtils';
+import { CreateSuggestion } from 'api/suggestion';
+import { SigninAtom } from 'recoil/Signin';
+import { useNavigate } from 'react-router-dom';
 
 const SuggestionForm = ({ resumeId, isEdit }: SuggestionProps) => {
-  const [selectedJob, setSelectedJob] = useState('직무');
+  const navigate = useNavigate();
 
-  const onAreaChange = () => {
-    setSelectedJob('직무');
+  const resumeData = useRecoilValue(ResumeDetailAtom);
+  const signinAtom = useRecoilValue(SigninAtom);
+
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [commuteType, setCommuteType] = useState('');
+  const [pay, setPay] = useState(0);
+  const [jd, setJD] = useState('');
+  const [duration, setDuration] = useState(0);
+
+  useEffect(() => {
+    const dateRegex = /^\d{4}\.\d{2}$/;
+
+    if (dateRegex.test(startDate) && dateRegex.test(endDate)) {
+      const [startY, startM] = startDate.split('.').map(Number);
+      const [endY, endM] = endDate.split('.').map(Number);
+
+      const diff = (endY - startY) * 12 + endM - startM;
+      if (diff > 0) {
+        setDuration(diff);
+      }
+    }
+  }, [startDate, endDate]);
+
+  const onCommuteChange = (value: string) => {
+    setCommuteType(value);
+  };
+  const onStartChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setStartDate(e.target.value);
+  };
+  const onEndChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEndDate(e.target.value);
+  };
+  const onPayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const strPay = e.target.value;
+    setPay(Number(strPay));
+  };
+  const onJDChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setJD(e.target.value);
   };
 
-  const startDate = [
-    { value: 'jack', label: 'Jack' },
-    { value: 'lucy', label: 'Lucy' },
-    { value: 'Yiminghe', label: 'yiminghe' },
-  ];
-
-  const endDate = [{ value: 'Yiminghe', label: 'yiminghe' }];
+  const handleSuggest = async () => {
+    const res = await CreateSuggestion({
+      senior_id: resumeData.user_id,
+      enterprise_id: signinAtom.id,
+      start_year_month: startDate,
+      end_year_month: endDate,
+      commute_type: commuteType,
+      duration: duration,
+      job_description: jd,
+      pay: pay,
+      resume_id: Number(resumeId),
+    });
+    if (res?.status == 201) {
+      alert('채용 제안을 보냈습니다.');
+      navigate('/suggestion/management');
+    }
+  };
 
   return (
     <div className="sub-container">
       <ResumeDetailCard
-        seniorName="김다시"
-        jobGroup="개발"
-        jobName="프론트엔드 개발자"
-        careerYear={10}
-        commuteType="원격"
-        profileImage={profile}
-        resumeId={1}
-        date="2024.03.02"
-        durationStart={3}
-        durationEnd={12}
-        payStart={100}
-        payEnd={300}
+        profileImage={resumeData.profile_image}
+        seniorName={blurName(resumeData.name)}
+        jobGroup={resumeData.job_group}
+        jobName={resumeData.job_role}
+        careerYear={resumeData.career_year}
+        commuteType={resumeData.commute_type}
+        isVerified={resumeData.is_verified}
+        resumeId={resumeData.resume_id}
         needSubinfo={true}
+        keyword={resumeData.keyword}
+        durationStart={resumeData.duration_start}
+        durationEnd={resumeData.duration_end}
+        payStart={resumeData.min_month_pay}
+        payEnd={resumeData.max_month_pay}
       />
       {isEdit && (
-        <div style={{ marginBottom: '4rem' }}>
+        <div style={{ width: '100%', marginBottom: '4rem' }}>
           <Btn
             label="채용 취소하기"
             onClick={() => console.log('채용 취소 클릭')}
@@ -58,42 +112,42 @@ const SuggestionForm = ({ resumeId, isEdit }: SuggestionProps) => {
               className="select-long"
               prefixCls="blue-select"
               defaultValue="근무 형태"
-              onChange={onAreaChange}
-              options={startDate}
+              placeholder="근무 형태"
+              onChange={onCommuteChange}
+              options={commuteTypeData.map((c) => ({
+                label: c,
+                value: c,
+              }))}
             />
           </div>
         </div>
         <div>
           <Label label="근무 기간" isRequired={true} />
-          <div className="select-container">
-            <Select
-              className="select-mini"
-              prefixCls="blue-select"
-              defaultValue="시작일"
-              onChange={onAreaChange}
-              options={startDate}
-            />
-            <Select
-              className="select-mini"
-              prefixCls="blue-select"
-              defaultValue="종료일"
-              onChange={onAreaChange}
-              options={endDate}
-            />
+          <div className="record-date suggestion-date">
+            <div>
+              <p className="date-label">시작일</p>
+              <input placeholder="0000.00" onChange={onStartChange} />
+            </div>
+            <p>~</p>
+            <div>
+              <p className="date-label">종료일</p>
+              <input placeholder="0000.00" onChange={onEndChange} />
+            </div>
           </div>
         </div>
         <div>
           <Label label="제안 급여" isRequired={true} />
           <div className="suggest-form-price-div">
             <p>전문가님의 희망 급여</p>
-            <p>30,000원 - 50,000원</p>
-            <div className="suggest-form-price-input light-gray">
-              <input />
-              <p>원</p>
-            </div>
-            <p className="suggest-notice-p">
-              근무 기간을 고려해서 책정해 주세요.
+            <p>
+              월 {resumeData.min_month_pay}만 원 - {resumeData.max_month_pay}만
+              원
             </p>
+            <div className="suggest-form-price-input light-gray">
+              <input onChange={onPayChange} />
+              <p>만 원</p>
+            </div>
+            <p className="suggest-notice-p">수수료는 제안 급여의 10%입니다.</p>
           </div>
         </div>
         <div className="suggest-form-textarea-div">
@@ -102,6 +156,7 @@ const SuggestionForm = ({ resumeId, isEdit }: SuggestionProps) => {
             className="resume-text-area"
             name="업무 소개"
             placeholder="업무 소개를 입력하세요."
+            onChange={onJDChange}
           />
         </div>
       </div>
@@ -120,7 +175,7 @@ const SuggestionForm = ({ resumeId, isEdit }: SuggestionProps) => {
         ) : (
           <Btn
             label="채용 제안"
-            onClick={() => window.location.replace('/resume/detail/:resumeId')}
+            onClick={handleSuggest}
             styleClass="abreast-btn dark-blue"
           />
         )}
