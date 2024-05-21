@@ -1,20 +1,41 @@
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Hamburger from './Hamburger';
 import notice from '../../../assets/icons/notice.svg';
 import hamburger from '../../../assets/icons/hamburger.svg';
 import logo from '../../../assets/icons/logo.svg';
-import { useRecoilValue } from 'recoil';
-import { SigninStateAtom } from 'recoil/Signin';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { SigninAtom, SigninStateAtom } from 'recoil/Signin';
+import { GetNotificationCnt } from 'api/suggestion';
+import { NotificationCntAtom } from 'recoil/Notifications';
 
 const Header = () => {
   const { isSignin, isSenior } = useRecoilValue(SigninStateAtom);
+  const [notificationCntData, setNotificationCntData] =
+    useRecoilState(NotificationCntAtom);
+  const { id } = useRecoilValue(SigninAtom);
   const isMobile: boolean = useMediaQuery({
     query: '(max-width:802px)',
   });
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+
+  const [notificationCnt, setNotificationCnt] = useState(0);
+
+  useEffect(() => {
+    if (id > 0 && notificationCntData !== notificationCnt) {
+      getNotificationCnt();
+    }
+  }, [id, notificationCntData]);
+
+  const getNotificationCnt = async () => {
+    const res = await GetNotificationCnt(id);
+    const cnt = res?.data.notifications_count;
+    setNotificationCnt(cnt);
+    setNotificationCntData(cnt);
+  };
+
   return (
     <div className="header">
       <div className="header_logo" onClick={() => navigate('/')}>
@@ -23,11 +44,14 @@ const Header = () => {
       </div>
       {isMobile ? (
         <div style={{ display: 'flex' }}>
-          <img
-            className="header_icon"
-            onClick={() => navigate('/notice')}
-            src={notice}
-          />
+          <div className="header-notice">
+            <img
+              className="header_icon"
+              onClick={() => navigate('/notice')}
+              src={notice}
+            />
+            {notificationCnt > 0 && <div>{notificationCnt}</div>}
+          </div>
           <img
             className="header_icon"
             src={hamburger}
@@ -61,12 +85,15 @@ const Header = () => {
             </div>
           </div>
           {isSignin ? (
-            <div style={{ display: 'flex' }}>
-              <img
-                className="header_icon"
-                src={notice}
-                onClick={() => navigate('/notice')}
-              />
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div className="header-notice">
+                <img
+                  className="header_icon"
+                  src={notice}
+                  onClick={() => navigate('/notice')}
+                />
+                {notificationCnt > 0 && <div>{notificationCnt}</div>}
+              </div>
               <button
                 className="header_btn"
                 onClick={() => navigate('/my-page')}
