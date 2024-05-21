@@ -28,17 +28,18 @@ declare module 'data-type' {
   };
 
   export type ManagementItemData = {
-    isVerified: boolean;
-    resumeId: number;
-    seniorName: string;
-    careerYear: number;
-    jobGroup: string;
-    jobName: string;
+    suggest_id: number;
+    is_verified: boolean;
+    resume_id: number;
+    name: string;
+    career_year: number;
+    job_group: string;
+    job_name: string;
     date: string;
-    commuteType: string;
-    profileImage: string;
-    isFinished: boolean;
-    reviewId: number;
+    commute_type: string;
+    profile_image: string;
+    is_paid: boolean;
+    is_accepted: boolean;
   };
 
   export type SigninStateAtomType = {
@@ -157,5 +158,52 @@ declare module 'data-type' {
     duration_end: string;
     tags: string[];
     content: string;
+  };
+
+  export type SuggestionData = {
+    senior_id: number;
+    enterprise_id: number;
+    start_year_month: string;
+    end_year_month: string;
+    commute_type: string;
+    pay: number;
+    duration: number;
+    job_description: string;
+    resume_id: number;
+  };
+
+  export type NotificationData = {
+    suggest_id: number;
+    resume_id: number;
+    is_cancelled: boolean;
+    is_read: boolean;
+    profile_image: string;
+    company?: string;
+
+    is_accepted?: boolean;
+    is_paid?: boolean;
+    name?: string;
+  };
+
+  export type ContactData = {
+    name: string;
+    phone_number: string;
+    email: string;
+  };
+
+  export type SuggestDetailData = {
+    suggest_id: number;
+    commute_type: string;
+    start_year_month: string;
+    end_year_month: string;
+    pay: number;
+    duration: number;
+    job_description: string;
+    is_cancelled: boolean;
+    is_accepted: boolean;
+    is_paid: boolean;
+    is_expired: boolean;
+    company: string;
+    profile_image: string;
   };
 }
