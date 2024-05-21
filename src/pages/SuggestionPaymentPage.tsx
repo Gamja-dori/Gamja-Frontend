@@ -6,7 +6,7 @@ import { useRecoilValue } from 'recoil';
 import { SigninStateAtom } from 'recoil/Signin';
 
 const SuggestionPaymentPage = () => {
-  const resumeId = useParams();
+  const { resumeId, suggestId } = useParams();
 
   const { isSignin } = useRecoilValue(SigninStateAtom);
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const SuggestionPaymentPage = () => {
       {isSignin && (
         <div className="container">
           <Title label="결제" />
-          <Payment resumeId={resumeId} />
+          <Payment resumeId={resumeId} suggestId={suggestId} />
         </div>
       )}
     </>
