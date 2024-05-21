@@ -1,39 +1,55 @@
+import { GetSuggestionDatail } from 'api/suggestion';
 import Btn from 'components/_common/Btn';
 import Label from 'components/_common/Label';
 import Subtitle from 'components/_common/Subtitle';
+import { SuggestDetailData } from 'data-type';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const Detail = () => {
+  const { suggestId } = useParams();
+  const [data, setData] = useState<SuggestDetailData>();
+
+  const getSuggestDetail = async () => {
+    const res = await GetSuggestionDatail(Number(suggestId));
+    setData(res?.data);
+  };
+
+  useEffect(() => {
+    getSuggestDetail();
+  }, [suggestId]);
+
   return (
     <div className="sub-container">
       <div className="suggest-detail-profile">
         <div className="suggest-detail-profile-img">
-          <img src="https://cdn.vectorstock.com/i/preview-1x/17/46/development-business-logo-template-vector-31471746.jpg" />
+          <img src={data?.profile_image} />
         </div>
-        <div className="suggest-detail-profile-content">
-          <p>(주)개발코리아</p>
-          <p>IT 기업</p>
-        </div>
+        <p>{data?.company}</p>
       </div>
       <div className="suggest-detail-content-div">
         <Subtitle label="제안 내용" />
         <div>
           <Label label="근무 형태" />
           <div className="suggest-detail-content resume-tag green-tag">
-            외주
+            {data?.commute_type}
           </div>
         </div>
         <div>
           <Label label="근무 기간" />
           <div className="suggest-detail-content">
-            2024년 1월 1일 ~ 2025년 1월 1일
+            <p>{data?.duration}개월</p>
+            {data?.start_year_month} - {data?.end_year_month}
           </div>
+        </div>
+        <div>
+          <Label label="제안 급여" />
+          <div className="suggest-detail-content">월급: {data?.pay}만 원</div>
         </div>
         <div>
           <Label label="업무 소개" />
           <div className="suggest-detail-content suggest-detail-jd light-gray">
-            안녕하세요, SI 기업 개발 코리아 입니다.글로벌 쇼핑몰 리뉴얼
-            프로젝트의 타입스크립트 마이그레이션 작업을 부탁드리고 싶습니다.
-            현장 근무와 원격 근무 모두 가능합니다.
+            {data?.job_description}
           </div>
         </div>
       </div>
