@@ -201,8 +201,7 @@ declare module 'props-type' {
   };
 
   export type NoticeItemProps = {
-    name: string;
-    src: string;
+    notification: NotificationData;
     type: string;
   };
 
@@ -222,7 +221,8 @@ declare module 'props-type' {
   };
 
   export type SuggestionProps = {
-    resumeId: Readonly<Params<string>>;
+    suggestId?: Readonly<Params<string>>;
+    resumeId?: Readonly<Params<string>>;
     isEdit?: boolean;
   };
 

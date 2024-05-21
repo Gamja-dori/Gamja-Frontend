@@ -67,3 +67,12 @@ export const EditSeniorProfile = async (
     console.log('시니어 정보 수정 에러', err);
   }
 };
+
+export const GetSecret = async (id: number) => {
+  try {
+    const res = await http.get(`/users/secret/${id}`);
+    return res;
+  } catch (err) {
+    console.log('개인정보 조회 실패', err);
+  }
+};

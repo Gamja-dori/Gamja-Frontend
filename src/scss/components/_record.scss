@@ -53,13 +53,33 @@
       height: 3rem;
     }
     @include mobile {
-      width: 7.4rem;
+      width: 7.5rem;
       height: 2rem;
     }
   }
   input::placeholder {
     @extend .date-font;
     color: $dark-gray;
+  }
+}
+
+.suggestion-date {
+  display: flex;
+  gap: 3rem;
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.date-label {
+  color: $black;
+  @include pc {
+    font-size: 2.8rem;
+  }
+  @include mobile {
+    font-size: 2.4rem;
   }
 }
 

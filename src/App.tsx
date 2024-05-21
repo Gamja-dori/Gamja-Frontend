@@ -90,7 +90,7 @@ function App() {
             element={<SuggestionCancelPage />}
           />
           <Route
-            path="/suggestion/payment/:resumeId"
+            path="/suggestion/payment/:resumeId/:suggestId"
             element={<SuggestionPaymentPage />}
           />
           <Route
@@ -98,14 +98,11 @@ function App() {
             element={<SuggestionPaymentCompletePage />}
           />
           <Route
-            path="/suggestion/detail/:suggestionId"
+            path="/suggestion/detail/:suggestId"
             element={<SuggestionDetailPage />}
           />
-          <Route
-            path="/search/detail/:resumeId/review"
-            element={<ReviewPage />}
-          />
-          <Route path="/review/new/:resumeId" element={<ReviewWritePage />} />
+          <Route path="/review/:seniorId" element={<ReviewPage />} />
+          <Route path="/review/new/:seniorId" element={<ReviewWritePage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

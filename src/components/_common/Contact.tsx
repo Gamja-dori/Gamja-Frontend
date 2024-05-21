@@ -4,22 +4,42 @@ import mail from '../../assets/icons/contact/mail.svg';
 import phone from '../../assets/icons/contact/phone.svg';
 import user from '../../assets/icons/contact/user.svg';
 
-const Contact = () => {
+import { useEffect, useState } from 'react';
+import { ContactData } from 'data-type';
+import { GetSecret } from 'api/senior_user';
+import { parsePhoneNumber } from 'components/utils/PhoneUtils';
+
+const Contact = (id: number) => {
+  const [data, setData] = useState<ContactData>({
+    name: '',
+    phone_number: '',
+    email: '',
+  });
+
+  useEffect(() => {
+    getData();
+  }, [id]);
+
+  const getData = async () => {
+    const res = await GetSecret(id);
+    setData(res?.data);
+  };
+
   return (
     <div className="contact-div">
-      <Label label={`${'김다시'}님의 연락처`} />
+      <Label label={`${data.name}님의 연락처`} />
       <div className="contact-info-div">
         <div>
           <img src={user} />
-          <p>김다시</p>
+          <p>{data.name}</p>
         </div>
         <div>
           <img src={phone} />
-          <p>010-1234-4556</p>
+          <p>{parsePhoneNumber(data.phone_number)}</p>
         </div>
         <div>
           <img src={mail} />
-          <p>kimdasi@fake.com</p>
+          <p>{data.email}</p>
         </div>
       </div>
     </div>
