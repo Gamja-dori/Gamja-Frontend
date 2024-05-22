@@ -62,6 +62,7 @@ const Payment = ({ resumeId, suggestId }: SuggestionProps) => {
     window.location.href = url;
     const params = new URL(document.location.toString()).searchParams;
     const pgToken: string = params.get('pg_token') || '';
+    console.log(params, pgToken);
     const res = await ApprovePay(suggestId, pgToken);
     if (res?.status === 200) {
       window.history.replaceState({}, '', window.location.pathname);
