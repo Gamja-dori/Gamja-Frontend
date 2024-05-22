@@ -1,4 +1,4 @@
-import { GetSuggestionDatail } from 'api/suggestion';
+import { GetSuggestionDatail, UpdateProgress } from 'api/suggestion';
 import Btn from 'components/_common/Btn';
 import Label from 'components/_common/Label';
 import Subtitle from 'components/_common/Subtitle';
@@ -18,6 +18,13 @@ const Detail = () => {
   useEffect(() => {
     getSuggestDetail();
   }, [suggestId]);
+
+  const handleBtnClick = async (progress: string) => {
+    const res = await UpdateProgress(Number(suggestId), progress);
+    if (res?.status === 200) {
+      window.location.href = '/notice';
+    }
+  };
 
   return (
     <div className="sub-container">
@@ -56,12 +63,12 @@ const Detail = () => {
       <div className="btns-div">
         <Btn
           label="수락"
-          onClick={() => console.log('수락 클릭')}
+          onClick={() => handleBtnClick('is_accepted')}
           styleClass="abreast-btn dark-green"
         />
         <Btn
           label="거절"
-          onClick={() => console.log('거절 클릭')}
+          onClick={() => handleBtnClick('is_declined')}
           styleClass="abreast-btn white"
         />
       </div>
