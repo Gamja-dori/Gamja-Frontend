@@ -71,7 +71,6 @@ const ManagementItem = ({ item }: ManagementItemProps) => {
       )}
       {item.progress === 'is_declined' && (
         <div className="suggest-manage-btn-div">
-          {' '}
           <Btn
             label="채용 제안이 거절됐어요"
             onClick={() => {
@@ -83,7 +82,6 @@ const ManagementItem = ({ item }: ManagementItemProps) => {
       )}
       {item.progress === 'is_pending' && (
         <div className="suggest-manage-btn-div">
-          {' '}
           <Btn
             label="채용 제안 수정하기"
             onClick={() => navigate(`/suggestion/edit/${item.suggest_id}`)}
@@ -93,7 +91,6 @@ const ManagementItem = ({ item }: ManagementItemProps) => {
       )}
       {item.progress === 'is_cancelled' && (
         <div className="suggest-manage-btn-div">
-          {' '}
           <Btn
             label="채용을 취소했어요"
             onClick={() => {
