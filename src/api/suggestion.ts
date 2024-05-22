@@ -130,7 +130,9 @@ export const PostPay = async (
 // 결제 승인 요청
 export const ApprovePay = async (suggest_id: number, pg_token: string) => {
   try {
-    const res = await http.get(`/suggests/pay/${suggest_id}/${pg_token}`);
+    const res = await http.get(
+      `/suggests/pay/approve/${suggest_id}/${pg_token}`,
+    );
     return res;
   } catch (err) {
     console.log('결제 승인 요청 실패', err);
