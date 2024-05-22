@@ -38,8 +38,7 @@ declare module 'data-type' {
     date: string;
     commute_type: string;
     profile_image: string;
-    is_paid: boolean;
-    is_accepted: boolean;
+    progress: string;
   };
 
   export type SigninStateAtomType = {
@@ -197,10 +196,7 @@ declare module 'data-type' {
     pay: number;
     duration: number;
     job_description: string;
-    is_cancelled: boolean;
-    is_accepted: boolean;
-    is_paid: boolean;
-    is_expired: boolean;
+    progress: string;
     company: string;
     profile_image: string;
   };
