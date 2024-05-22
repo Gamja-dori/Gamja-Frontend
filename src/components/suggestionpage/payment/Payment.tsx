@@ -2,24 +2,26 @@ import Btn from 'components/_common/Btn';
 import Label from 'components/_common/Label';
 import ResumeDetailCard from 'components/searchpage/ResumeDetailCard';
 import { SuggestionProps } from 'props-type';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { ResumeDetailAtom } from 'recoil/Recommendation';
 import { blurName } from 'components/utils/ResumeUtils';
 import { GetResumeDetail } from 'api/recommends';
 import { useEffect, useState } from 'react';
-import { GetSuggestionDatail, PostPay } from 'api/suggestion';
+import { ApprovePay, GetSuggestionDatail, PostPay } from 'api/suggestion';
 import { SuggestDetailData } from 'data-type';
 import { useMediaQuery } from 'react-responsive';
-import { SuggestIdAtom } from 'recoil/Suggest';
+import { useNavigate } from 'react-router-dom';
 
 const Payment = ({ resumeId, suggestId }: SuggestionProps) => {
   const [resumeData, setResumeData] = useRecoilState(ResumeDetailAtom);
-  const setSuggestId = useSetRecoilState(SuggestIdAtom);
   const [suggest, setSuggest] = useState<SuggestDetailData>();
   const [totalAmount, setTotalAmount] = useState(0);
   const isMobile: boolean = useMediaQuery({
     query: '(max-width:802px)',
   });
+  const params = new URL(document.location.toString()).searchParams;
+  const pgToken: string = params.get('pg_token') || '';
+  const navigate = useNavigate();
 
   const getResumeDetail = async (resume_id: number) => {
     const res = await GetResumeDetail(resume_id);
@@ -45,7 +47,6 @@ const Payment = ({ resumeId, suggestId }: SuggestionProps) => {
   useEffect(() => {
     getResumeDetail(resumeId);
     getSuggestionDetail(suggestId);
-    setSuggest(suggestId);
   }, [resumeId, suggestId]);
 
   const handleBtnClick = async () => {
@@ -60,6 +61,21 @@ const Payment = ({ resumeId, suggestId }: SuggestionProps) => {
       alert('결제 실패');
     }
   };
+
+  const requestApproval = async () => {
+    const res = await ApprovePay(suggestId, pgToken);
+    if (res?.status === 200) {
+      navigate('/suggestion/payment/complete');
+    } else {
+      alert('결제 승인 실패');
+    }
+  };
+
+  useEffect(() => {
+    if (pgToken) {
+      requestApproval();
+    }
+  }, [pgToken]);
 
   return (
     <div className="sub-container">
