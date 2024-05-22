@@ -20,38 +20,46 @@ const NoticeList = ({ isOld }: NoticeListProps) => {
 
   const getSeniorData = async () => {
     const res = await GetSeniorNotification(id);
-    setData(res?.data.suggests);
+    filterSeniorData(res?.data.suggests);
   };
 
   const getCompanyData = async () => {
     const res = await GetCompanyNotification(id);
-    filterData(res?.data.suggests);
+    filterCompanyData(res?.data.suggests);
   };
 
-  const filterData = (data: NotificationData[]) => {
+  const filterCompanyData = (data: NotificationData[]) => {
+    const filteredData = data.filter((item) => item.progress !== 'is_pending');
+    setData(filteredData);
+  };
+
+  const filterSeniorData = (data: NotificationData[]) => {
     const filteredData = data.filter(
       (item) =>
-        item.is_accepted === true ||
-        item.is_cancelled === true ||
-        item.is_paid === true,
+        item.progress !== 'is_accepted' && item.progress !== 'is_declined',
     );
     setData(filteredData);
   };
 
   const handleType = (notification: NotificationData) => {
     if (is_senior) {
-      if (notification.is_paid) {
+      if (notification.progress === 'is_paid') {
         return '결제 완료';
       }
-      return '채용 제안';
+      if (notification.progress === 'is_cancelled') {
+        return '채용 취소';
+      }
+      if (notification.progress === 'is_pending') {
+        return '채용 제안';
+      }
     } else {
-      if (notification.is_paid) {
+      if (notification.progress === 'is_paid') {
         return '결제 완료';
       }
-      if (notification.is_accepted) {
+      if (notification.progress === 'is_accepted') {
         return '제안 수락';
       }
-      if (notification.is_cancelled) {
+      if (notification.progress === 'is_declined') {
         return '제안 거절';
       }
     }
