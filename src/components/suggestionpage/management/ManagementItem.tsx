@@ -74,7 +74,7 @@ const ManagementItem = ({ item }: ManagementItemProps) => {
           <Btn
             label="채용 제안이 거절됐어요"
             onClick={() => {
-              null;
+              return;
             }}
             styleClass="inner-btn light-gray"
           />
@@ -94,7 +94,7 @@ const ManagementItem = ({ item }: ManagementItemProps) => {
           <Btn
             label="채용을 취소했어요"
             onClick={() => {
-              null;
+              return;
             }}
             styleClass="inner-btn light-gray"
           />
