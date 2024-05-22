@@ -2,7 +2,6 @@ import Btn from 'components/_common/Btn';
 import ResumeDetailCard from 'components/searchpage/ResumeDetailCard';
 import { useRecoilValue } from 'recoil';
 import { ResumeDetailAtom } from 'recoil/Recommendation';
-import { blurName } from 'components/utils/ResumeUtils';
 
 const PaymentComplete = () => {
   const resumeData = useRecoilValue(ResumeDetailAtom);
@@ -11,7 +10,7 @@ const PaymentComplete = () => {
     <div className="sub-container">
       <ResumeDetailCard
         profileImage={resumeData.profile_image}
-        seniorName={blurName(resumeData.name)}
+        seniorName={resumeData.name}
         jobGroup={resumeData.job_group}
         jobName={resumeData.job_role}
         careerYear={resumeData.career_year}
