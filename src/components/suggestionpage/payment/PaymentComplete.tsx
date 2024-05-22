@@ -1,10 +1,33 @@
+import { ApprovePay } from 'api/suggestion';
 import Btn from 'components/_common/Btn';
 import ResumeDetailCard from 'components/searchpage/ResumeDetailCard';
+import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { ResumeDetailAtom } from 'recoil/Recommendation';
+import { SuggestIdAtom } from 'recoil/Suggest';
 
 const PaymentComplete = () => {
   const resumeData = useRecoilValue(ResumeDetailAtom);
+  const suggestId = useRecoilValue(SuggestIdAtom);
+  const params = new URL(document.location.toString()).searchParams;
+  const pgToken: string = params.get('pg_token') || '';
+
+  const requestApproval = async () => {
+    if (pgToken) {
+      console.log(params, pgToken);
+      const res = await ApprovePay(suggestId, pgToken);
+      if (res?.status === 200) {
+        window.history.replaceState({}, '', window.location.pathname);
+        console.log('결제 성공');
+      } else {
+        alert('결제 실패');
+      }
+    }
+  };
+
+  useEffect(() => {
+    requestApproval();
+  }, []);
 
   return (
     <div className="sub-container">
