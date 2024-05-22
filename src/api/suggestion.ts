@@ -128,10 +128,10 @@ export const PostPay = async (
 };
 
 // 결제 승인 요청
-export const ApprovePay = async (suggest_id: number, pg_token: string) => {
+export const ApprovePay = async (payment_id: number, pg_token: string) => {
   try {
     const res = await http.get(
-      `/suggests/pay/approve/${suggest_id}/${pg_token}`,
+      `/suggests/pay/approve/${payment_id}/${pg_token}`,
     );
     return res;
   } catch (err) {
