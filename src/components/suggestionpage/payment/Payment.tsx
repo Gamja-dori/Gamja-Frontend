@@ -52,16 +52,17 @@ const Payment = ({ resumeId, suggestId }: SuggestionProps) => {
       const url = isMobile
         ? res?.data?.next_redirect_mobile_url
         : res?.data?.next_redirect_pc_url;
-      window.location.href = url;
-      requestApproval();
+      requestApproval(url);
     } else {
       alert('결제 실패');
     }
   };
 
-  const requestApproval = async () => {
+  const requestApproval = async (url: string) => {
+    window.location.href = url;
     const params = new URL(document.location.toString()).searchParams;
     const pgToken: string = params.get('pg_token') || '';
+    console.log(params, pgToken);
     const res = await ApprovePay(suggestId, pgToken);
     if (res?.status === 200) {
       window.history.replaceState({}, '', window.location.pathname);
