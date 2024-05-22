@@ -11,14 +11,14 @@ import { ApprovePay, GetSuggestionDatail, PostPay } from 'api/suggestion';
 import { SuggestDetailData } from 'data-type';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
-import { SuggestIdAtom } from 'recoil/Suggest';
+import { PaymentIdAtom, SuggestIdAtom } from 'recoil/Suggest';
 
 const Payment = ({ resumeId, suggestId }: SuggestionProps) => {
   const [resumeData, setResumeData] = useRecoilState(ResumeDetailAtom);
   const setSuggestId = useSetRecoilState(SuggestIdAtom);
   const [suggest, setSuggest] = useState<SuggestDetailData>();
   const [totalAmount, setTotalAmount] = useState(0);
-  const [paymentId, setPaymentId] = useState(0);
+  const [paymentId, setPaymentId] = useRecoilState(PaymentIdAtom);
   const isMobile: boolean = useMediaQuery({
     query: '(max-width:802px)',
   });
@@ -80,7 +80,7 @@ const Payment = ({ resumeId, suggestId }: SuggestionProps) => {
     if (pgToken && paymentId > 0) {
       requestApproval(paymentId);
     }
-  }, [pgToken]);
+  }, [pgToken, paymentId]);
 
   return (
     <div className="sub-container">
