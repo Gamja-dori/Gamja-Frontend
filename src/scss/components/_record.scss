@@ -53,13 +53,33 @@
       height: 3rem;
     }
     @include mobile {
-      width: 7.4rem;
+      width: 7.5rem;
       height: 2rem;
     }
   }
   input::placeholder {
     @extend .date-font;
     color: $dark-gray;
+  }
+}
+
+.suggestion-date {
+  display: flex;
+  gap: 3rem;
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.date-label {
+  color: $black;
+  @include pc {
+    font-size: 2.8rem;
+  }
+  @include mobile {
+    font-size: 2.4rem;
   }
 }
 
@@ -138,14 +158,16 @@
 .dot {
   border-radius: 100rem;
   background-color: $black;
+  display: flex;
+  flex-shrink: 0;
   @include pc {
     width: 0.8rem;
     height: 0.8rem;
-    margin-top: 1.6rem;
+    margin-top: 1rem;
   }
   @include mobile {
-    width: 0.8rem;
+    width: 0.6rem;
     height: 0.6rem;
-    margin-top: 1rem;
+    margin-top: 0.8rem;
   }
 }

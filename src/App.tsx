@@ -33,6 +33,9 @@ import SuggestionCancelPage from 'pages/SuggestionCancelPage';
 import SuggestionPaymentPage from 'pages/SuggestionPaymentPage';
 import SuggestionPaymentCompletePage from 'pages/SuggestionPaymentCompletePage';
 import SuggestionDetailPage from 'pages/SuggestionDetailPage';
+import ReviewPage from 'pages/ReviewPage';
+import ReviewWritePage from 'pages/ReviewWritePage';
+import SuggestionPaidResumePage from 'pages/SuggestionPaidResumePage';
 
 function App() {
   return (
@@ -76,7 +79,7 @@ function App() {
             element={<SuggestionPage />}
           />
           <Route
-            path="/suggestion/edit/:resumeId"
+            path="/suggestion/edit/:suggestId"
             element={<SuggestionEditPage />}
           />
           <Route
@@ -88,17 +91,23 @@ function App() {
             element={<SuggestionCancelPage />}
           />
           <Route
-            path="/suggestion/payment/:resumeId"
+            path="/suggestion/payment/:resumeId/:suggestId"
             element={<SuggestionPaymentPage />}
           />
           <Route
-            path="/suggestion/payment/complete"
+            path="/suggestion/complete"
             element={<SuggestionPaymentCompletePage />}
           />
           <Route
-            path="/suggestion/detail/:suggestionId"
+            path="/suggestion/complete/:suggestId"
+            element={<SuggestionPaidResumePage />}
+          />
+          <Route
+            path="/suggestion/detail/:suggestId"
             element={<SuggestionDetailPage />}
           />
+          <Route path="/review/:seniorId" element={<ReviewPage />} />
+          <Route path="/review/new/:seniorId" element={<ReviewWritePage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

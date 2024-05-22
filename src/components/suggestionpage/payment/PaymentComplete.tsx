@@ -1,24 +1,32 @@
 import Btn from 'components/_common/Btn';
 import ResumeDetailCard from 'components/searchpage/ResumeDetailCard';
-import profile from '../../../assets/images/profile.png';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { ResumeDetailAtom } from 'recoil/Recommendation';
+import { SuggestIdAtom } from 'recoil/Suggest';
 
 const PaymentComplete = () => {
+  const resumeData = useRecoilValue(ResumeDetailAtom);
+  const suggestId = useRecoilValue(SuggestIdAtom);
+  const navigate = useNavigate();
+
   return (
     <div className="sub-container">
       <ResumeDetailCard
-        seniorName="김다시"
-        jobGroup="개발"
-        jobName="프론트엔드 개발자"
-        careerYear={10}
-        commuteType="원격"
-        profileImage={profile}
-        resumeId={1}
-        date="2024.03.02"
-        durationStart={3}
-        durationEnd={12}
-        payStart={100}
-        payEnd={300}
+        profileImage={resumeData.profile_image}
+        seniorName={resumeData.name}
+        jobGroup={resumeData.job_group}
+        jobName={resumeData.job_role}
+        careerYear={resumeData.career_year}
+        commuteType={resumeData.commute_type}
+        isVerified={resumeData.is_verified}
+        resumeId={resumeData.resume_id}
         needSubinfo={true}
+        keyword={resumeData.keyword}
+        durationStart={resumeData.duration_start}
+        durationEnd={resumeData.duration_end}
+        payStart={resumeData.min_month_pay}
+        payEnd={resumeData.max_month_pay}
       />
       <div className="suggest-pay-complete-div">
         <p>결제가 완료되었습니다</p>
@@ -26,7 +34,7 @@ const PaymentComplete = () => {
       </div>
       <Btn
         label="전문가 정보 보러가기"
-        onClick={() => console.log('전문가 정보 보러가기 클릭')}
+        onClick={() => navigate(`/suggestion/complete/${suggestId}/`)}
         styleClass="longer-btn dark-blue"
       />
     </div>

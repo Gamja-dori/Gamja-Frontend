@@ -23,6 +23,7 @@ const ResumeDetail = () => {
     setResumeData(() => {
       return {
         ...res?.data.resume,
+        user_id: res?.data.user_id,
         resume_id: res?.data.resume_id,
         name: res?.data.name,
         profile_image: res?.data.profile_image,
@@ -57,7 +58,7 @@ const ResumeDetail = () => {
       <button
         className="search-filter-confirm-btn"
         onClick={() => {
-          navigate('/proposal');
+          navigate(`/suggestion/resume/${resumeId}`);
         }}
       >
         채용 제안하기

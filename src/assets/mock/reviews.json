@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "name": "(주)개발 코리아",
+    "star": 5,
+    "date": "2024.11.11",
+    "profile_image": "https://cdn.vectorstock.com/i/preview-1x/17/46/development-business-logo-template-vector-31471746.jpg",
+    "duration_start": "2022.04",
+    "duration_end": "2023.01",
+    "tags": ["친절해요", "꼼꼼해요"],
+    "content": "친절해요. 시간 약속을 잘 지키십니다. 정규직으로 채용할 계획이 있습니다."
+  },
+  {
+    "id": 2,
+    "name": "이화여자대학교",
+    "star": 4,
+    "date": "2024.02.02",
+    "profile_image": "https://i.namu.wiki/i/ayDlxOs9HFBzgePxztJKfSDiUuNd8B-9PcWMbTxBhr4kwAEqbHfVo9Cuahbfi-cLKW2VO3lJ47Wi52SBl-iaQg.svg",
+    "duration_start": "2023.03",
+    "duration_end": "2024.01",
+    "tags": ["실력이 좋아요", "의사소통이 뛰어나요"],
+    "content": "친절해요. 시간 약속을 잘 지키십니다. 정규직으로 채용할 계획이 있습니다."
+  }
+]

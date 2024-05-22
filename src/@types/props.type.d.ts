@@ -201,8 +201,7 @@ declare module 'props-type' {
   };
 
   export type NoticeItemProps = {
-    name: string;
-    src: string;
+    notification: NotificationData;
     type: string;
   };
 
@@ -222,7 +221,8 @@ declare module 'props-type' {
   };
 
   export type SuggestionProps = {
-    resumeId: Readonly<Params<string>>;
+    suggestId?: Readonly<Params<string>>;
+    resumeId?: Readonly<Params<string>>;
     isEdit?: boolean;
   };
 
@@ -230,5 +230,22 @@ declare module 'props-type' {
     setIsFilterOn: React.Dispatch<React.SetStateAction<boolean>>;
     setIsSearch: React.Dispatch<React.SetStateAction<boolean>>;
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  };
+
+  export type ReviewItemProps = {
+    review: ReviewData;
+  };
+
+  export type ReviewStarProps = {
+    starRate: number;
+    styleClass?: string;
+  };
+
+  export type StarRateProps = {
+    setStarRate: React.Dispatch<React.SetStateAction<number>>;
+  };
+
+  export type ContactProps = {
+    id: number;
   };
 }

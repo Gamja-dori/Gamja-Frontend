@@ -59,12 +59,15 @@
   font-weight: 500;
 }
 
-.ant-select-selector {
+.ant-select-selector,
+.blue-select-selector {
   box-shadow: none !important;
 }
 
 .ant-select-selection-item,
-.ant-select-selection-placeholder {
+.ant-select-selection-placeholder,
+.blue-select-selection-item,
+.blue-select-selection-placeholder {
   @include pc {
     font-size: 2.4rem;
   }
@@ -73,31 +76,54 @@
   }
 }
 
-.ant-select-selection-placeholder {
+.ant-select-selection-placeholder,
+.blue-select-selection-placeholder {
   color: $dark-gray !important;
 }
 
-.green-tooltip-inner {
+.ant-select-dropdown,
+.blue-select-dropdown {
+  z-index: 1090;
+}
+
+.blue-select-item-option-selected {
+  background-color: $light-blue !important;
+}
+.blue-select-item-option-state {
+  color: $dark-blue !important;
+}
+.blue-select-selection-placeholder {
+  color: $dark-gray !important;
+}
+.blue-select-focused {
+  .blue-select-selector {
+    border-color: $dark-blue !important;
+  }
+}
+
+.ant-tooltip-inner {
   color: $white !important;
   padding: 3px 8px !important;
   font-size: 1.8rem !important;
-  background-color: rgba(1, 186, 114, 0.7) !important;
   text-align: center !important;
-}
-.blue-tooltip-inner {
-  color: $white !important;
-  padding: 3px 8px !important;
-  font-size: 1.8rem !important;
-  background-color: rgba(65, 192, 242, 0.7) !important;
-  text-align: center !important;
+  &.green-tooltip {
+    background-color: rgba(1, 186, 114, 0.7) !important;
+  }
+  &.blue-tooltip {
+    background-color: rgba(65, 192, 242, 0.7) !important;
+  }
 }
 
-.green-tooltip-arrow::before {
-  background-color: rgba(1, 186, 114, 0.6) !important;
+.green-tooltip {
+  .ant-tooltip-arrow::before {
+    background-color: rgba(1, 186, 114, 0.6) !important;
+  }
 }
 
-.blue-tooltip-arrow::before {
-  background-color: rgba(65, 192, 242, 0.6) !important;
+.blue-tooltip {
+  .ant-tooltip-arrow::before {
+    background-color: rgba(65, 192, 242, 0.6) !important;
+  }
 }
 
 .blue-slider {
@@ -128,7 +154,8 @@
 }
 
 .multiple {
-  .ant-select-selection-search {
+  .ant-select-selection-search,
+  .blue-select-selection-search {
     @include pc {
       width: 78.6rem;
       height: 6.4rem;
@@ -138,7 +165,8 @@
       height: 5rem;
     }
   }
-  .ant-select-selection-search-input {
+  .ant-select-selection-search-input,
+  .blue-select-selection-search-input {
     @include pc {
       font-size: 2.4rem;
     }
@@ -167,7 +195,7 @@
 }
 
 .filter-select {
-  .ant-select-selection-item {
+  .blue-select-selection-item {
     @include pc {
       font-size: 2.2rem !important;
     }
@@ -175,4 +203,12 @@
       font-size: 1.8rem !important;
     }
   }
+}
+
+.ant-spin {
+  color: $dark-blue;
+}
+
+.ant-spin-dot-item {
+  background-color: $dark-blue !important;
 }

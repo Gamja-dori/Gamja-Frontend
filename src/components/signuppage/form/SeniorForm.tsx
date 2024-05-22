@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SignupSenior } from 'api/senior_user';
 import { CheckUsername } from 'api/user';
+import { parsePhoneNumber } from 'components/utils/PhoneUtils';
 
 const SeniorForm = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const SeniorForm = () => {
   // temp settings
   const [name, setName] = useState('');
   const [phone_number, setPhone_number] = useState('');
+  const [parsedPhoneNum, setParsedPhoneNum] = useState('');
 
   // terms agree value useState
   const [agree, setAgree] = useState(false);
@@ -37,6 +39,8 @@ const SeniorForm = () => {
   const [isUsernameWrong, setIsUsernameWrong] = useState(false);
   const [isPwWrong, setIsPwWrong] = useState(false);
   const [isPwCheckWrong, setIsPwCheckWrong] = useState(false);
+  const [isNameWrong, setIsNameWrong] = useState(false);
+  const [isPhoneNumWrong, setIsPhoneNumWrong] = useState(false);
 
   // username duplication check useState
   const [usernameDuplCheck, setUsernameDuplCheck] = useState(false);
@@ -83,6 +87,19 @@ const SeniorForm = () => {
     }
   }, [pwCheck, pw]);
 
+  // validation of phone_number
+  const handlePhoneNum = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const parsedValue = parsePhoneNumber(value);
+    setParsedPhoneNum(parsedValue);
+    setPhone_number(parsedValue.replace(/-/g, ''));
+    if (parsedValue.length == 13) {
+      setIsPhoneNumWrong(false);
+    } else {
+      setIsPhoneNumWrong(true);
+    }
+  };
+
   // duplicate check button click event handler
   const handleDuplClick = async () => {
     if (!username || !validateId(username)) {
@@ -104,6 +121,12 @@ const SeniorForm = () => {
 
   // check username or usernameDuplCheck or pw or pwCheck is filled
   const isFilled = () => {
+    if (!name) {
+      setIsNameWrong(true);
+    }
+    if (!phone_number) {
+      setIsPhoneNumWrong(true);
+    }
     if (!username) {
       setIsUsernameWrong(true);
     }
@@ -117,7 +140,14 @@ const SeniorForm = () => {
       setIsPwCheckWrong(true);
     }
 
-    if (username && usernameDuplCheck && pw && pwCheck) {
+    if (
+      username &&
+      usernameDuplCheck &&
+      pw &&
+      pwCheck &&
+      name &&
+      phone_number
+    ) {
       return true;
     }
     setUsernameAlert('6~12자 이내의 영문, 숫자만 가능');
@@ -128,6 +158,8 @@ const SeniorForm = () => {
   const handleSignupClick = async () => {
     if (isFilled()) {
       if (
+        name &&
+        phone_number &&
         agree &&
         !isUsernameWrong &&
         usernameDuplCheck &&
@@ -158,7 +190,12 @@ const SeniorForm = () => {
       <div className="input-div inputs-div">
         {/* temporary setting */}
         {/* <Input label="이름" defaultValue={data.name} disabled={true} /> */}
-        <Input label="이름" onChange={(e) => setName(e.target.value)} />
+        <Input
+          label="이름"
+          onChange={(e) => setName(e.target.value)}
+          isRequired={true}
+          isWrong={isNameWrong}
+        />
         <div className="input-div">
           <Input
             label="아이디"
@@ -197,7 +234,10 @@ const SeniorForm = () => {
         /> */}
         <Input
           label="전화번호"
-          onChange={(e) => setPhone_number(e.target.value)}
+          onChange={handlePhoneNum}
+          isRequired={true}
+          isWrong={isPhoneNumWrong}
+          value={parsedPhoneNum}
         />
         <Input label="이메일" onChange={(e) => setEmail(e.target.value)} />
       </div>
