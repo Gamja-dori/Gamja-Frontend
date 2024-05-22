@@ -2,17 +2,19 @@ import Btn from 'components/_common/Btn';
 import Label from 'components/_common/Label';
 import ResumeDetailCard from 'components/searchpage/ResumeDetailCard';
 import { SuggestionProps } from 'props-type';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { ResumeDetailAtom } from 'recoil/Recommendation';
 import { blurName } from 'components/utils/ResumeUtils';
 import { GetResumeDetail } from 'api/recommends';
 import { useEffect, useState } from 'react';
-import { ApprovePay, GetSuggestionDatail, PostPay } from 'api/suggestion';
+import { GetSuggestionDatail, PostPay } from 'api/suggestion';
 import { SuggestDetailData } from 'data-type';
 import { useMediaQuery } from 'react-responsive';
+import { SuggestIdAtom } from 'recoil/Suggest';
 
 const Payment = ({ resumeId, suggestId }: SuggestionProps) => {
   const [resumeData, setResumeData] = useRecoilState(ResumeDetailAtom);
+  const setSuggestId = useSetRecoilState(SuggestIdAtom);
   const [suggest, setSuggest] = useState<SuggestDetailData>();
   const [totalAmount, setTotalAmount] = useState(0);
   const isMobile: boolean = useMediaQuery({
@@ -43,6 +45,7 @@ const Payment = ({ resumeId, suggestId }: SuggestionProps) => {
   useEffect(() => {
     getResumeDetail(resumeId);
     getSuggestionDetail(suggestId);
+    setSuggest(suggestId);
   }, [resumeId, suggestId]);
 
   const handleBtnClick = async () => {
@@ -52,21 +55,7 @@ const Payment = ({ resumeId, suggestId }: SuggestionProps) => {
       const url = isMobile
         ? res?.data?.next_redirect_mobile_url
         : res?.data?.next_redirect_pc_url;
-      requestApproval(url);
-    } else {
-      alert('결제 실패');
-    }
-  };
-
-  const requestApproval = async (url: string) => {
-    window.location.href = url;
-    const params = new URL(document.location.toString()).searchParams;
-    const pgToken: string = params.get('pg_token') || '';
-    console.log(params, pgToken);
-    const res = await ApprovePay(suggestId, pgToken);
-    if (res?.status === 200) {
-      window.history.replaceState({}, '', window.location.pathname);
-      console.log('결제 성공');
+      window.location.href = url;
     } else {
       alert('결제 실패');
     }
