@@ -111,30 +111,51 @@ export const PatchNotification = async (
 
 // 결제
 export const PostPay = async (
-  user_id: number,
+  suggest_id: number,
   item_name: string,
   total_amount: number,
-  device: string,
 ) => {
   try {
-    const res = await http.post(`/suggests/pay/`, {
-      user_id: user_id,
+    const res = await http.post('/suggests/pay/', {
+      suggest_id: suggest_id,
       item_name: item_name,
       total_amount: total_amount,
-      device: device,
     });
     return res;
   } catch (err) {
     console.log('결제 실패', err);
-    return err;
   }
 };
 
+// 결제 승인 요청
+export const ApprovePay = async (suggest_id: number, pg_token: string) => {
+  try {
+    const res = await http.get(`/suggests/pay/${suggest_id}/${pg_token}`);
+    return res;
+  } catch (err) {
+    console.log('결제 승인 요청 실패', err);
+  }
+};
+
+// 결제 여부 조회
 export const GetPay = async (suggest_id: number) => {
   try {
     const res = await http.get(`/suggests/pay/${suggest_id}`);
     return res;
   } catch (err) {
     console.log('결제 여부 조회 실패', err);
+  }
+};
+
+// 채용 상태 업데이트
+export const UpdateProgress = async (suggest_id: number, progress: string) => {
+  try {
+    const res = await http.patch('/suggests/progress/update/', {
+      suggest_id: suggest_id,
+      progress: progress,
+    });
+    return res;
+  } catch (err) {
+    console.log('채용 상태 업데이트 실패', err);
   }
 };

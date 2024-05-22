@@ -27,13 +27,9 @@ const NoticeItem = ({ notification, type }: NoticeItemProps) => {
       setText(name + '에서 채용을 취소했어요.');
       setBtnText('취소 사유 확인하기');
     }
-    if (type === '계약서 체결') {
+    if (type === '결제 완료') {
       setText(name + '와 계약이 성사되었어요!');
       setBtnText('계약서 확인하기');
-    }
-    if (type === '결제 완료') {
-      setText(name + '와 계약이 성사됐어요!');
-      setBtnText('계약서 보러 가기');
     }
   };
 

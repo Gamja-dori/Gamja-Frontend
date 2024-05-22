@@ -175,13 +175,11 @@ declare module 'data-type' {
   export type NotificationData = {
     suggest_id: number;
     resume_id: number;
-    is_cancelled: boolean;
     is_read: boolean;
     profile_image: string;
-    company?: string;
+    progress: string;
 
-    is_accepted?: boolean;
-    is_paid?: boolean;
+    company?: string;
     name?: string;
   };
 

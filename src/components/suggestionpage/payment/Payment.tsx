@@ -2,19 +2,17 @@ import Btn from 'components/_common/Btn';
 import Label from 'components/_common/Label';
 import ResumeDetailCard from 'components/searchpage/ResumeDetailCard';
 import { SuggestionProps } from 'props-type';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { ResumeDetailAtom } from 'recoil/Recommendation';
 import { blurName } from 'components/utils/ResumeUtils';
 import { GetResumeDetail } from 'api/recommends';
 import { useEffect, useState } from 'react';
-import { GetSuggestionDatail, PostPay } from 'api/suggestion';
+import { ApprovePay, GetSuggestionDatail, PostPay } from 'api/suggestion';
 import { SuggestDetailData } from 'data-type';
-import { SigninAtom } from 'recoil/Signin';
 import { useMediaQuery } from 'react-responsive';
 
 const Payment = ({ resumeId, suggestId }: SuggestionProps) => {
   const [resumeData, setResumeData] = useRecoilState(ResumeDetailAtom);
-  const { id } = useRecoilValue(SigninAtom);
   const [suggest, setSuggest] = useState<SuggestDetailData>();
   const [totalAmount, setTotalAmount] = useState(0);
   const isMobile: boolean = useMediaQuery({
@@ -48,10 +46,29 @@ const Payment = ({ resumeId, suggestId }: SuggestionProps) => {
   }, [resumeId, suggestId]);
 
   const handleBtnClick = async () => {
-    const device = isMobile ? 'mobile' : 'pc';
     const price = totalAmount * 10000;
-    const res = await PostPay(id, resumeData.name, price, device);
-    console.log(res);
+    const res = await PostPay(suggestId, resumeData.name, price);
+    if (res?.data) {
+      const url = isMobile
+        ? res?.data?.next_redirect_mobile_url
+        : res?.data?.next_redirect_pc_url;
+      window.location.href = url;
+      requestApproval();
+    } else {
+      alert('결제 실패');
+    }
+  };
+
+  const requestApproval = async () => {
+    const params = new URL(document.location.toString()).searchParams;
+    const pgToken: string = params.get('pg_token') || '';
+    const res = await ApprovePay(suggestId, pgToken);
+    if (res?.status === 200) {
+      history.replaceState({}, location.pathname);
+      console.log('결제 성공');
+    } else {
+      alert('결제 실패');
+    }
   };
 
   return (
