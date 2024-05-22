@@ -35,6 +35,7 @@ import SuggestionPaymentCompletePage from 'pages/SuggestionPaymentCompletePage';
 import SuggestionDetailPage from 'pages/SuggestionDetailPage';
 import ReviewPage from 'pages/ReviewPage';
 import ReviewWritePage from 'pages/ReviewWritePage';
+import SuggestionPaidResumePage from 'pages/SuggestionPaidResumePage';
 
 function App() {
   return (
@@ -94,8 +95,12 @@ function App() {
             element={<SuggestionPaymentPage />}
           />
           <Route
-            path="/suggestion/payment/complete"
+            path="/suggestion/complete"
             element={<SuggestionPaymentCompletePage />}
+          />
+          <Route
+            path="/suggestion/complete/:suggestId"
+            element={<SuggestionPaidResumePage />}
           />
           <Route
             path="/suggestion/detail/:suggestId"
