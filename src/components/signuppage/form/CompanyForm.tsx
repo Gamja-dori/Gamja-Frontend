@@ -160,7 +160,15 @@ const CompanyForm = () => {
       setIsComNumWrong(true);
     }
 
-    if (username && usernameDuplCheck && pw && pwCheck && comNum) {
+    if (
+      username &&
+      usernameDuplCheck &&
+      pw &&
+      pwCheck &&
+      comNum &&
+      name &&
+      phone_number
+    ) {
       return true;
     }
     setUsernameAlert('6~12자 이내의 영문, 숫자만 가능');
