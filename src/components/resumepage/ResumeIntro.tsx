@@ -38,8 +38,15 @@ const ResumeIntro = ({ isSubmitted }: ResumeEditProps) => {
     });
   };
 
+  const guideText =
+    '<h2>이런 기업을 도와줄 수 있어요</h2><p>전문가님을 필요로 하는 기업은 어떤 고민을 갖고 있을까요? 전문가님이 도와줄 수 있는 분야를 적어주세요.</p><h2>자신 있는 분야</h2><p>전문가님이 참여할 수 있는 프로젝트는 어떤 것이 있을까요? 자신 있는 분야를 상세히 나열해 주세요.</p><h2>예상 산출물</h2><p>전문가님이 기업과 함께 협업하면 어떤 결과물을 낼 수 있을지 적어주세요.</p>';
+
   useEffect(() => {
-    editorRef?.current?.getInstance().setHTML(resumeData.introduction);
+    if (resumeData.introduction == '') {
+      editorRef?.current?.getInstance().setHTML(guideText);
+    } else {
+      editorRef?.current?.getInstance().setHTML(resumeData.introduction);
+    }
   }, []);
 
   return (
