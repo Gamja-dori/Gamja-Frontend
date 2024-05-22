@@ -79,7 +79,7 @@ function App() {
             element={<SuggestionPage />}
           />
           <Route
-            path="/suggestion/edit/:resumeId"
+            path="/suggestion/edit/:suggestId"
             element={<SuggestionEditPage />}
           />
           <Route
