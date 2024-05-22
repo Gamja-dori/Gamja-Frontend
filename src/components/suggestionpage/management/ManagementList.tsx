@@ -11,6 +11,7 @@ const ManagementList = ({ option, searchValue }: ManagementListProps) => {
   const { id } = useRecoilValue(SigninAtom);
 
   useEffect(() => {
+    console.log(option);
     if (option === '전체 채용') {
       getAllData();
     } else if (option === '진행 중인 채용') {
@@ -22,20 +23,17 @@ const ManagementList = ({ option, searchValue }: ManagementListProps) => {
 
   const getAllData = async () => {
     const res = await GetSuggestionList(id);
-    console.log(res?.data.suggests);
     const suggests = res?.data.suggests;
     setData(suggests);
   };
 
   const getUnpaidData = async () => {
     const res = await GetUnpaidList(id);
-    //console.log(res?.data.suggests);
     setData(res?.data.suggests);
   };
 
   const getPaidData = async () => {
     const res = await GetPaidList(id);
-    //console.log(res?.data.suggests);
     setData(res?.data.suggests);
   };
 
@@ -43,7 +41,7 @@ const ManagementList = ({ option, searchValue }: ManagementListProps) => {
     <div className="resume-long-card-container">
       {data ? (
         data.map((item) => {
-          return <ManagementItem key={item.resume_id} item={item} />;
+          return <ManagementItem key={item.suggest_id} item={item} />;
         })
       ) : (
         <div>{option} 내역이 없어요!</div>
