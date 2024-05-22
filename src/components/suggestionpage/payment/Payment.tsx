@@ -64,7 +64,7 @@ const Payment = ({ resumeId, suggestId }: SuggestionProps) => {
     const pgToken: string = params.get('pg_token') || '';
     const res = await ApprovePay(suggestId, pgToken);
     if (res?.status === 200) {
-      history.replaceState({}, location.pathname);
+      window.history.replaceState({}, '', window.location.pathname);
       console.log('결제 성공');
     } else {
       alert('결제 실패');
