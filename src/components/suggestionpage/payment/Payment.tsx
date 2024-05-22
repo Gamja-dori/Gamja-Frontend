@@ -2,7 +2,7 @@ import Btn from 'components/_common/Btn';
 import Label from 'components/_common/Label';
 import ResumeDetailCard from 'components/searchpage/ResumeDetailCard';
 import { SuggestionProps } from 'props-type';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { ResumeDetailAtom } from 'recoil/Recommendation';
 import { blurName } from 'components/utils/ResumeUtils';
 import { GetResumeDetail } from 'api/recommends';
@@ -11,11 +11,14 @@ import { ApprovePay, GetSuggestionDatail, PostPay } from 'api/suggestion';
 import { SuggestDetailData } from 'data-type';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
+import { SuggestIdAtom } from 'recoil/Suggest';
 
 const Payment = ({ resumeId, suggestId }: SuggestionProps) => {
   const [resumeData, setResumeData] = useRecoilState(ResumeDetailAtom);
+  const setSuggestId = useSetRecoilState(SuggestIdAtom);
   const [suggest, setSuggest] = useState<SuggestDetailData>();
   const [totalAmount, setTotalAmount] = useState(0);
+  const [paymentId, setPaymentId] = useState(0);
   const isMobile: boolean = useMediaQuery({
     query: '(max-width:802px)',
   });
@@ -53,6 +56,7 @@ const Payment = ({ resumeId, suggestId }: SuggestionProps) => {
     const price = totalAmount * 10000;
     const res = await PostPay(suggestId, resumeData.name, price);
     if (res?.data) {
+      setPaymentId(res?.data.payment_id);
       const url = isMobile
         ? res?.data?.next_redirect_mobile_url
         : res?.data?.next_redirect_pc_url;
@@ -62,18 +66,19 @@ const Payment = ({ resumeId, suggestId }: SuggestionProps) => {
     }
   };
 
-  const requestApproval = async () => {
-    const res = await ApprovePay(suggestId, pgToken);
+  const requestApproval = async (paymentId: number) => {
+    const res = await ApprovePay(paymentId, pgToken);
     if (res?.status === 200) {
-      navigate('/suggestion/payment/complete');
+      setSuggestId(suggestId);
+      navigate('/suggestion/complete');
     } else {
       alert('결제 승인 실패');
     }
   };
 
   useEffect(() => {
-    if (pgToken) {
-      requestApproval();
+    if (pgToken && paymentId > 0) {
+      requestApproval(paymentId);
     }
   }, [pgToken]);
 

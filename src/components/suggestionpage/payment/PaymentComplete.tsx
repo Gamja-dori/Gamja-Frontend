@@ -1,10 +1,14 @@
 import Btn from 'components/_common/Btn';
 import ResumeDetailCard from 'components/searchpage/ResumeDetailCard';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { ResumeDetailAtom } from 'recoil/Recommendation';
+import { SuggestIdAtom } from 'recoil/Suggest';
 
 const PaymentComplete = () => {
   const resumeData = useRecoilValue(ResumeDetailAtom);
+  const suggestId = useRecoilValue(SuggestIdAtom);
+  const navigate = useNavigate();
 
   return (
     <div className="sub-container">
@@ -30,7 +34,7 @@ const PaymentComplete = () => {
       </div>
       <Btn
         label="전문가 정보 보러가기"
-        onClick={() => console.log('전문가 정보 보러가기 클릭')}
+        onClick={() => navigate(`/suggestion/complete/${suggestId}/`)}
         styleClass="longer-btn dark-blue"
       />
     </div>
