@@ -8,8 +8,9 @@ import { useEffect, useState } from 'react';
 import { ContactData } from 'data-type';
 import { GetSecret } from 'api/senior_user';
 import { parsePhoneNumber } from 'components/utils/PhoneUtils';
+import { ContactProps } from 'props-type';
 
-const Contact = (id: number) => {
+const Contact = ({ id }: ContactProps) => {
   const [data, setData] = useState<ContactData>({
     name: '',
     phone_number: '',
@@ -33,14 +34,18 @@ const Contact = (id: number) => {
           <img src={user} />
           <p>{data.name}</p>
         </div>
-        <div>
-          <img src={phone} />
-          <p>{parsePhoneNumber(data.phone_number)}</p>
-        </div>
-        <div>
-          <img src={mail} />
-          <p>{data.email}</p>
-        </div>
+        {data.phone_number && (
+          <div>
+            <img src={phone} />
+            <p>{parsePhoneNumber(data.phone_number)}</p>
+          </div>
+        )}
+        {data.email && (
+          <div>
+            <img src={mail} />
+            <p>{data.email}</p>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -243,4 +243,8 @@ declare module 'props-type' {
   export type StarRateProps = {
     setStarRate: React.Dispatch<React.SetStateAction<number>>;
   };
+
+  export type ContactProps = {
+    id: number;
+  };
 }
