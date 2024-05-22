@@ -26,7 +26,9 @@ const PaymentComplete = () => {
   };
 
   useEffect(() => {
-    requestApproval();
+    if (suggestId > 0) {
+      requestApproval();
+    }
   }, []);
 
   return (
