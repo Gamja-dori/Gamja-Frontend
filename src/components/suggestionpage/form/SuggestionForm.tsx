@@ -10,11 +10,11 @@ import { commuteTypeData } from 'components/resumepage/ResumeData';
 import { useRecoilValue } from 'recoil';
 import { ResumeDetailAtom } from 'recoil/Recommendation';
 import { blurName } from 'components/utils/ResumeUtils';
-import { CreateSuggestion } from 'api/suggestion';
+import { CreateSuggestion, GetSuggestionDatail } from 'api/suggestion';
 import { SigninAtom } from 'recoil/Signin';
 import { useNavigate } from 'react-router-dom';
 
-const SuggestionForm = ({ resumeId, isEdit }: SuggestionProps) => {
+const SuggestionForm = ({ resumeId, isEdit, suggestId }: SuggestionProps) => {
   const navigate = useNavigate();
 
   const resumeData = useRecoilValue(ResumeDetailAtom);
@@ -40,6 +40,22 @@ const SuggestionForm = ({ resumeId, isEdit }: SuggestionProps) => {
       }
     }
   }, [startDate, endDate]);
+
+  useEffect(() => {
+    if (isEdit) {
+      getSuggestionDatail();
+    }
+  }, [isEdit]);
+
+  const getSuggestionDatail = async () => {
+    const res = await GetSuggestionDatail(Number(suggestId));
+    const data = res?.data;
+    setCommuteType(data.commute_type);
+    setStartDate(data.start_year_month);
+    setEndDate(data.end_year_month);
+    setPay(data.pay);
+    setJD(data.job_description);
+  };
 
   const onCommuteChange = (value: string) => {
     setCommuteType(value);
@@ -112,12 +128,12 @@ const SuggestionForm = ({ resumeId, isEdit }: SuggestionProps) => {
               className="select-long"
               prefixCls="blue-select"
               defaultValue="근무 형태"
-              placeholder="근무 형태"
               onChange={onCommuteChange}
               options={commuteTypeData.map((c) => ({
                 label: c,
                 value: c,
               }))}
+              value={commuteType || '근무 형태'}
             />
           </div>
         </div>
@@ -126,12 +142,20 @@ const SuggestionForm = ({ resumeId, isEdit }: SuggestionProps) => {
           <div className="record-date suggestion-date">
             <div>
               <p className="date-label">시작일</p>
-              <input placeholder="0000.00" onChange={onStartChange} />
+              <input
+                placeholder="0000.00"
+                onChange={onStartChange}
+                value={startDate}
+              />
             </div>
             <p>~</p>
             <div>
               <p className="date-label">종료일</p>
-              <input placeholder="0000.00" onChange={onEndChange} />
+              <input
+                placeholder="0000.00"
+                onChange={onEndChange}
+                value={endDate}
+              />
             </div>
           </div>
         </div>
@@ -144,7 +168,7 @@ const SuggestionForm = ({ resumeId, isEdit }: SuggestionProps) => {
               원
             </p>
             <div className="suggest-form-price-input light-gray">
-              <input onChange={onPayChange} />
+              <input onChange={onPayChange} value={pay} />
               <p>만 원</p>
             </div>
             <p className="suggest-notice-p">수수료는 제안 급여의 10%입니다.</p>
@@ -157,6 +181,7 @@ const SuggestionForm = ({ resumeId, isEdit }: SuggestionProps) => {
             name="업무 소개"
             placeholder="업무 소개를 입력하세요."
             onChange={onJDChange}
+            value={jd}
           />
         </div>
       </div>
@@ -169,7 +194,7 @@ const SuggestionForm = ({ resumeId, isEdit }: SuggestionProps) => {
         {isEdit ? (
           <Btn
             label="수정"
-            onClick={() => window.location.replace('/resume/detail/:resumeId')}
+            onClick={() => console.log(startDate, endDate, pay, duration)}
             styleClass="abreast-btn dark-blue"
           />
         ) : (

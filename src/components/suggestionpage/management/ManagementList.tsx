@@ -11,7 +11,6 @@ const ManagementList = ({ option, searchValue }: ManagementListProps) => {
   const { id } = useRecoilValue(SigninAtom);
 
   useEffect(() => {
-    console.log(option);
     if (option === '전체 채용') {
       getAllData();
     } else if (option === '진행 중인 채용') {
@@ -44,7 +43,7 @@ const ManagementList = ({ option, searchValue }: ManagementListProps) => {
           return <ManagementItem key={item.suggest_id} item={item} />;
         })
       ) : (
-        <div>{option} 내역이 없어요!</div>
+        <div className="resume-list-empty">{option} 내역이 없어요!</div>
       )}
     </div>
   );
