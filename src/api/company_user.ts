@@ -8,6 +8,7 @@ export const SignupCompany = async ({
   name,
   phone_number,
   business_number,
+  company,
 }: SignupData) => {
   try {
     const res = await http.post('/users/enterprise/signup/', {
@@ -17,6 +18,7 @@ export const SignupCompany = async ({
         password: password,
       },
       name: name,
+      company: company,
       phone_number: phone_number,
       business_number: business_number,
     });

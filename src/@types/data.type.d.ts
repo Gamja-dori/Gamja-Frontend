@@ -15,6 +15,7 @@ declare module 'data-type' {
 
   export type SignupData = InfoFormData & {
     password: string;
+    company?: string;
   };
 
   export type SigninData = {
@@ -34,7 +35,7 @@ declare module 'data-type' {
     name: string;
     career_year: number;
     job_group: string;
-    job_name: string;
+    job_role: string;
     date: string;
     commute_type: string;
     profile_image: string;
@@ -148,15 +149,24 @@ declare module 'data-type' {
   };
 
   export type ReviewData = {
-    id: number;
-    name: string;
-    star: number;
-    date: string;
-    profile_image: string;
-    duration_start: string;
-    duration_end: string;
-    tags: string[];
-    content: string;
+    review_id: number;
+    reviewer_id: number;
+    reviewer_name: string;
+    reviewer_image: string;
+    job_group: string;
+    job_role: string;
+    start_year_month: string;
+    end_year_month: string;
+    score: number;
+    created_at: string;
+    comment: string;
+    tags: string;
+  };
+
+  export type ReviewListData = {
+    senior_id: number;
+    reviews: ReviewData[];
+    average_score: number;
   };
 
   export type SuggestionData = {
