@@ -29,14 +29,19 @@ const NoticeList = ({ isOld }: NoticeListProps) => {
   };
 
   const filterCompanyData = (data: NotificationData[]) => {
-    const filteredData = data.filter((item) => item.progress !== 'is_pending');
+    const filteredData = data.filter(
+      (item) =>
+        item.progress !== 'is_pending' && item.progress !== 'is_reviewed',
+    );
     setData(filteredData);
   };
 
   const filterSeniorData = (data: NotificationData[]) => {
     const filteredData = data.filter(
       (item) =>
-        item.progress !== 'is_accepted' && item.progress !== 'is_declined',
+        item.progress !== 'is_accepted' &&
+        item.progress !== 'is_declined' &&
+        item.progress !== 'is_reviewed',
     );
     setData(filteredData);
   };
