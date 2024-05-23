@@ -234,7 +234,7 @@ export const CreateSeniorIntro = async (
       `/resumes/senior-intro/${user_id}/${resume_id}/`,
       {
         keyword: resume.keyword,
-        introduction: resume.introduction,
+        introduction: '',
         job_group: resume.job_group,
         job_role: resume.job_role,
         career_year: resume.career_year,
