@@ -208,3 +208,17 @@ export const GetDefaultResume = async (user_id: number) => {
     console.log('기본 이력서 조회 실패', err);
   }
 };
+
+// 기존 이력서 복제
+export const CopyResume = async (user_id: number, resume_id: number) => {
+  try {
+    const res = await http.post('/resumes/copy/', {
+      user_id: user_id,
+      resume_id: resume_id,
+    });
+    console.log('이력서 복제 성공', res);
+    return res;
+  } catch (err) {
+    console.log('이력서 복제 실패', err);
+  }
+};
