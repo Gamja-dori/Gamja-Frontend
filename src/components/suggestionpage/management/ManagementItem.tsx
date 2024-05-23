@@ -84,7 +84,9 @@ const ManagementItem = ({ item }: ManagementItemProps) => {
         <div className="suggest-manage-btn-div">
           <Btn
             label="채용 제안 수정하기"
-            onClick={() => navigate(`/suggestion/edit/${item.suggest_id}`)}
+            onClick={() =>
+              navigate(`/suggestion/edit/${item.resume_id}/${item.suggest_id}`)
+            }
             styleClass="inner-btn dark-blue"
           />
         </div>

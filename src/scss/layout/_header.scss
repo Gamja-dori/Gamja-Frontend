@@ -59,11 +59,12 @@
 }
 
 .header_icon {
-  @include mobile {
-    width: 2.4rem;
-  }
   @include pc {
     width: 3.6rem;
+  }
+  @include mobile {
+    width: 2.4rem;
+    margin-right: 2rem;
   }
 }
 
@@ -94,6 +95,11 @@
     width: 3.2rem;
     height: 4.5rem;
     margin-right: 2rem;
+  }
+  img {
+    @include mobile {
+      margin: 0;
+    }
   }
   div {
     position: absolute;
