@@ -101,7 +101,8 @@
   }
 }
 
-.review-duration-p {
+.review-info-div {
+  display: flex;
   color: $dark-gray;
   margin: 1rem 0;
   @include pc {
@@ -109,6 +110,8 @@
   }
   @include mobile {
     font-size: 1.6rem;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }
 

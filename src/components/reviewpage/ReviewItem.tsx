@@ -1,28 +1,41 @@
 import { ReviewItemProps } from 'props-type';
 import ReviewStar from './ReviewStar';
+import { formatDate, parseTags } from 'components/utils/ResumeUtils';
+import { useMediaQuery } from 'react-responsive';
 
 const ReviewItem = ({ review }: ReviewItemProps) => {
+  const tags: string[] = parseTags(review.tags);
+  const isMobile: boolean = useMediaQuery({
+    query: '(max-width:802px)',
+  });
+
   return (
     <div className="review-item-div light-gray">
       <div className="review-profile-div">
-        <img src={review.profile_image} className="review-profile-img" />
+        <img src={review.reviewer_image} className="review-profile-img" />
         <div className="review-profile-detail-div">
-          <ReviewStar starRate={review.star} styleClass="small-star" />
+          <ReviewStar starRate={review.score} styleClass="small-star" />
           <div>
-            <p>{review.name}</p>
-            <p>{review.date} 작성</p>
+            <p>{review.reviewer_name}</p>
+            <p>{formatDate(review.created_at)} 작성</p>
           </div>
         </div>
       </div>
-      <p className="review-duration-p">
-        고용 기간: {review.duration_start}~{review.duration_end}
-      </p>
+      <div className="review-info-div">
+        <p>
+          직군 {'>'} 직무: {review.job_group} {'>'} {review.job_role}
+        </p>
+        {!isMobile && <div>&nbsp;{'/'}&nbsp;</div>}
+        <p>
+          고용 기간: {review.start_year_month}~{review.end_year_month}
+        </p>
+      </div>
       <div className="review-tags-div">
-        {review.tags.map((tag: string) => {
-          return <p key={tag}>{tag}</p>;
+        {tags.map((tag: string, index) => {
+          return <p key={index}>{tag}</p>;
         })}
       </div>
-      <p className="review-content-p">{review.content}</p>
+      <p className="review-content-p">{review.comment}</p>
     </div>
   );
 };

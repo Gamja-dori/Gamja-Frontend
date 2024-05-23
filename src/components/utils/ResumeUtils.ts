@@ -15,3 +15,8 @@ export const parseSkills = (skills: string) => {
   const convertedSkills = JSON.parse('{"skills": ' + skills + '}').skills;
   return convertedSkills;
 };
+
+export const parseTags = (tags: string) => {
+  const convertedTags = JSON.parse('{"tags": ' + tags + '}').tags;
+  return convertedTags;
+};
