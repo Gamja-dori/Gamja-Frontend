@@ -3,9 +3,37 @@ import verified from '../../../assets/icons/verified.svg';
 import Btn from 'components/_common/Btn';
 import { useNavigate } from 'react-router-dom';
 import { blurName } from 'components/utils/ResumeUtils';
+import { useSetRecoilState } from 'recoil';
+import { ResumeDetailAtom } from 'recoil/Recommendation';
+import { GetResumeDetail } from 'api/recommends';
 
 const ManagementItem = ({ item }: ManagementItemProps) => {
   const navigate = useNavigate();
+
+  const setResumeData = useSetRecoilState(ResumeDetailAtom);
+
+  const handleReviewCreateClick = () => {
+    getResumeDetail(item.resume_id);
+  };
+
+  const getResumeDetail = async (resume_id: number) => {
+    const res = await GetResumeDetail(resume_id);
+    if (res?.status === 200) {
+      setResumeData(() => {
+        return {
+          ...res?.data.resume,
+          user_id: res?.data.user_id,
+          resume_id: res?.data.resume_id,
+          name: res?.data.name,
+          profile_image: res?.data.profile_image,
+          is_verified: res?.data.is_verified,
+          successfully_get: true,
+        };
+      });
+      navigate(`/review/new/${item.suggest_id}`);
+    }
+  };
+
   return (
     <div className="resume-long-card">
       <div
@@ -39,25 +67,22 @@ const ManagementItem = ({ item }: ManagementItemProps) => {
           {item.job_group} {`>`} {item.job_name}
         </div>
       </div>
-      {item.progress === 'is_paid' && (
-        <div className="suggest-manage-btn-div">
-          {item.review_id > 0 ? (
-            <Btn
-              label="리뷰를 이미 작성했어요"
-              onClick={() => null}
-              styleClass="inner-btn light-gray"
-            />
-          ) : (
-            <Btn
-              label="리뷰 작성하기"
-              onClick={() => console.log('리뷰 작성 클릭!')}
-              styleClass="inner-btn dark-blue"
-            />
-          )}
-        </div>
-      )}
-      {item.progress === 'is_accepted' && (
-        <div className="suggest-manage-btn-div">
+      <div className="suggest-manage-btn-div">
+        {item.progress === 'is_reviewed' && (
+          <Btn
+            label="리뷰를 이미 작성했어요"
+            onClick={() => null}
+            styleClass="inner-btn light-gray"
+          />
+        )}
+        {item.progress === 'is_paid' && (
+          <Btn
+            label="리뷰 작성하기"
+            onClick={handleReviewCreateClick}
+            styleClass="inner-btn dark-blue"
+          />
+        )}
+        {item.progress === 'is_accepted' && (
           <Btn
             label="결제하기"
             onClick={() =>
@@ -67,10 +92,8 @@ const ManagementItem = ({ item }: ManagementItemProps) => {
             }
             styleClass="inner-btn dark-blue"
           />
-        </div>
-      )}
-      {item.progress === 'is_declined' && (
-        <div className="suggest-manage-btn-div">
+        )}
+        {item.progress === 'is_declined' && (
           <Btn
             label="채용 제안이 거절됐어요"
             onClick={() => {
@@ -78,10 +101,8 @@ const ManagementItem = ({ item }: ManagementItemProps) => {
             }}
             styleClass="inner-btn light-gray"
           />
-        </div>
-      )}
-      {item.progress === 'is_pending' && (
-        <div className="suggest-manage-btn-div">
+        )}
+        {item.progress === 'is_pending' && (
           <Btn
             label="채용 제안 수정하기"
             onClick={() =>
@@ -89,10 +110,8 @@ const ManagementItem = ({ item }: ManagementItemProps) => {
             }
             styleClass="inner-btn dark-blue"
           />
-        </div>
-      )}
-      {item.progress === 'is_cancelled' && (
-        <div className="suggest-manage-btn-div">
+        )}
+        {item.progress === 'is_cancelled' && (
           <Btn
             label="채용을 취소했어요"
             onClick={() => {
@@ -100,8 +119,8 @@ const ManagementItem = ({ item }: ManagementItemProps) => {
             }}
             styleClass="inner-btn light-gray"
           />
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
