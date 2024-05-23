@@ -1,6 +1,11 @@
 import { EditModalProps } from 'props-type';
 import { useMediaQuery } from 'react-responsive';
-import { DeleteResume, PatchDefaultResume, PatchResumeTitle } from 'api/resume';
+import {
+  DeleteResume,
+  PatchDefaultResume,
+  PatchResumeTitle,
+  CopyResume,
+} from 'api/resume';
 import { ResumeCardData } from 'data-type';
 import Modal from 'components/_common/Modal';
 import Input from 'components/_common/Input';
@@ -74,6 +79,19 @@ const EditModal = ({
     setIsOpen(false);
   };
 
+  const copyResume = async (user_id: number, resume_id: number) => {
+    const res = await CopyResume(user_id, resume_id);
+    if (resumeList && setResumeList && res) {
+      setResumeList((prev) => {
+        //return [res.data.resume, ...prev];
+        const newList = [...prev];
+        newList.push(res.data.resume);
+        return newList;
+      });
+    }
+    setIsOpen(false);
+  };
+
   return (
     <>
       {isInput ? (
@@ -119,7 +137,14 @@ const EditModal = ({
               기본 이력서로 설정
             </div>
             {isMobile && <hr className="modal-division-line"></hr>}
-            <div className="edit-modal-text">사본 만들기</div>
+            <div
+              className="edit-modal-text"
+              onClick={() => {
+                copyResume(userId, resumeId);
+              }}
+            >
+              사본 만들기
+            </div>
             {isMobile && <hr className="modal-division-line"></hr>}
             <div
               className="edit-modal-text-alert"

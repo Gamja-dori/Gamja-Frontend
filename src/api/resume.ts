@@ -208,3 +208,51 @@ export const GetDefaultResume = async (user_id: number) => {
     console.log('기본 이력서 조회 실패', err);
   }
 };
+
+// 기존 이력서 복제
+export const CopyResume = async (user_id: number, resume_id: number) => {
+  try {
+    const res = await http.post('/resumes/copy/', {
+      user_id: user_id,
+      resume_id: resume_id,
+    });
+    console.log('이력서 복제 성공', res);
+    return res;
+  } catch (err) {
+    console.log('이력서 복제 실패', err);
+  }
+};
+
+// 전문가 소개 작성
+export const CreateSeniorIntro = async (
+  user_id: number,
+  resume_id: number,
+  resume: ResumeData,
+) => {
+  try {
+    const res = await http.post(
+      `/resumes/senior-intro/${user_id}/${resume_id}/`,
+      {
+        keyword: resume.keyword,
+        introduction: resume.introduction,
+        job_group: resume.job_group,
+        job_role: resume.job_role,
+        career_year: resume.career_year,
+        skills: resume.skills,
+        careers: resume.careers,
+        educations: resume.educations,
+        projects: resume.projects,
+        portfolios: resume.portfolios,
+        duration_start: resume.duration_start,
+        duration_end: resume.duration_end,
+        min_month_pay: resume.min_month_pay,
+        max_month_pay: resume.max_month_pay,
+        commute_type: resume.commute_type,
+      },
+    );
+    console.log('전문가 소개 생성 성공', res);
+    return res;
+  } catch (err) {
+    console.log('전문가 소개 생성 실패', err);
+  }
+};
