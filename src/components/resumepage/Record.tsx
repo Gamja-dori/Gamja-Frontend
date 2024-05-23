@@ -147,7 +147,6 @@ const Record = ({
           />
           <textarea
             className="resume-text-area"
-            style={{ height: '8rem', marginTop: '1rem' }}
             placeholder={secondPlaceholder}
             value={secondValue}
             onChange={(e) =>
@@ -181,7 +180,6 @@ const Record = ({
           {needDetail ? (
             <textarea
               className="resume-text-area"
-              style={{ height: '8rem', marginTop: '1rem' }}
               placeholder={secondPlaceholder}
               value={secondValue}
               onChange={(e) =>
