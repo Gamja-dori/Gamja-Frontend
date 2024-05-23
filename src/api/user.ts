@@ -53,3 +53,35 @@ export const ChangeProfile = async (id: number, form: FormData) => {
     console.log('프로필 변경 실패', err);
   }
 };
+
+export const CreateReview = async (
+  suggest: number,
+  senior: number,
+  reviewer: number,
+  score: number,
+  tags: string,
+  comment: string,
+) => {
+  try {
+    const res = await http.post('/users/review/create/', {
+      suggest: suggest,
+      senior: senior,
+      reviewer: reviewer,
+      score: score,
+      tags: tags,
+      comment: comment,
+    });
+    return res;
+  } catch (err) {
+    console.log('리뷰 생성 실패', err);
+  }
+};
+
+export const GetReview = async (senior_id: number) => {
+  try {
+    const res = await http.get(`/users/review/list/${senior_id}`);
+    return res;
+  } catch (err) {
+    console.log('리뷰 조회 실패', err);
+  }
+};
