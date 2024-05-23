@@ -234,7 +234,6 @@ export const CreateSeniorIntro = async (
       `/resumes/senior-intro/${user_id}/${resume_id}/`,
       {
         keyword: resume.keyword,
-        introduction: '',
         job_group: resume.job_group,
         job_role: resume.job_role,
         career_year: resume.career_year,
@@ -243,11 +242,6 @@ export const CreateSeniorIntro = async (
         educations: resume.educations,
         projects: resume.projects,
         portfolios: resume.portfolios,
-        duration_start: resume.duration_start,
-        duration_end: resume.duration_end,
-        min_month_pay: resume.min_month_pay,
-        max_month_pay: resume.max_month_pay,
-        commute_type: resume.commute_type,
       },
     );
     console.log('전문가 소개 생성 성공', res);
