@@ -1,23 +1,24 @@
 import { useEffect, useState } from 'react';
 import { Select } from 'antd';
 
+import { SuggestionProps } from 'props-type';
 import Subtitle from 'components/_common/Subtitle';
 import Label from 'components/_common/Label';
 import Btn from 'components/_common/Btn';
-import { SuggestionProps } from 'props-type';
 import ResumeDetailCard from 'components/searchpage/ResumeDetailCard';
 import { commuteTypeData } from 'components/resumepage/ResumeData';
-import { useRecoilValue } from 'recoil';
-import { ResumeDetailAtom } from 'recoil/Recommendation';
 import { blurName } from 'components/utils/ResumeUtils';
 import { CreateSuggestion, GetSuggestionDatail } from 'api/suggestion';
+import { GetResumeDetail } from 'api/recommends';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { SigninAtom } from 'recoil/Signin';
 import { useNavigate } from 'react-router-dom';
+import { ResumeDetailAtom } from 'recoil/Recommendation';
 
-const SuggestionForm = ({ resumeId, isEdit, suggestId }: SuggestionProps) => {
+const SuggestionForm = ({ isEdit, suggestId, resumeId }: SuggestionProps) => {
   const navigate = useNavigate();
 
-  const resumeData = useRecoilValue(ResumeDetailAtom);
+  const [resumeData, setResumeData] = useRecoilState(ResumeDetailAtom);
   const signinAtom = useRecoilValue(SigninAtom);
 
   const [startDate, setStartDate] = useState('');
@@ -34,9 +35,11 @@ const SuggestionForm = ({ resumeId, isEdit, suggestId }: SuggestionProps) => {
       const [startY, startM] = startDate.split('.').map(Number);
       const [endY, endM] = endDate.split('.').map(Number);
 
-      const diff = (endY - startY) * 12 + endM - startM;
+      const diff = (endY - startY) * 12 + Math.abs(endM - startM) + 1;
       if (diff > 0) {
         setDuration(diff);
+      } else {
+        alert('날짜를 다시 입력해 주세요.');
       }
     }
   }, [startDate, endDate]);
@@ -46,6 +49,28 @@ const SuggestionForm = ({ resumeId, isEdit, suggestId }: SuggestionProps) => {
       getSuggestionDatail();
     }
   }, [isEdit]);
+
+  useEffect(() => {
+    console.log(resumeId, resumeData.resume_id);
+    if (resumeId !== resumeData.resume_id) {
+      getResumeDetail(resumeId);
+    }
+  }, [resumeId, resumeData.resume_id]);
+
+  const getResumeDetail = async (resume_id: number) => {
+    const res = await GetResumeDetail(resume_id);
+    setResumeData(() => {
+      return {
+        ...res?.data.resume,
+        user_id: res?.data.user_id,
+        resume_id: res?.data.resume_id,
+        name: res?.data.name,
+        profile_image: res?.data.profile_image,
+        is_verified: res?.data.is_verified,
+        successfully_get: true,
+      };
+    });
+  };
 
   const getSuggestionDatail = async () => {
     const res = await GetSuggestionDatail(Number(suggestId));
