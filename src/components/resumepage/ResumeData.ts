@@ -44,8 +44,4 @@ export const skillData: SelectProps['options'] = skills.map((s) => ({
   value: s,
 }));
 
-export const commuteTypeData = [
-  '상주 근무',
-  '원격 근무',
-  '상주 근무 및 원격 근무',
-];
+export const commuteTypeData = ['상주 근무', '원격 근무', '상주 및 원격'];
