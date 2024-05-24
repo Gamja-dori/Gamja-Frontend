@@ -101,29 +101,25 @@
   }
 }
 
-.ant-tooltip-inner {
+.blue-tooltip-inner,
+.green-tooltip-inner {
   color: $white !important;
   padding: 3px 8px !important;
   font-size: 1.8rem !important;
   text-align: center !important;
-  &.green-tooltip {
-    background-color: rgba(1, 186, 114, 0.7) !important;
-  }
-  &.blue-tooltip {
-    background-color: rgba(65, 192, 242, 0.7) !important;
-  }
+}
+.green-tooltip-inner {
+  background-color: rgba(1, 186, 114, 0.7) !important;
+}
+.green-tooltip-arrow::before {
+  background-color: rgba(1, 186, 114, 0.6) !important;
 }
 
-.green-tooltip {
-  .ant-tooltip-arrow::before {
-    background-color: rgba(1, 186, 114, 0.6) !important;
-  }
+.blue-tooltip-inner {
+  background-color: rgba(65, 192, 242, 0.7) !important;
 }
-
-.blue-tooltip {
-  .ant-tooltip-arrow::before {
-    background-color: rgba(65, 192, 242, 0.6) !important;
-  }
+.blue-tooltip-arrow::before {
+  background-color: rgba(65, 192, 242, 0.6) !important;
 }
 
 .blue-slider {
