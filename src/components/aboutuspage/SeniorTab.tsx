@@ -18,30 +18,37 @@ const SeniorTab = () => {
       <div className="about-desc-div">
         <p className="about-subtitle">이력서 등록</p>
         <div className="about-content-div">
+          <li>가지고 있는 이력서 파일을 업로드하면 경력 정보를 추출해줘요.</li>
           <li>보유한 스킬을 선택할 수 있어요.</li>
           <li>희망하는 고용 형태, 급여, 근무 형태를 선택할 수 있어요.</li>
-          <li>가지고 있는 이력서 파일을 업로드하면 경력 정보를 추출해줘요.</li>
+        </div>
+      </div>
+      <div className="about-desc-div">
+        <p className="about-subtitle">전문가 소개</p>
+        <div className="about-content-div">
+          <li>전문가님의 역량을 기업에 어필해요.</li>
+          <li>
+            작성한 이력서 정보를 바탕으로 생성형 AI가 자동으로 소개를
+            작성해줘요.
+          </li>
+          <li>개인별 특장점을 강조할 수 있어요.</li>
         </div>
       </div>
       <div className="about-desc-div">
         <p className="about-subtitle">희망 고용 형태</p>
-        <div className="about-icon-div">
+        <div className="about-content-div">
           <div className="about-content">
-            <div className="about-icon">
-              <img src={mentor} />
+            <div>
+              <p>상주 근무</p>
+              <p>근무 기간 동안 출근해요.</p>
             </div>
             <div>
-              <p>멘토링</p>
-              <p>멘토가 되어 내 지식을 공유할 수 있어요.</p>
-            </div>
-          </div>
-          <div className="about-content">
-            <div className="about-icon">
-              <img src={project} />
+              <p>원격 근무</p>
+              <p>근무 기간 동안 원격으로 프로젝트에 참여해요.</p>
             </div>
             <div>
-              <p>프로젝트 계약직</p>
-              <p>단기적으로 기업의 프로젝트에 참여해요.</p>
+              <p>상주 및 원격 근무</p>
+              <p>기업과 협의 후 유연하게 근무해요.</p>
             </div>
           </div>
         </div>

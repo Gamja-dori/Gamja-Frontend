@@ -42,20 +42,20 @@ export const GetSuggestionList = async (user_id: number) => {
   }
 };
 
-// 기업 - 결제 X 채용 제안 목록
+// 기업 - 채용 미완료 제안 목록
 export const GetUnpaidList = async (user_id: number) => {
   try {
-    const res = await http.get(`/suggests/enterprise/${user_id}/unpaid`);
+    const res = await http.get(`/suggests/enterprise/in-progress/${user_id}`);
     return res;
   } catch (err) {
     console.log('결제 X 채용 제안 목록 조회 실패', err);
   }
 };
 
-// 기업 - 결제 O 채용 제안 목록
+// 기업 - 채용 완료 제안 목록
 export const GetPaidList = async (user_id: number) => {
   try {
-    const res = await http.get(`/suggests/enterprise/${user_id}/paid`);
+    const res = await http.get(`/suggests/enterprise/completed/${user_id}`);
     return res;
   } catch (err) {
     console.log('결제 O 채용 제안 목록 조회 실패', err);

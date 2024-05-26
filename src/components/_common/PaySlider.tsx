@@ -93,7 +93,7 @@ const PaySlider = ({
             defaultValue={[0, 12]}
             value={[searchData.duration_start, searchData.duration_end]}
             onChange={onDurationChange}
-            tooltip={{ open: true, prefixCls: 'blue-tooltip ant-tooltip' }}
+            tooltip={{ open: true, prefixCls: 'blue-tooltip' }}
             style={{ marginTop: '4.5rem' }}
             className="blue-slider"
           />
@@ -104,7 +104,7 @@ const PaySlider = ({
             max={12}
             value={[resumeData.duration_start, resumeData.duration_end]}
             onChange={onDurationChange}
-            tooltip={{ open: true, prefixCls: 'green-tooltip ant-tooltip' }}
+            tooltip={{ open: true, prefixCls: 'green-tooltip' }}
             style={{ marginTop: '4.5rem' }}
           />
         ))}
@@ -115,7 +115,7 @@ const PaySlider = ({
           max={50}
           value={[searchData.min_career_year, searchData.max_career_year]}
           onChange={onCareerChange}
-          tooltip={{ open: true, prefixCls: 'blue-tooltip ant-tooltip' }}
+          tooltip={{ open: true, prefixCls: 'blue-tooltip' }}
           style={{ marginTop: '4.5rem' }}
           className="blue-slider"
         />
@@ -130,7 +130,7 @@ const PaySlider = ({
               max={1000}
               value={[searchData.min_month_pay, searchData.max_month_pay]}
               onChange={onPayChange}
-              tooltip={{ open: true, prefixCls: 'blue-tooltip ant-tooltip' }}
+              tooltip={{ open: true, prefixCls: 'blue-tooltip' }}
               style={{ marginTop: '2rem' }}
               className="blue-slider"
             />
@@ -144,7 +144,7 @@ const PaySlider = ({
               max={1000}
               value={[resumeData.min_month_pay, resumeData.max_month_pay]}
               onChange={onPayChange}
-              tooltip={{ open: true, prefixCls: 'green-tooltip ant-tooltip' }}
+              tooltip={{ open: true, prefixCls: 'green-tooltip' }}
               style={{ marginTop: '2rem' }}
             />
           </>

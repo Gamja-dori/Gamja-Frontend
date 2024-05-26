@@ -28,6 +28,7 @@ const CompanyForm = () => {
   const [parsedComNum, setParsedComNum] = useState('');
   const [comNum, setComNum] = useState('');
   const [email, setEmail] = useState('');
+  const [company, setCompany] = useState('');
 
   // alert-text value useStates
   const [usernameAlert, setUsernameAlert] = useState(
@@ -45,6 +46,7 @@ const CompanyForm = () => {
   const [isComNumWrong, setIsComNumWrong] = useState(false);
   const [isNameWrong, setIsNameWrong] = useState(false);
   const [isPhoneNumWrong, setIsPhoneNumWrong] = useState(false);
+  const [isCompanyWrong, setIsCompanyWrong] = useState(false);
 
   // username duplication check useState
   const [usernameDuplCheck, setUsernameDuplCheck] = useState(false);
@@ -136,6 +138,22 @@ const CompanyForm = () => {
     }
   };
 
+  const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setName(value);
+    if (value) {
+      setIsNameWrong(false);
+    }
+  };
+
+  const handleCompany = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setCompany(value);
+    if (value) {
+      setIsCompanyWrong(false);
+    }
+  };
+
   // check username or usernameDuplCheck or pw or pwCheck is filled
   const isFilled = () => {
     if (!name) {
@@ -159,6 +177,9 @@ const CompanyForm = () => {
     if (!comNum) {
       setIsComNumWrong(true);
     }
+    if (!company) {
+      setIsCompanyWrong(true);
+    }
 
     if (
       username &&
@@ -179,13 +200,14 @@ const CompanyForm = () => {
   const handleSignupClick = async () => {
     if (isFilled()) {
       if (
-        name &&
-        phone_number &&
+        !isNameWrong &&
+        !isPhoneNumWrong &&
         agree &&
         !isUsernameWrong &&
         usernameDuplCheck &&
         !isPwWrong &&
         !isPwCheckWrong &&
+        !isComNumWrong &&
         !isComNumWrong
       ) {
         const res = await SignupCompany({
@@ -195,6 +217,7 @@ const CompanyForm = () => {
           name: name,
           phone_number: phone_number,
           business_number: comNum,
+          company: company,
         });
         if (res?.status === 201) {
           navigate('/sign-up/complete', { replace: true });
@@ -215,7 +238,7 @@ const CompanyForm = () => {
         {/* <Input label="이름" defaultValue={data.name} disabled={true} /> */}
         <Input
           label="이름"
-          onChange={(e) => setName(e.target.value)}
+          onChange={handleName}
           isRequired={true}
           isWrong={isNameWrong}
         />
@@ -248,6 +271,12 @@ const CompanyForm = () => {
           type="password"
           isWrong={isPwCheckWrong}
           alertText={pwCheckAlert}
+        />
+        <Input
+          label="회사명"
+          onChange={handleCompany}
+          isRequired={true}
+          isWrong={isCompanyWrong}
         />
         <Input
           label="사업자등록번호"

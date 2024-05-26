@@ -10,14 +10,13 @@ const SuggestionPaidResumePage = () => {
   const { isSignin } = useRecoilValue(SigninStateAtom);
   const { suggestId } = useParams();
   const navigate = useNavigate();
-  const [auth, setAuth] = useState(false);
+  const [access, setAccess] = useState(false);
 
   useEffect(() => {
     if (!isSignin) {
       alert('로그인이 필요합니다.');
       navigate('/sign-in');
-    } else {
-      setAuth(true);
+      setAccess(false);
     }
   }, [isSignin]);
 
@@ -29,15 +28,16 @@ const SuggestionPaidResumePage = () => {
   const getPay = async (suggestId: number) => {
     const res = await GetPay(suggestId);
     if (res?.status === 200) {
-      setAuth(true);
+      setAccess(true);
     } else {
+      setAccess(false);
       navigate(-1);
     }
   };
 
   return (
     <>
-      {auth && (
+      {access && (
         <div className="container">
           <Title label="전문가 상세" />
           <PaidResume />

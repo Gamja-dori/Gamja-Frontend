@@ -33,6 +33,14 @@ const CompanyTab = () => {
           <li>
             제안을 수락한 전문가와 협의 후 계약금의 10%를 수수료로 납부해요.
           </li>
+          <li>결제 후 전문가의 연락처를 열람하고 채용을 진행해요.</li>
+        </div>
+      </div>
+      <div className="about-desc-div">
+        <p className="about-subtitle">리뷰 작성</p>
+        <div className="about-content-div">
+          <li>결제가 완료되면 전문가에 대한 리뷰를 작성할 수 있어요.</li>
+          <li>리뷰는 전문가의 평판을 확인할 수 있는 자료로 활용돼요.</li>
         </div>
       </div>
     </div>

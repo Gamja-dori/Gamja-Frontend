@@ -3,21 +3,72 @@ import Btn from 'components/_common/Btn';
 import Label from 'components/_common/Label';
 import SelectTag from 'components/resumepage/SelectTag';
 import ResumeDetailCard from 'components/searchpage/ResumeDetailCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { ResumeDetailAtom } from 'recoil/Recommendation';
 import { tagData } from './TagData';
 import StarRate from './StarRate';
+import { CreateReview } from 'api/user';
+import { useNavigate, useParams } from 'react-router-dom';
+import { SigninAtom } from 'recoil/Signin';
+import { GetSuggestionDatail, UpdateProgress } from 'api/suggestion';
 
 const ReviewForm = () => {
+  const suggestId = Number(useParams()['suggestId']);
   const resumeData = useRecoilValue(ResumeDetailAtom);
+  const { id } = useRecoilValue(SigninAtom);
+  const navigate = useNavigate();
 
   const [starRate, setStarRate] = useState(0);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [content, setContent] = useState('');
+  const [tags, setTags] = useState('');
+  const [comment, setComment] = useState('');
+
+  const [commuteType, setCommuteType] = useState('');
+  const [duration, setDuration] = useState('');
+
+  useEffect(() => {
+    if (suggestId > 0) {
+      getSuggestDetail();
+    }
+  }, [suggestId]);
 
   const onTagChange = (value: string[]) => {
+    const convertedTags = JSON.stringify(value);
     setSelectedTags(value);
+    setTags(convertedTags);
+  };
+
+  const createReview = async () => {
+    const res = await CreateReview(
+      suggestId,
+      resumeData.user_id,
+      id,
+      starRate,
+      tags,
+      comment,
+    );
+    if (res?.status === 200) {
+      updateProgress();
+    } else {
+      alert('리뷰 작성 실패');
+    }
+  };
+
+  const updateProgress = async () => {
+    const res = await UpdateProgress(suggestId, 'is_reviewed');
+    if (res?.status === 200) {
+      navigate('/suggestion/management');
+    } else {
+      alert('상태 업데이트 실패');
+    }
+  };
+
+  const getSuggestDetail = async () => {
+    const res = await GetSuggestionDatail(Number(suggestId));
+    const data = res?.data;
+    setCommuteType(data.commute_type);
+    setDuration(data.start_year_month + '~' + data.end_year_month);
   };
 
   return (
@@ -41,11 +92,11 @@ const ReviewForm = () => {
       <div className="review-form-div">
         <div className="review-form-info-div">
           <p>고용 형태{'>'}</p>
-          <p>상주 근무</p>
+          <p>{commuteType}</p>
         </div>
         <div className="review-form-info-div">
           <p>고용 기간{'>'}</p>
-          <p>2022.04~2023.01</p>
+          <p>{duration}</p>
         </div>
       </div>
       <div className="review-form-div review-form-star-div">
@@ -73,7 +124,7 @@ const ReviewForm = () => {
           className="resume-text-area"
           style={{ height: '8rem', marginTop: '1rem' }}
           placeholder="후기를 입력해 주세요"
-          onChange={(e) => setContent(e.target.value)}
+          onChange={(e) => setComment(e.target.value)}
         />
       </div>
       <div className="review-form-div review-form-notice-div">
@@ -82,7 +133,7 @@ const ReviewForm = () => {
       </div>
       <Btn
         label="리뷰 작성하기"
-        onClick={() => console.log('리뷰 작성 클릭')}
+        onClick={createReview}
         styleClass="longer-btn dark-blue"
       />
     </div>
