@@ -12,8 +12,11 @@ const ManagementItem = ({ item }: ManagementItemProps) => {
 
   const setResumeData = useSetRecoilState(ResumeDetailAtom);
 
-  const handleReviewCreateClick = () => {
-    getResumeDetail(item.resume_id);
+  const handleReviewCreateClick = async () => {
+    const res = await getResumeDetail(item.resume_id);
+    if (res) {
+      navigate(`/review/new/${item.suggest_id}`);
+    }
   };
 
   const getResumeDetail = async (resume_id: number) => {
@@ -26,11 +29,24 @@ const ManagementItem = ({ item }: ManagementItemProps) => {
           resume_id: res?.data.resume_id,
           name: res?.data.name,
           profile_image: res?.data.profile_image,
+          review_avg: res?.data.review_avg,
           is_verified: res?.data.is_verified,
           successfully_get: true,
         };
       });
-      navigate(`/review/new/${item.suggest_id}`);
+      return true;
+    }
+    return false;
+  };
+
+  const handleProfileClick = async () => {
+    if (item.progress === 'is_paid' || item.progress === 'is_reviewed') {
+      const res = await getResumeDetail(item.resume_id);
+      if (res) {
+        navigate(`/suggestion/complete/${item.suggest_id}`);
+      }
+    } else {
+      navigate(`/search/detail/${item.resume_id}`);
     }
   };
 
@@ -38,13 +54,15 @@ const ManagementItem = ({ item }: ManagementItemProps) => {
     <div className="resume-long-card">
       <div
         className="resume-long-profile suggest-manage-profile-div"
-        onClick={() => navigate(`/search/detail/${item.resume_id}`)}
+        onClick={handleProfileClick}
       >
         <img className="resume-card-profile" src={item.profile_image} />
         <div className="resume-card-contents">
           <div className="resume-title-container">
             <div className="resume-card-title">
-              {item.progress === 'is_paid' ? item.name : blurName(item.name)}
+              {item.progress === 'is_paid' || item.progress === 'is_reviewed'
+                ? item.name
+                : blurName(item.name)}
             </div>
             <div className="resume-card-tags">
               <div className="resume-tag blue-tag">{item.commute_type}</div>
@@ -61,7 +79,7 @@ const ManagementItem = ({ item }: ManagementItemProps) => {
       </div>
       <div
         className="resume-long-sub suggest-manage-profile-div"
-        onClick={() => navigate(`/search/detail/${item.resume_id}`)}
+        onClick={handleProfileClick}
       >
         <div className="resume-card-job">
           {item.job_group} {`>`} {item.job_name}
