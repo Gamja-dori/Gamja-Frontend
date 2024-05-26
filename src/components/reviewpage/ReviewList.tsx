@@ -50,7 +50,7 @@ const ReviewList = () => {
         <ReviewStar starRate={Math.round(data?.average_score ?? 0)} />
         <p>{data?.average_score}</p>
       </div>
-      {data?.reviews ? (
+      {data?.reviews.length ?? 0 > 0 ? (
         data?.reviews.map((review, index) => {
           return <ReviewItem key={index} review={review} />;
         })
