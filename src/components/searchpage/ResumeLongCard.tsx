@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import verified from '../../assets/icons/verified.svg';
 import check from '../../assets/icons/check.svg';
+import star from '../../assets/icons/star-orange.svg';
 const ResumeLongCard = ({
   isVerified = false,
   seniorName,
@@ -10,6 +11,7 @@ const ResumeLongCard = ({
   jobName,
   commuteType,
   resumeId,
+  review_avg,
   profileImage,
   careerYear,
   keyword,
@@ -41,7 +43,7 @@ const ResumeLongCard = ({
   };
 
   const calculateSkillItemWidth = (skill: string) => {
-    const charWidth = 15;
+    const charWidth = 12;
     return skill.length * charWidth;
   };
 
@@ -72,6 +74,12 @@ const ResumeLongCard = ({
                 <div className="resume-tag blue-tag">
                   <img src={verified} />
                   검증됨
+                </div>
+              )}
+              {review_avg != 0 && (
+                <div className="resume-tag star-tag">
+                  <img src={star} />
+                  {review_avg}
                 </div>
               )}
             </div>

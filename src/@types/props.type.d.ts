@@ -68,6 +68,7 @@ declare module 'props-type' {
   export type ResumeLongCardProps = ResumeCardProps & {
     seniorName: string;
     profileImage: string;
+    review_avg?: number;
     skills?: string[];
     recommendComments?: { commentType: number; comments: string[] }[];
     needSubinfo?: boolean;

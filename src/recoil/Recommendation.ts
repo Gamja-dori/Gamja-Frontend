@@ -8,6 +8,12 @@ import {
 
 const { persistAtom } = recoilPersist();
 
+export const SearchStateAtom = atom<boolean>({
+  key: 'SearchStateAtom',
+  default: false,
+  effects_UNSTABLE: [persistAtom],
+});
+
 export const ResumeSearchAtom = atom<ResumeSearchData>({
   key: 'ResumeSearchAtom',
   default: {
@@ -55,6 +61,7 @@ export const ResumeDetailAtom = atom<ResumeDetailData>({
     max_month_pay: -1,
     commute_type: '',
     profile_image: '',
+    review_avg: 0,
     name: '',
     is_verified: false,
   },

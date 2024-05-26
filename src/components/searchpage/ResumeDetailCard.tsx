@@ -1,6 +1,7 @@
 import { ResumeLongCardProps } from 'props-type';
 import { useMediaQuery } from 'react-responsive';
 import verified from '../../assets/icons/verified.svg';
+import star from '../../assets/icons/star-orange.svg';
 const ResumeDetailCard = ({
   isVerified = false,
   seniorName,
@@ -8,6 +9,7 @@ const ResumeDetailCard = ({
   jobName,
   commuteType,
   resumeId,
+  review_avg,
   profileImage,
   careerYear,
   needSubinfo = false,
@@ -34,6 +36,12 @@ const ResumeDetailCard = ({
                 <div className="resume-tag blue-tag">
                   <img src={verified} />
                   검증됨
+                </div>
+              )}
+              {needSubinfo && review_avg != 0 && (
+                <div className="resume-tag star-tag">
+                  <img src={star} />
+                  {review_avg}
                 </div>
               )}
             </div>

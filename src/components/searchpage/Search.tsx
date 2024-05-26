@@ -5,6 +5,7 @@ import {
   ResumeSearchAtom,
   ResumeListAtom,
   ResumeDetailAtom,
+  SearchStateAtom,
 } from 'recoil/Recommendation';
 import { SigninAtom } from 'recoil/Signin';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -24,7 +25,7 @@ const Search = () => {
   const [resumeData, setResumeData] = useRecoilState(ResumeDetailAtom);
   const [isLoading, setIsLoading] = useState(false); // 로딩 애니메이션 on off
   const [isLogOn, setIsLogOn] = useState(false); // 검색 기록 on off
-  const [isSearch, setIsSearch] = useState(false); // 검색 실행 o x
+  const [isSearch, setIsSearch] = useRecoilState(SearchStateAtom); // 검색 실행 o x
   const [isFilterOn, setIsFilterOn] = useState(false); // 필터 on off
   const filterData = [
     { value: '추천순', label: '추천순' },
@@ -52,23 +53,29 @@ const Search = () => {
   };
 
   useEffect(() => {
-    getMainSeniorList();
-    setSearchData((prev) => {
-      // 검색 데이터 초기화
-      return {
-        query: '',
-        job_group: '직군',
-        job_role: '직무',
-        skills: '[]',
-        min_career_year: 0,
-        max_career_year: 50,
-        duration_start: 0,
-        duration_end: 12,
-        min_month_pay: 0,
-        max_month_pay: 1000,
-        commute_type: '희망 근무 형태',
-      };
-    });
+    if (!isSearch) {
+      getMainSeniorList();
+      setSearchData((prev) => {
+        // 검색 데이터 초기화
+        return {
+          query: '',
+          job_group: '직군',
+          job_role: '직무',
+          skills: '[]',
+          min_career_year: 0,
+          max_career_year: 50,
+          duration_start: 0,
+          duration_end: 12,
+          min_month_pay: 0,
+          max_month_pay: 1000,
+          commute_type: '희망 근무 형태',
+        };
+      });
+    } else {
+      setTimeout(() => {
+        setIsSearch(false);
+      }, 1000);
+    }
     setResumeData(() => {
       return {
         successfully_get: false,
@@ -91,6 +98,7 @@ const Search = () => {
         max_month_pay: -1,
         commute_type: '',
         profile_image: '',
+        review_avg: 0,
         name: '',
         is_verified: false,
       };
@@ -166,11 +174,7 @@ const Search = () => {
             {isLogOn && <SearchLog />}
           </div>
           <div className="search-title-container search-select-container">
-            {isSearch ? (
-              <div className="search-subtitle">{name}님께 딱 맞는 전문가</div>
-            ) : (
-              <div className="search-subtitle">지금 떠오르는 인재</div>
-            )}
+            <div className="search-subtitle">{name}님께 딱 맞는 전문가</div>
             <Select
               className="filter-select"
               prefixCls="blue-select"
@@ -185,6 +189,7 @@ const Search = () => {
                   <ResumeLongCard
                     key={index}
                     seniorName={blurName(r.name)}
+                    review_avg={r.review_avg}
                     careerYear={r.career_year}
                     jobGroup={r.job_group}
                     jobName={r.job_role}
