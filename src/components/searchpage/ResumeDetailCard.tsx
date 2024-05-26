@@ -38,7 +38,7 @@ const ResumeDetailCard = ({
                   검증됨
                 </div>
               )}
-              {needSubinfo && (
+              {needSubinfo && review_avg != 0 && (
                 <div className="resume-tag star-tag">
                   <img src={star} />
                   {review_avg}
