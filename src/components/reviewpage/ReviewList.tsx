@@ -10,10 +10,10 @@ import ReviewItem from './ReviewItem';
 import { GetReview } from 'api/user';
 
 const ReviewList = () => {
-  const seniorId = Number(useParams()['seniorId']);
   const resumeData = useRecoilValue(ResumeDetailAtom);
-
   const [data, setData] = useState<ReviewListData>();
+  const seniorId = resumeData.user_id;
+  //Number(useParams()['seniorId']);
 
   useEffect(() => {
     getReview();
@@ -30,22 +30,6 @@ const ReviewList = () => {
 
   return (
     <div className="sub-container review-list-div">
-      <ResumeDetailCard
-        profileImage={resumeData.profile_image}
-        seniorName={blurName(resumeData.name)}
-        jobGroup={resumeData.job_group}
-        jobName={resumeData.job_role}
-        careerYear={resumeData.career_year}
-        commuteType={resumeData.commute_type}
-        isVerified={resumeData.is_verified}
-        resumeId={resumeData.resume_id}
-        needSubinfo={true}
-        keyword={resumeData.keyword}
-        durationStart={resumeData.duration_start}
-        durationEnd={resumeData.duration_end}
-        payStart={resumeData.min_month_pay}
-        payEnd={resumeData.max_month_pay}
-      />
       <div className="review-avgstar-div">
         <ReviewStar starRate={Math.round(data?.average_score ?? 0)} />
         <p>{data?.average_score}</p>

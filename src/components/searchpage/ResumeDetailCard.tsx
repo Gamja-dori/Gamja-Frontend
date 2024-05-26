@@ -38,10 +38,12 @@ const ResumeDetailCard = ({
                   검증됨
                 </div>
               )}
-              <div className="resume-tag star-tag">
-                <img src={star} />
-                {review_avg}
-              </div>
+              {needSubinfo && (
+                <div className="resume-tag star-tag">
+                  <img src={star} />
+                  {review_avg}
+                </div>
+              )}
             </div>
           </div>
           <div className="resume-card-job">

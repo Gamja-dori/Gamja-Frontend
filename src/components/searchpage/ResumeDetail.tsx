@@ -7,7 +7,7 @@ import { blurName } from 'components/utils/ResumeUtils';
 import ResumeDetailCard from './ResumeDetailCard';
 import SeniorDetail from './SeniorDetail';
 import SeniorIntro from './SeniorIntro';
-import Label from 'components/_common/Label';
+import ReviewList from 'components/reviewpage/ReviewList';
 
 const ResumeDetail = () => {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const ResumeDetail = () => {
         resume_id: res?.data.resume_id,
         name: res?.data.name,
         profile_image: res?.data.profile_image,
-        review: res?.data.review,
+        review_avg: res?.data.review_avg,
         is_verified: res?.data.is_verified,
         successfully_get: true,
       };
@@ -82,7 +82,7 @@ const ResumeDetail = () => {
       </div>
       {activeIndex == 0 && <SeniorDetail />}
       {activeIndex == 1 && <SeniorIntro />}
-      {activeIndex == 2 && <></>}
+      {activeIndex == 2 && <ReviewList />}
     </div>
   );
 };
