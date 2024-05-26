@@ -122,58 +122,18 @@
   }
 }
 
-/* whole content wrapper of '희망 고용 형태' */
-.about-icon-div {
-  display: flex;
-  flex-direction: column;
-  @include pc {
-    font-size: 2.4rem;
-    margin-top: 2rem;
-  }
-  @include mobile {
-    font-size: 2rem;
-    margin-top: 1rem;
-  }
-}
-
-/* each content div style of '희망 고용 형태' */
 .about-content {
   display: flex;
-  align-items: center;
-  &:first-child {
-    @include pc {
-      margin-bottom: 2rem;
-    }
-    @include mobile {
-      margin-bottom: 1.5rem;
-    }
-  }
+  justify-content: center;
+  flex-direction: column;
+  gap: 3rem;
   p:first-child {
     font-weight: 600;
-    margin-bottom: 2rem;
-  }
-  div:last-child {
     @include pc {
-      margin-left: 2rem;
+      margin-bottom: 1rem;
     }
     @include mobile {
-      margin-left: 1.5rem;
-    }
-  }
-}
-
-/* png icon div style of '희망 고용 형태' */
-.about-icon {
-  background-color: $pale-gray;
-  border-radius: 100%;
-  img {
-    @include pc {
-      width: 7rem;
-      margin: 3rem;
-    }
-    @include mobile {
-      width: 5rem;
-      margin: 3rem;
+      margin-bottom: 0.5rem;
     }
   }
 }
