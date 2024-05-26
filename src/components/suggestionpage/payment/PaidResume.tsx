@@ -1,4 +1,5 @@
 import Contact from 'components/_common/Contact';
+import ReviewList from 'components/reviewpage/ReviewList';
 import ResumeDetailCard from 'components/searchpage/ResumeDetailCard';
 import SeniorDetail from 'components/searchpage/SeniorDetail';
 import SeniorIntro from 'components/searchpage/SeniorIntro';
@@ -12,12 +13,14 @@ const PaidResume = () => {
   const tabType = [
     { label: '이력서', user: 'resume' },
     { label: '전문가 소개', user: 'senior_info' },
+    { label: '리뷰', user: 'review' },
   ];
 
   return (
     <div className="sub-container">
       <ResumeDetailCard
         profileImage={resumeData.profile_image}
+        review_avg={resumeData.review_avg}
         seniorName={resumeData.name}
         jobGroup={resumeData.job_group}
         jobName={resumeData.job_role}
@@ -46,7 +49,9 @@ const PaidResume = () => {
           ))}
         </div>
       </div>
-      {activeIndex == 0 ? <SeniorDetail /> : <SeniorIntro />}
+      {activeIndex == 0 && <SeniorDetail />}
+      {activeIndex == 1 && <SeniorIntro />}
+      {activeIndex == 2 && <ReviewList />}
     </div>
   );
 };
