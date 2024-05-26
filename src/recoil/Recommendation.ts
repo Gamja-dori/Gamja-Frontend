@@ -8,6 +8,12 @@ import {
 
 const { persistAtom } = recoilPersist();
 
+export const SearchStateAtom = atom<boolean>({
+  key: 'SearchStateAtom',
+  default: false,
+  effects_UNSTABLE: [persistAtom],
+});
+
 export const ResumeSearchAtom = atom<ResumeSearchData>({
   key: 'ResumeSearchAtom',
   default: {

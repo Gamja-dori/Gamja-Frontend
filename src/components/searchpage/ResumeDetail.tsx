@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { GetResumeDetail } from 'api/recommends';
-import { ResumeDetailAtom } from 'recoil/Recommendation';
+import { SearchStateAtom, ResumeDetailAtom } from 'recoil/Recommendation';
 import { useRecoilState } from 'recoil';
 import { blurName } from 'components/utils/ResumeUtils';
 import ResumeDetailCard from './ResumeDetailCard';
@@ -13,6 +13,7 @@ const ResumeDetail = () => {
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [resumeData, setResumeData] = useRecoilState(ResumeDetailAtom);
+  const [isSearch, setIsSearch] = useRecoilState(SearchStateAtom); // 검색 실행 o x
   const resumeId = Number(useParams()['resumeId']);
   const tabType = [
     { label: '이력서', user: 'resume' },
@@ -37,6 +38,7 @@ const ResumeDetail = () => {
   };
 
   useEffect(() => {
+    setIsSearch(true);
     getResumeDetail(resumeId);
   }, []);
 
