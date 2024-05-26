@@ -114,6 +114,7 @@ declare module 'data-type' {
 
   export type ResumeLongCardData = {
     resume_id: number;
+    review_avg: number;
     is_verified: boolean;
     keyword: string;
     job_group: string;
@@ -143,6 +144,7 @@ declare module 'data-type' {
   export type ResumeDetailData = ResumeData & {
     // 인적사항 및 기본 정보
     profile_image: string;
+    review_avg: number;
     name: string;
     is_verified: boolean;
   };

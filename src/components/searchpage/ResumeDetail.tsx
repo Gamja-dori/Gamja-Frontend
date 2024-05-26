@@ -7,6 +7,7 @@ import { blurName } from 'components/utils/ResumeUtils';
 import ResumeDetailCard from './ResumeDetailCard';
 import SeniorDetail from './SeniorDetail';
 import SeniorIntro from './SeniorIntro';
+import Label from 'components/_common/Label';
 
 const ResumeDetail = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const ResumeDetail = () => {
   const tabType = [
     { label: '이력서', user: 'resume' },
     { label: '전문가 소개', user: 'senior_info' },
+    { label: '리뷰', user: 'review' },
   ];
 
   const getResumeDetail = async (resume_id: number) => {
@@ -27,6 +29,7 @@ const ResumeDetail = () => {
         resume_id: res?.data.resume_id,
         name: res?.data.name,
         profile_image: res?.data.profile_image,
+        review: res?.data.review,
         is_verified: res?.data.is_verified,
         successfully_get: true,
       };
@@ -41,6 +44,7 @@ const ResumeDetail = () => {
     <div className="sub-container">
       <ResumeDetailCard
         profileImage={resumeData.profile_image}
+        review_avg={resumeData.review_avg}
         seniorName={blurName(resumeData.name)}
         jobGroup={resumeData.job_group}
         jobName={resumeData.job_role}
@@ -76,7 +80,9 @@ const ResumeDetail = () => {
           ))}
         </div>
       </div>
-      {activeIndex == 0 ? <SeniorDetail /> : <SeniorIntro />}
+      {activeIndex == 0 && <SeniorDetail />}
+      {activeIndex == 1 && <SeniorIntro />}
+      {activeIndex == 2 && <></>}
     </div>
   );
 };

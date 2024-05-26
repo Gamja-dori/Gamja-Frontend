@@ -52,7 +52,7 @@ const Search = () => {
   };
 
   useEffect(() => {
-    getMainSeniorList();
+    //getMainSeniorList();
     setSearchData((prev) => {
       // 검색 데이터 초기화
       return {
@@ -91,6 +91,7 @@ const Search = () => {
         max_month_pay: -1,
         commute_type: '',
         profile_image: '',
+        review_avg: 0,
         name: '',
         is_verified: false,
       };
@@ -185,6 +186,7 @@ const Search = () => {
                   <ResumeLongCard
                     key={index}
                     seniorName={blurName(r.name)}
+                    review_avg={r.review_avg}
                     careerYear={r.career_year}
                     jobGroup={r.job_group}
                     jobName={r.job_role}
