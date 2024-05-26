@@ -33,7 +33,6 @@ import SuggestionCancelPage from 'pages/SuggestionCancelPage';
 import SuggestionPaymentPage from 'pages/SuggestionPaymentPage';
 import SuggestionPaymentCompletePage from 'pages/SuggestionPaymentCompletePage';
 import SuggestionDetailPage from 'pages/SuggestionDetailPage';
-import ReviewPage from 'pages/ReviewPage';
 import ReviewWritePage from 'pages/ReviewWritePage';
 import SuggestionPaidResumePage from 'pages/SuggestionPaidResumePage';
 
@@ -106,7 +105,6 @@ function App() {
             path="/suggestion/detail/:suggestId"
             element={<SuggestionDetailPage />}
           />
-          <Route path="/review/:seniorId" element={<ReviewPage />} />
           <Route path="/review/new/:suggestId" element={<ReviewWritePage />} />
         </Routes>
       </Layout>
