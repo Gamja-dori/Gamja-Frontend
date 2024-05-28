@@ -48,7 +48,6 @@ const Search = () => {
     setIsLoading(true);
     const res = await PostRecommendation(user_id, search);
     setResumeList(res?.data.resumes);
-    setIsSearch(true);
     setIsLoading(false);
   };
 
