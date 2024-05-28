@@ -48,7 +48,6 @@ const Search = () => {
     setIsLoading(true);
     const res = await PostRecommendation(user_id, search);
     setResumeList(res?.data.resumes);
-    setIsSearch(true);
     setIsLoading(false);
   };
 
@@ -117,6 +116,12 @@ const Search = () => {
     });
   };
 
+  const activeEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      postRecommendation(id, searchData);
+    }
+  };
+
   return (
     <>
       {isLoading && (
@@ -154,14 +159,7 @@ const Search = () => {
               placeholder="업무를 한 줄로 소개해 주세요."
               value={searchData.query}
               onChange={onQueryChange}
-              /*
-          onClick={() => {
-            setIsLogOn(true);
-          }}
-          onBlur={() => {
-            setIsLogOn(false);
-          }}
-          */
+              onKeyDown={(e) => activeEnter(e)}
             />
             <Btn
               label="검색"
