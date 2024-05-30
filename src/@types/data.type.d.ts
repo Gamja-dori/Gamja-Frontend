@@ -125,6 +125,9 @@ declare module 'data-type' {
     commute_type: string;
     profile_image: string;
     name: string;
+    score: number; // 추천도(점수)
+    view: number; // 조회수
+    updated_at: string; // 최근 수정일
     comments?: { commentType: number; comments: string[] }[];
   };
 
@@ -211,5 +214,10 @@ declare module 'data-type' {
     progress: string;
     company: string;
     profile_image: string;
+  };
+
+  export type SearchStateData = {
+    isSearch: boolean;
+    sortState: string;
   };
 }

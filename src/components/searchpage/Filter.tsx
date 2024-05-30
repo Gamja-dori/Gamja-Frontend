@@ -18,11 +18,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { FilterSeniorList } from 'api/recommends';
 import { ResumeSearchData } from 'data-type';
 
-const Filter = ({
-  setIsFilterOn,
-  setIsSearch,
-  setIsLoading,
-}: SearchFilterProps) => {
+const Filter = ({ setIsFilterOn, setIsLoading }: SearchFilterProps) => {
   const [searchData, setSearchData] = useRecoilState(ResumeSearchAtom);
   const [resumeList, setResumeList] = useRecoilState(ResumeListAtom);
   const [selectedArea, setSelectedArea] = useState('직군');
@@ -46,7 +42,6 @@ const Filter = ({
     setIsFilterOn(false);
     const res = await FilterSeniorList(user_id, search);
     setResumeList(res?.data.resumes);
-    setIsSearch(true);
     setIsLoading(false);
   };
 

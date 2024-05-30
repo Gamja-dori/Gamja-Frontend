@@ -4,13 +4,17 @@ import {
   ResumeLongCardData,
   ResumeSearchData,
   ResumeDetailData,
+  SearchStateData,
 } from 'data-type';
 
 const { persistAtom } = recoilPersist();
 
-export const SearchStateAtom = atom<boolean>({
+export const SearchStateAtom = atom<SearchStateData>({
   key: 'SearchStateAtom',
-  default: false,
+  default: {
+    isSearch: false,
+    sortState: '추천순',
+  },
   effects_UNSTABLE: [persistAtom],
 });
 
