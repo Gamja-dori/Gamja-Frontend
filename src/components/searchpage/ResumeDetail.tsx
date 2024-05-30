@@ -13,7 +13,7 @@ const ResumeDetail = () => {
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [resumeData, setResumeData] = useRecoilState(ResumeDetailAtom);
-  const [isSearch, setIsSearch] = useRecoilState(SearchStateAtom); // 검색 실행 o x
+  const [searchState, setSearchState] = useRecoilState(SearchStateAtom); // 검색 실행 o x
   const resumeId = Number(useParams()['resumeId']);
   const tabType = [
     { label: '이력서', user: 'resume' },
@@ -38,7 +38,12 @@ const ResumeDetail = () => {
   };
 
   useEffect(() => {
-    setIsSearch(true);
+    setSearchState((prev) => {
+      return {
+        ...prev,
+        isSearch: true,
+      };
+    });
     getResumeDetail(resumeId);
   }, []);
 

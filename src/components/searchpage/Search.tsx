@@ -25,7 +25,7 @@ const Search = () => {
   const [resumeData, setResumeData] = useRecoilState(ResumeDetailAtom);
   const [isLoading, setIsLoading] = useState(false); // 로딩 애니메이션 on off
   const [isLogOn, setIsLogOn] = useState(false); // 검색 기록 on off
-  const [isSearch, setIsSearch] = useRecoilState(SearchStateAtom); // 검색 실행 o x
+  const [searchState, setSearchState] = useRecoilState(SearchStateAtom); // 검색 실행 o x
   const [isFilterOn, setIsFilterOn] = useState(false); // 필터 on off
   const filterData = [
     { value: '추천순', label: '추천순' },
@@ -45,14 +45,52 @@ const Search = () => {
     user_id: number,
     search: ResumeSearchData,
   ) => {
+    setSearchState((prev) => {
+      return {
+        ...prev,
+        sortState: '추천순',
+      };
+    });
     setIsLoading(true);
     const res = await PostRecommendation(user_id, search);
     setResumeList(res?.data.resumes);
     setIsLoading(false);
   };
 
+  const onSortChange = (value: string) => {
+    setSearchState((prev) => {
+      return {
+        ...prev,
+        sortState: value,
+      };
+    });
+    if (value === '추천순') {
+      setResumeList((prev) => {
+        const newList = [...prev];
+        return newList.sort((a, b) => b.score - a.score);
+      });
+    } else if (value === '조회수 높은순') {
+      setResumeList((prev) => {
+        const newList = [...prev];
+        return newList.sort((a, b) => b.view - a.view);
+      });
+    } else if (value === '리뷰 높은순') {
+      setResumeList((prev) => {
+        const newList = [...prev];
+        return newList.sort((a, b) => b.review_avg - a.review_avg);
+      });
+    } else if (value === '업데이트순')
+      setResumeList((prev) => {
+        const newList = [...prev];
+        return newList.sort(
+          (a, b) =>
+            new Date(b.updated_at).valueOf() - new Date(a.updated_at).valueOf(),
+        );
+      });
+  };
+
   useEffect(() => {
-    if (!isSearch) {
+    if (!searchState.isSearch) {
       getMainSeniorList();
       setSearchData((prev) => {
         // 검색 데이터 초기화
@@ -72,7 +110,12 @@ const Search = () => {
       });
     } else {
       setTimeout(() => {
-        setIsSearch(false);
+        setSearchState((prev) => {
+          return {
+            ...prev,
+            isSearch: false,
+          };
+        });
       }, 1000);
     }
     setResumeData(() => {
@@ -130,11 +173,7 @@ const Search = () => {
         </div>
       )}
       {isFilterOn ? (
-        <Filter
-          setIsFilterOn={setIsFilterOn}
-          setIsSearch={setIsSearch}
-          setIsLoading={setIsLoading}
-        />
+        <Filter setIsFilterOn={setIsFilterOn} setIsLoading={setIsLoading} />
       ) : (
         <div className="sub-container">
           <div className="search-title-container">
@@ -176,8 +215,10 @@ const Search = () => {
             <Select
               className="filter-select"
               prefixCls="blue-select"
-              defaultValue="조회수 높은순"
+              defaultValue="추천순"
+              value={searchState.sortState}
               options={filterData}
+              onChange={onSortChange}
             />
           </div>
           {resumeList.length > 0 ? (
