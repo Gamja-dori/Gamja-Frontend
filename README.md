@@ -15,11 +15,27 @@
   - [Development](#development)
   - [Deploy](#deploy)
 - [디렉토리 구조](#디렉토리-구조)
-- [App 모듈별 설명](#app-모듈별-설명)
-  - [👨‍💼 User App](#-user-app)
-  - [📑 Resume App](#-resume-app)
-  - [🔍 Recommend App](#-recommend-app)
-  - [🤝 Suggest App](#-suggest-app)
+- [페이지별 설명](#페이지별-설명)
+  - [🔄 메인 페이지 ](#-메인-페이지)
+  - [📑 인재풀 등록 ](#-인재풀-등록)
+      - [ 이력서 관리 페이지](#-이력서-관리-페이지)
+      - [ 인재풀 등록 페이지](#-인재풀-등록-페이지)
+  - [🔍 AI 인재 추천 ](#-AI-인재-추천)
+      - [ AI 인재 추천 페이지](#-AI-인재-추천-페이지)
+      - [ 전문가 상세 페이지](#-전문가-상세-페이지)
+  - [🤝 채용 제안 ](#-채용-제안)
+      - [ 채용 제안 페이지](#-채용-제안-페이지)
+      - [ 채용 제안 알림 페이지](#-채용-제안-알림-페이지)
+      - [ 수수료 결제 페이지](#-수수료-결제-페이지)
+      - [ 채용 제안 관리 페이지](#-채용-제안-관리-페이지)
+      - [ 리뷰 작성 페이지](#-리뷰-작성-페이지)
+  - [👥 회원 정보](#-회원-정보)
+      - [ 회원가입 페이지](#-회원가입-페이지)
+      - [ 로그인 페이지](#-로그인-페이지)
+      - [ 아이디/비밀번호 찾기 페이지](#-아이디/비밀번호-찾기-페이지)
+      - [ 마이 페이지](#-마이-페이지)
+      - [ 기본정보 수정 페이지](#-기본정보-수정-페이지)
+  - [💁🏻‍♀️ About Us 페이지](#-About-Us-페이지)
 <br/>
 
 # 설치 및 실행
@@ -108,10 +124,10 @@ npm start
  ┗ 📜index.tsx
 ```
 
-# app 모듈별 설명
-각 기능은 https://api.dasi-expert.com/swagger 에서 테스트해보실 수 있습니다.
+# 페이지별 설명
+[https://www.dasi-expert.com/](https://www.dasi-expert.com/) 에서 직접 테스트해보실 수 있습니다.
 
-## 👨‍💼 User App
+## 👨‍💼 메인 페이지 
 ### 개요
 | Clova OCR | OpenAI | ElasticSearch |
 |---|---|---|
@@ -122,30 +138,7 @@ npm start
 > 3. 시니어 전문가 리뷰 관리  
 ### 상세 기능
 - `SeniorUserCreateView`, `EnterpriseUserCreateView`
-
     시니어, 기업 사용자 생성
-- `LoginView`, `LogoutView`
-    
-    사용자 로그인, 로그아웃
-
-- `UserView`
-    
-    사용자 정보 조회, 수정, 삭제
-- `UserSecretView`
-    
-    채용 성사 후 사용자의 개인정보 조회
-- `ProfileImageView`
-    
-    사용자의 프로필 사진 조회 및 변경
-- `TokenObtainPairView`, `TokenRefreshView`
-
-    jwt 토큰 관리
-- `CheckDuplicateView`
-
-    중복된 사용자 id인지 확인
-- `CreateReviewView`, `GetReviewListView`, `DeleteReviewView`
-
-    시니어 사용자의 리뷰 등록, 목록 조회, 삭제
 
 ## 📑 Resume App
 ### 개요
