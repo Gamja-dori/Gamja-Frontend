@@ -19,21 +19,8 @@
   - [🔄 메인 페이지 ](#-메인-페이지)
   - [📑 인재풀 등록 ](#-인재풀-등록)
   - [🔍 AI 인재 추천 ](#-AI-인재-추천)
-      - [ AI 인재 추천 페이지](#-AI-인재-추천-페이지)
-      - [ 전문가 상세 페이지](#-전문가-상세-페이지)
   - [🤝 채용 제안 ](#-채용-제안)
-      - [ 채용 제안 페이지](#-채용-제안-페이지)
-      - [ 채용 제안 알림 페이지](#-채용-제안-알림-페이지)
-      - [ 수수료 결제 페이지](#-수수료-결제-페이지)
-      - [ 채용 제안 관리 페이지](#-채용-제안-관리-페이지)
-      - [ 리뷰 작성 페이지](#-리뷰-작성-페이지)
   - [👥 회원 정보](#-회원-정보)
-      - [ 회원가입 페이지](#-회원가입-페이지)
-      - [ 로그인 페이지](#-로그인-페이지)
-      - [ 아이디/비밀번호 찾기 페이지](#-아이디/비밀번호-찾기-페이지)
-      - [ 마이 페이지](#-마이-페이지)
-      - [ 기본정보 수정 페이지](#-기본정보-수정-페이지)
-  - [💁🏻‍♀️ About Us 페이지](#-About-Us-페이지)
 <br/>
 
 # 설치 및 실행
@@ -161,4 +148,69 @@ npm start
   
 - `ResumeData.ts`, `ResumeEdit.tsx`, `ResumeInput.tsx`, `ResumeIntro.tsx`
   
-  인재풀 등록 페이지(이력서, 전문가 소개 탭) 렌더링 
+  인재풀 등록 페이지(이력서, 전문가 소개 탭) 렌더링
+
+### 테스트용 이력서 pdf 파일 다운로드
+- [이력서 1](https://drive.google.com/file/d/1h0VmAbYwv0TxJZAf2YToHj4HC-jy85pr/view)
+- [이력서 2](https://drive.google.com/file/d/16Vgu5TiCNtf04bNLRF3X-U-DX37jK_mG/view)
+
+## 🔍 AI 인재 추천
+| AI 인재 추천 | 필터링 | 전문가 상세 |
+|---|---|---|
+| <p align="center"><img src="https://github.com/Gamja-dori/Gamja-Frontend/assets/76518934/360655ac-827a-424a-b3d6-1ac6078df1d7" /></p> | <p align="center"><img src="https://github.com/Gamja-dori/Gamja-Frontend/assets/76518934/1b72c43b-9557-4635-9567-fb477cafb170"/></p> | <p align="center"><img src="https://github.com/Gamja-dori/Gamja-Frontend/assets/76518934/651fc3ed-9f90-4e80-9be0-cad6417def71"/></p> |
+
+### 개요
+> 1. 업무 한 줄 소개로 인재 검색 - 인재 추천 AI를 거쳐 추천된 이력서 목록 반환 (추천 코멘트, 전문가 평점 포함) 
+> 2. 희망 근무 조건 및 인재 정보로 인재 목록 필터링
+> 3. 추천된 이력서 정렬 (업데이트순, 추천순, 조회수 높은순, 리뷰 높은순)
+> 4. 전문가 상세 조회 (이력서, 전문가 소개, 리뷰)
+
+### 상세 기능
+- `api/recommends.ts`, `recoil/Recommendation.ts`
+  
+  AI 인재 추천 관련 api 함수 정의, recoil로 추천 결과 및 전문가 상세 데이터 local storage에 저장 
+
+- `Search.tsx`, `Filter.tsx`, `ResumeLongCard.tsx`
+  
+  AI 인재 추천 및 필터링 페이지 렌더링
+  
+- `ResumeDetail.ts`, `ResumeDetailCard.tsx`, `SeniorDetail.tsx`, `SeniorIntro.tsx`, `ShowRecord.tsx`
+  
+  전문가 상세 페이지(이력서, 전문가 소개, 리뷰 탭) 렌더링
+
+## 🤝 채용 제안
+| 채용 제안 | 채용 제안 알림 | 채용 제안 상세 |
+|---|---|---|
+| <p align="center"><img src="https://github.com/Gamja-dori/Gamja-Frontend/assets/76518934/77a1932a-1b30-4a95-8500-daa13ecad8b9" /></p> | <p align="center"><img src="https://github.com/Gamja-dori/Gamja-Frontend/assets/76518934/61854a5e-2a71-4da1-85dc-454d31c0dad2"/></p> | <p align="center"><img src="https://github.com/Gamja-dori/Gamja-Frontend/assets/76518934/89a993bb-ea21-4dde-8485-a65a75c6f9fb1"/></p> |
+
+| 매칭 수수료 결제 | 전문가 정보 조회 | 리뷰 작성 |
+|---|---|---|
+| <p align="center"><img src="https://github.com/Gamja-dori/Gamja-Frontend/assets/76518934/0bb9944c-0923-4319-8cdb-01889b945c69" /></p> | <p align="center"><img src="https://github.com/Gamja-dori/Gamja-Frontend/assets/76518934/e94cafdb-996d-40fd-9158-b5c69824fdbd"/></p> | <p align="center"><img src="https://github.com/Gamja-dori/Gamja-Frontend/assets/76518934/008ecd19-3f9e-4c6f-82aa-294257c3eb3c"/></p> |
+
+### 개요
+> 1. 채용 제안 생성 및 관리
+> 2. 채용 제안 알림 조회 및 수락
+> 3. 카카오페이와 연동하여 매칭 수수료 결제 
+> 4. 채용 성사 여부 및 결제 여부 조회
+> 5. 전문가 연락처 열람 및 리뷰 작성
+
+### 상세 기능
+- `api/suggestion.ts`, `recoil/Suggest.ts`
+  
+  채용 제안 관련 api 함수 정의, recoil로 채용 제안 데이터 local storage에 저장 
+
+- `CancelForm.tsx`, `Detail.tsx`, `SuggestionForm.tsx`, `ManagementItem.tsx`, 
+  `ManagementList.tsx`, `ManagementSearch.tsx`, `ManageSelection.tsx`
+  
+  채용 제안 작성 및 관리 페이지 렌더링 
+  
+- `NoticeItem.ts`, `NoticeList.tsx`, `NoticeTab.tsx`
+  
+  채용 제안 알림 페이지 렌더링
+
+- `Payment.ts`, `PaymentComplete.tsx`, `PaidResume.tsx`
+  
+  결제 및 전문가 상세(연락처 공개) 페이지 렌더링
+
+- `ReviewForm.tsx`, `ReviewItem.tsx`, `ReviewList.tsx`, `ReviewStar.tsx`, `StarRate.tsx`, `TagData.ts`
+   리뷰 작성 페이지 렌더링 
