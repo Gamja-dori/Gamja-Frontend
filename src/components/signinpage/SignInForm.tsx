@@ -162,7 +162,6 @@ const SignInForm = ({ user }: UserProps) => {
           onClick={handleSubmit}
           styleClass="dark-green long-btn"
         />
-        <KakaoBtn />
       </div>
       <div className="signin-mini-btns">
         <button onClick={() => handleBtnClick('/find/id/form')}>
