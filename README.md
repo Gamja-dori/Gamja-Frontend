@@ -213,4 +213,31 @@ npm start
   결제 및 전문가 상세(연락처 공개) 페이지 렌더링
 
 - `ReviewForm.tsx`, `ReviewItem.tsx`, `ReviewList.tsx`, `ReviewStar.tsx`, `StarRate.tsx`, `TagData.ts`
-   리뷰 작성 페이지 렌더링 
+   리뷰 작성 페이지 렌더링
+
+## 👥 회원 정보
+| 회원가입 | 로그인 | 내 정보 |
+|---|---|---|
+| <p align="center"><img src="https://github.com/Gamja-dori/Gamja-Frontend/assets/76518934/2a0a69b4-3c35-4dd9-a03d-8b6a8af8a2ee" /></p> | <p align="center"><img src="https://github.com/Gamja-dori/Gamja-Frontend/assets/76518934/12363683-331f-436a-97ac-f360fc5218c6"/></p> | <p align="center"><img src="https://github.com/Gamja-dori/Gamja-Frontend/assets/76518934/46647328-e0f4-4128-bb96-b62ebf331c95"/></p> |
+
+### 개요
+> 1. 사용자 정보 생성, 조회, 수정, 삭제
+> 2. 사용자 정보로 로그인 - jwt 토큰 기반 로그인 상태 관리
+> 3. 내 정보 조회 및 수정 
+
+### 상세 기능
+- `api/user.ts`, `api/senior_user.ts`, `api/company_user.ts`, `recoil/Signin.ts`, `recoil/UserProfile.ts`
+
+  회원 정보 관련 api 함수 정의, recoil로 로그인 상태 및 사용자 프로필 데이터 local storage에 저장 
+
+- `SeniorForm.tsx`, `CompanyForm.tsx`, `Terms.tsx`, `TypeContent.tsx`, `UserType.tsx`, `Verification.tsx`, `Complete.tsx`
+
+  회원가입 페이지 렌더링
+
+- `SignInTab.tsx`, `SignInForm.tsx`
+
+  로그인 페이지 렌더링
+  
+- `Info.ts`, `InfoForm.tsx`, `UserCheckModal.tsx`, `WithdrawalModal.tsx`, `DefaultResume.tsx`
+
+  내 정보 페이지 및 관련 모달 렌더링
