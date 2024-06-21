@@ -39,9 +39,7 @@ const NoticeList = ({ isOld }: NoticeListProps) => {
   const filterSeniorData = (data: NotificationData[]) => {
     const filteredData = data.filter(
       (item) =>
-        item.progress !== 'is_accepted' &&
-        item.progress !== 'is_declined' &&
-        item.progress !== 'is_reviewed',
+        item.progress !== 'is_accepted' && item.progress !== 'is_declined',
     );
     setData(filteredData);
   };
@@ -56,6 +54,9 @@ const NoticeList = ({ isOld }: NoticeListProps) => {
       }
       if (notification.progress === 'is_pending') {
         return '채용 제안';
+      }
+      if (notification.progress === 'is_reviewed') {
+        return '리뷰 작성';
       }
     } else {
       if (notification.progress === 'is_paid') {
