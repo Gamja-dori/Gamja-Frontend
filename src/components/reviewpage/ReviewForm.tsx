@@ -88,6 +88,7 @@ const ReviewForm = () => {
         durationEnd={resumeData.duration_end}
         payStart={resumeData.min_month_pay}
         payEnd={resumeData.max_month_pay}
+        review_avg={resumeData.review_avg}
       />
       <div className="review-form-div">
         <div className="review-form-info-div">

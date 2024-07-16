@@ -68,6 +68,7 @@ const SuggestionForm = ({ isEdit, suggestId, resumeId }: SuggestionProps) => {
         profile_image: res?.data.profile_image,
         is_verified: res?.data.is_verified,
         successfully_get: true,
+        review_avg: res?.data.review_avg,
       };
     });
   };
@@ -134,6 +135,7 @@ const SuggestionForm = ({ isEdit, suggestId, resumeId }: SuggestionProps) => {
         durationEnd={resumeData.duration_end}
         payStart={resumeData.min_month_pay}
         payEnd={resumeData.max_month_pay}
+        review_avg={resumeData.review_avg}
       />
       {isEdit && (
         <div style={{ width: '100%', marginBottom: '4rem' }}>
