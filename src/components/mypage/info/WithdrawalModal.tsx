@@ -1,8 +1,21 @@
+import { DeleteAccount } from 'api/user';
 import Btn from 'components/_common/Btn';
 import Modal from 'components/_common/Modal';
 import { ModalProps } from 'props-type';
+import { useRecoilValue } from 'recoil';
+import { SigninAtom } from 'recoil/Signin';
 
 const WithdrawalModal = ({ setModal }: ModalProps) => {
+  const { id } = useRecoilValue(SigninAtom);
+  const handleWithdrawal = async () => {
+    // fixing errors
+    // const res = await DeleteAccount(id);
+    // console.log(res);
+    // if (res?.status) {
+    //   window.localStorage.clear();
+    //   window.location.href = '/';
+    // }
+  };
   return (
     <Modal>
       <p className="modal-title">회원탈퇴</p>
@@ -15,7 +28,7 @@ const WithdrawalModal = ({ setModal }: ModalProps) => {
         />
         <Btn
           label="탈퇴"
-          onClick={() => (window.location.href = '/')}
+          onClick={handleWithdrawal}
           styleClass="modal-btn white"
         />
       </div>

@@ -1,23 +1,24 @@
 import Btn from 'components/_common/Btn';
 import Input from 'components/_common/Input';
-import mockUser from '../../assets/mock/info.json';
-import { InfoFormData } from 'data-type';
 
 import { useEffect, useState } from 'react';
 import { parsePhoneNumber } from 'components/utils/PhoneUtils';
 import { validatePw } from 'components/utils/ValidationUtils';
+import { useRecoilState } from 'recoil';
+import { UserInfoAtom } from 'recoil/UserProfile';
+import { PutUserInfo } from 'api/user';
 
 const InfoEdit = () => {
-  const [data, setData] = useState<Partial<InfoFormData>>({});
   const [phone, setPhone] = useState('');
 
   // phone edit button click useState
   const [phoneEdit, setPhoneEdit] = useState(false);
 
+  const [userInfo, setUserInfo] = useRecoilState(UserInfoAtom);
+
   useEffect(() => {
-    setData(mockUser);
-    setEmail(mockUser.email);
-    setPhone(mockUser.phone_number);
+    setEmail(userInfo.email);
+    setPhone(userInfo.phone_number);
   }, []);
 
   // input value useStates
@@ -35,6 +36,7 @@ const InfoEdit = () => {
   // isWrong props useStates
   const [isPwWrong, setIsPwWrong] = useState(false);
   const [isPwCheckWrong, setIsPwCheckWrong] = useState(false);
+  const [isPhoneNumWrong, setIsPhoneNumWrong] = useState(false);
 
   // pw input event handler
   const handlePw = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,7 +70,12 @@ const InfoEdit = () => {
     const value = e.target.value;
     const parsedValue = parsePhoneNumber(value);
     setParsedPhone(parsedValue);
-    setNewPhone(parsedValue.replace(/-/g, ''));
+    setPhone(parsedValue.replace(/-/g, ''));
+    if (parsedValue.length == 13) {
+      setIsPhoneNumWrong(false);
+    } else {
+      setIsPhoneNumWrong(true);
+    }
   };
 
   // get certificate button click handler
@@ -82,19 +89,32 @@ const InfoEdit = () => {
     setEmail(e.target.value);
   };
 
+  // save button click event handler
+  const handleSaveClick = async () => {
+    if (isPwWrong || isPwCheckWrong || isPhoneNumWrong) {
+      alert('회원 정보를 다시 한 번 확인해 주세요.');
+      return;
+    }
+    const res = await PutUserInfo(userInfo.id ?? -1, email, pw, phone);
+    if (res?.status === 200) {
+      alert('회원 정보가 수정되었습니다.');
+      setUserInfo((prev) => ({ ...prev, email: email, phone_number: phone }));
+    }
+  };
+
   return (
     <div className="infoedit-div">
       <div className="row-input-div inputs-div">
         <Input
           label="이름"
           styleClass="row"
-          defaultValue={data.name}
+          defaultValue={userInfo.name}
           disabled={true}
         />
         <Input
           label="아이디"
           styleClass="row"
-          defaultValue={data.username}
+          defaultValue={userInfo.username}
           disabled={true}
         />
         <Input
@@ -114,7 +134,7 @@ const InfoEdit = () => {
           alertText={pwCheckAlert}
           type="password"
         />
-        {phoneEdit ? (
+        {/* {phoneEdit ? (
           <div>
             <div className="phone-input-div">
               <Input
@@ -158,7 +178,14 @@ const InfoEdit = () => {
               styleClass="row-btn short-btn dark-green"
             />
           </div>
-        )}
+        )} */}
+        <Input
+          label="연락처"
+          styleClass="row"
+          value={parsePhoneNumber(phone)}
+          onChange={handlePhone}
+          isWrong={isPhoneNumWrong}
+        />
         <Input
           label="이메일"
           styleClass="row"
@@ -174,7 +201,7 @@ const InfoEdit = () => {
         />
         <Btn
           label="저장"
-          onClick={() => (window.location.href = '/my-page')}
+          onClick={handleSaveClick}
           styleClass="abreast-btn dark-green"
         />
       </div>
