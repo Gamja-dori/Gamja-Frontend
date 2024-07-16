@@ -105,3 +105,12 @@ export const PutUserInfo = async (
     console.log('회원 정보 수정 실패', err);
   }
 };
+
+export const DeleteAccount = async (id: number) => {
+  try {
+    const res = await http.delete(`/users/${id}`);
+    return res;
+  } catch (err) {
+    console.log('회원 탈퇴 실패', err);
+  }
+};
