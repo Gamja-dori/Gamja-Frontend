@@ -2,7 +2,6 @@ import { GetCompanyProfile, SigninCompany } from 'api/company_user';
 import { GetSeniorProfile, SigninSenior } from 'api/senior_user';
 import Btn from 'components/_common/Btn';
 import Input from 'components/_common/Input';
-import KakaoBtn from 'components/_common/KakaoBtn';
 import { InfoFormData, SigninData } from 'data-type';
 import { UserProps } from 'props-type';
 import { useSetRecoilState } from 'recoil';
