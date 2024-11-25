@@ -31,6 +31,11 @@ const NoticeItem = ({ notification, type }: NoticeItemProps) => {
       setText(name + '와 계약이 성사되었어요!');
       setBtnText('계약서 확인하기');
     }
+    if (type === '리뷰 작성') {
+      setText(name + '에서 리뷰를 작성했어요.');
+      setBtnText('리뷰 보러가기');
+      setUrl(`/search/detail/${notification.resume_id}`);
+    }
   };
 
   const handleCompanyType = (name: string, type: string) => {

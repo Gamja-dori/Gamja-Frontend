@@ -85,3 +85,32 @@ export const GetReview = async (senior_id: number) => {
     console.log('리뷰 조회 실패', err);
   }
 };
+
+export const PutUserInfo = async (
+  id: number,
+  email: string,
+  password: string,
+  phone_number: string,
+) => {
+  const user: any = {};
+  if (password.length > 0) user.password = password;
+  user.email = email;
+  try {
+    const res = await http.put(`/users/${id}/`, {
+      user,
+      phone_number: phone_number,
+    });
+    return res;
+  } catch (err) {
+    console.log('회원 정보 수정 실패', err);
+  }
+};
+
+export const DeleteAccount = async (id: number) => {
+  try {
+    const res = await http.delete(`/users/${id}`);
+    return res;
+  } catch (err) {
+    console.log('회원 탈퇴 실패', err);
+  }
+};
